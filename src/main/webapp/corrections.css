@@ -3,20 +3,118 @@
     --input-padding-y: .75rem;
 }
 
-html,
-body {
+html{
     height: 100%;
 }
 
-body {
+.page-link{
+    color: black;
+}
+
+.page-link:hover{
+    color: #333;
+}
+
+body{
+    height: 100%;
+    padding-top: 60px;
+    background-color: #f5f5f5;
+}
+
+.body-title {
+    height: 80%;
     display: -ms-flexbox;
     display: flex;
     -ms-flex-align: center;
     align-items: center;
     padding-top: 40px;
     padding-bottom: 40px;
+}
+
+.profile{
+    background-color: #fff;
+    height: 250px;
+}
+
+.product{
+    border-radius: 4px;
+}
+
+.main-product{
+    background-color: #777;
+}
+
+.product-1{
+    background-color: #999;
+}
+
+.product-2{
+    background-color: #ddd;
+}
+
+.content {
+    padding-bottom: 40px;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 30px; /* Set the fixed height of the footer here */
+    line-height: 25px; /* Vertically center the text there */
     background-color: #f5f5f5;
 }
+
+.footer-std{
+    position: relative;
+}
+
+.container {
+    max-width: 960px;
+}
+
+/*
+ * CSS MONEY element
+ */
+
+.money {
+    position: absolute;
+    right: 20%;
+    top: 45%;
+    width: 150px;
+    height: 250px;
+    border-radius: 2px;
+    background-color: #197a19;
+
+   -webkit-transform: rotate(30deg);
+    transform: rotate(30deg);
+}
+
+.money::before {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+    content: "";
+    background-color: rgba(255, 255, 255, .1);
+    border-radius: 2px;
+}
+
+.money-center {
+    position: relative;
+    top: 75px;
+    right: 25px;
+    bottom: 100px;
+    left: 25px;
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    content: "";
+    background-color: rgba(255, 255, 255, .1);
+}
+
+/* FORM ELEMENTS */
 
 .form-signin {
     width: 100%;
@@ -102,20 +200,4 @@ body {
     .form-label-group input:-ms-input-placeholder {
         color: #777;
     }
-}
-
-html {
-    position: relative;
-    min-height: 100%;
-}
-body {
-    margin-bottom: 60px; /* Margin bottom by footer height */
-}
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 60px; /* Set the fixed height of the footer here */
-    line-height: 60px; /* Vertically center the text there */
-    background-color: #f5f5f5;
 }
