@@ -24,7 +24,8 @@
         <property name="persistenceXmlLocation" value="classpath:/META-INF/persistence.xml"/>
         <property name="jpaVendorAdapter" ref="hibernateVendorAdapter"/>
         <property name="packagesToScan" value="cz.zcu.pia.revoloot.**.entities"/>
-        <property name="persistenceUnitName" value="cz.zcu.pia.revoloot"/>
+        <!-- TODO change to production -->
+        <property name="persistenceUnitName" value="cz.zcu.pia.revoloot.test"/>
     </bean>
 
     <bean id="hibernateVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
@@ -34,17 +35,18 @@
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
-    <!--&lt;!&ndash; Security &ndash;&gt;-->
+    <!-- Security -->
 
     <!--<security:http authentication-manager-ref="authManager">-->
         <!--<security:cors configuration-source-ref="corsSource"/>-->
         <!--&lt;!&ndash; this needs to be enabled to protect yourselves from CSRF&ndash;&gt;-->
-        <!--<security:csrf disabled="true"/>-->
+        <!--<security:csrf disabled="false"/>-->
+
         <!--&lt;!&ndash; redirect to /secret/vip after login if no other secured page had been requested before&ndash;&gt;-->
         <!--<security:form-login login-page="/" default-target-url="/secret/vip"/>-->
         <!--<security:intercept-url pattern="*" access="permitAll"/>-->
         <!--&lt;!&ndash; user must be logged in to access any secret page &ndash;&gt;-->
-        <!--<security:intercept-url pattern="/secret/*" access="isAuthenticated()"/>-->
+        <!--<security:intercept-url pattern="/admin/*" access="isAuthenticated()"/>-->
     <!--</security:http>-->
 
     <!--<bean id="corsSource" class="org.springframework.web.cors.UrlBasedCorsConfigurationSource">-->
