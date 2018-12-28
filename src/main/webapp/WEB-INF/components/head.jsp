@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
     <meta charset="UTF-8" />
@@ -10,5 +11,5 @@
 
     <link rel="stylesheet" href="../corrections.css" />
 
-    <title>Revolution Loot</title>
+    <title>Revolution Loot <c:if test="${title} != null">- ${title}</c:if></title>
 </head>

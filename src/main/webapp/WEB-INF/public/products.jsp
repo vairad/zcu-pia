@@ -152,14 +152,14 @@
             <a class="btn btn-dark" href="#">Podmínky</a>
             <a class="btn btn-dark" href="login.html">Sjednat</a>
         </div>
-
     </div>
-
 </main>
 <!-- Main content -->
 
 <jsp:include page="components/navigation.jsp"/>
-<jsp:include page="../components/footer.jsp"/>
+<jsp:include page="../components/footer.jsp">
+    <jsp:param name="format" value="footer-std footer"/>
+</jsp:include>
 <jsp:include page="../components/scripts.jsp"/>
 </body>
 </html>

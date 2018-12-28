@@ -27,7 +27,9 @@
 <!-- Main content -->
 
 <jsp:include page="components/navigation.jsp"/>
-<jsp:include page="../components/footer.jsp"/>
+<jsp:include page="../components/footer.jsp">
+    <jsp:param name="format" value="footer"/>
+</jsp:include>
 <jsp:include page="../components/scripts.jsp"/>
 </body>
 </html>
