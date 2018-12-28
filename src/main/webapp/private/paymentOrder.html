@@ -46,6 +46,24 @@
             <input type="text" id="bank" class="form-control" placeholder="Kód banky" required>
             <label for="bank">Kód banky</label>
         </div>
+        <div class="form-label-group col col-12 col-md-10">
+            <input type="text" id="amount" class="form-control" placeholder="Částka" required>
+            <label for="amount">Částka</label>
+        </div>
+        <div class="form-group col col-12 col-md-2">
+            <label for="currency" class="sr-only">Měna:</label>
+            <select class="form-control" id="currency">
+                <option value="CZK">
+                    Kč (CZK)
+                </option>
+                <option value="EUR">
+                    € (EUR)
+                </option>
+                <option disabled>
+                    £ (GBP)
+                </option>
+            </select>
+        </div>
         <div class="form-label-group col col-12 col-md-3">
             <input type="text" id="ss" class="form-control" placeholder="Specifický symbol" required>
             <label for="ss">Specifický symbol</label>
