@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation=
+               "http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context-4.0.xsd
+     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+     http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd"
+>
+
+    <context:annotation-config/>
+    <context:component-scan base-package="cz.zcu.pia.revoloot.**.*"/>
+
+    <!-- JPA and Transactions -->
+
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" destroy-method="destroy">
+        <property name="persistenceXmlLocation" value="classpath:/META-INF/persistence.xml"/>
+        <property name="jpaVendorAdapter" ref="hibernateVendorAdapter"/>
+        <property name="packagesToScan" value="cz.zcu.pia.revoloot.**.entities"/>
+        <property name="persistenceUnitName" value="cz.zcu.pia.revoloot"/>
+    </bean>
+
+    <bean id="hibernateVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+
+    <!-- Transaction manager for a single EntityManagerFactory (alternative to JTA) -->
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <!--&lt;!&ndash; Security &ndash;&gt;-->
+
+    <!--<security:http authentication-manager-ref="authManager">-->
+        <!--<security:cors configuration-source-ref="corsSource"/>-->
+        <!--&lt;!&ndash; this needs to be enabled to protect yourselves from CSRF&ndash;&gt;-->
+        <!--<security:csrf disabled="true"/>-->
+        <!--&lt;!&ndash; redirect to /secret/vip after login if no other secured page had been requested before&ndash;&gt;-->
+        <!--<security:form-login login-page="/" default-target-url="/secret/vip"/>-->
+        <!--<security:intercept-url pattern="*" access="permitAll"/>-->
+        <!--&lt;!&ndash; user must be logged in to access any secret page &ndash;&gt;-->
+        <!--<security:intercept-url pattern="/secret/*" access="isAuthenticated()"/>-->
+    <!--</security:http>-->
+
+    <!--<bean id="corsSource" class="org.springframework.web.cors.UrlBasedCorsConfigurationSource">-->
+        <!--<property name="corsConfigurations">-->
+            <!--<map>-->
+                <!--<entry key="/**">-->
+                    <!--<bean class="org.springframework.web.cors.CorsConfiguration">-->
+                        <!--<property name="allowedOrigins" value="*"/>-->
+                    <!--</bean>-->
+                <!--</entry>-->
+            <!--</map>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--<security:authentication-manager id="authManager">-->
+        <!--&lt;!&ndash; use UserDaoJpa as user data provider&ndash;&gt;-->
+        <!--<security:authentication-provider user-service-ref="userDaoJpa">-->
+            <!--&lt;!&ndash; use PasswordHashEncoder as password encoder &ndash;&gt;-->
+            <!--<security:password-encoder ref="passwordHashEncoder"/>-->
+        <!--</security:authentication-provider>-->
+    <!--</security:authentication-manager>-->
+
+    <!--<security:global-method-security pre-post-annotations="enabled"/>-->
+
+</beans>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+
+    <persistence-unit name="cz.zcu.pia.revoloot"  transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <properties>
+            <!-- JDBC Connection configuration -->
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/revoloot"/>
+
+            <!-- Hibernate-specific configuration -->
+            <property name="hibernate.hbm2ddl.auto" value="validate"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+            <property name="hibernate.validator.apply_to_ddl" value="true" />
+            <property name="hibernate.connection.characterEncoding" value="utf8" />
+
+            <!-- Hibernate-C3P0 configuration -->
+            <property name="connection.provider_class" value="org.hibernate.c3p0.internal.C3P0ConnectionProvider"/>
+            <property name="hibernate.c3p0.min_size" value="5"/>
+            <property name="hibernate.c3p0.max_size" value="20"/>
+            <property name="hibernate.c3p0.timeout" value="300"/>
+            <property name="hibernate.c3p0.max_statements" value="50"/>
+            <property name="hibernate.c3p0.idle_test_period" value="300"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="cz.zcu.pia.revoloot.test"  transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <properties>
+            <!-- JDBC Connection configuration -->
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/revoloot-test"/>
+
+            <!-- Hibernate-specific configuration -->
+
+            <!-- TODO change to create-drop (after debug all tests) -->
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
+            <property name="hibernate.validator.apply_to_ddl" value="true" />
+            <property name="hibernate.connection.characterEncoding" value="utf8" />
+
+            <!-- Hibernate-C3P0 configuration -->
+            <property name="connection.provider_class" value="org.hibernate.c3p0.internal.C3P0ConnectionProvider"/>
+            <property name="hibernate.c3p0.min_size" value="5"/>
+            <property name="hibernate.c3p0.max_size" value="20"/>
+            <property name="hibernate.c3p0.timeout" value="300"/>
+            <property name="hibernate.c3p0.max_statements" value="50"/>
+            <property name="hibernate.c3p0.idle_test_period" value="300"/>
+
+        </properties>
+    </persistence-unit>
+</persistence>
