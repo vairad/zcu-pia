@@ -3,24 +3,31 @@ package cz.zcu.pia.revoloot.dao;
 import cz.zcu.pia.revoloot.entities.Address;
 import cz.zcu.pia.revoloot.entities.ContactInfo;
 import cz.zcu.pia.revoloot.entities.Customer;
-import cz.zcu.pia.revoloot.entities.User;
 import cz.zcu.pia.revoloot.utils.IEncoder;
 import cz.zcu.pia.revoloot.utils.PasswordHashEncoder;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-class CustomerDAOTest {
+class CustomerDAOTest extends DaoTest {
 
-    private static final String PERSISTENCE_UNIT = "cz.zcu.pia.revoloot.test";
-    private static EntityManager em;
+
     private static CustomerDAO customerDAO;
     private static IEncoder encoder;
+
+    // region preprare tests
+    @BeforeAll
+    static void setUpDependencies() {
+        encoder = new PasswordHashEncoder();
+        customerDAO = new CustomerDAO(em);
+
+        for (int order = 0; order < 10; order++) {
+            customerDAO.save(prepareCustomer("login" + order, "pass" + order));
+        }
+    }
 
 
     static Customer prepareCustomer(String login, String password) {
@@ -44,34 +51,6 @@ class CustomerDAOTest {
         customer.setContactInfo(contactInfo);
 
         return customer;
-    }
-
-    // region preprare tests
-    @BeforeAll
-    static void setUpConnection() {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-        em = factory.createEntityManager();
-        encoder = new PasswordHashEncoder();
-        customerDAO = new CustomerDAO(em);
-
-        for (int order = 0; order < 10; order++) {
-            customerDAO.save(prepareCustomer("login" + order, "pass" + order));
-        }
-    }
-
-    @BeforeEach
-    void beginTxn() {
-        em.getTransaction().begin();
-    }
-
-    @AfterEach
-    void endTxn() {
-        em.getTransaction().commit();
-    }
-
-    @AfterAll
-    static void tearDownConnection() {
-        em.close();
     }
 
 

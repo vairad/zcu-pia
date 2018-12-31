@@ -3,18 +3,14 @@ package cz.zcu.pia.revoloot.dao;
 import cz.zcu.pia.revoloot.entities.*;
 import cz.zcu.pia.revoloot.utils.IEncoder;
 import cz.zcu.pia.revoloot.utils.PasswordHashEncoder;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-public class DefaultTest {
-    private static final String PERSISTENCE_UNIT = "cz.zcu.pia.revoloot.test";
-    private static EntityManager em;
+public class DefaultTest extends DaoTest {
     private static CustomerDAO customerDAO;
     private static AccountDAO accountDAO;
     private static MoveDAO moveDAO;
@@ -46,28 +42,11 @@ public class DefaultTest {
 
     // region preprare tests
     @BeforeAll
-    static void setUpConnection() {
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
-        em = factory.createEntityManager();
+    static void setUpDependencies() {
         encoder = new PasswordHashEncoder();
         customerDAO = new CustomerDAO(em);
         accountDAO = new AccountDAO(em);
         moveDAO = new MoveDAO(em);
-    }
-
-    @BeforeEach
-    void beginTxn() {
-        em.getTransaction().begin();
-    }
-
-    @AfterEach
-    void endTxn() {
-        em.getTransaction().commit();
-    }
-
-    @AfterAll
-    static void tearDownConnection() {
-        em.close();
     }
 
 
