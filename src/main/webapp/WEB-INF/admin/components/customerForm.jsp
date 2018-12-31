@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="cz.zcu.pia.revoloot.web.form.FormConfig" %>
+<%@ page import="cz.zcu.pia.revoloot.web.FormConfig" %>
 
 <form action="<c:url value="/admin/register"/>">
 

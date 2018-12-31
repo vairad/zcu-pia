@@ -1,11 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="cz.zcu.pia.revoloot.web.form.LoginFormConfig" %>
+<%@ page import="cz.zcu.pia.revoloot.web.FormConfig" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <form class="form-signin"
-      action="<%= LoginFormConfig.ACTION %>"
+      action="<%= FormConfig.ACTION %>"
       method="post">
     <div class="text-center mb-4">
         <h1 class="h3 mb-3 font-weight-normal">Přihlášení</h1>
@@ -30,20 +30,20 @@
 
     <div class="form-label-group">
         <input type="text"
-               id="<%= LoginFormConfig.USER_ID %>"
-               name="<%= LoginFormConfig.USER_ID %>"
+               id="<%= FormConfig.USER_ID %>"
+               name="<%= FormConfig.USER_ID %>"
                class="form-control"
                placeholder="Uživatelské ID"
                required autofocus >
-        <label for="<%= LoginFormConfig.USER_ID %>">Uživatelské ID</label>
+        <label for="<%= FormConfig.USER_ID %>">Uživatelské ID</label>
     </div>
 
     <div class="form-label-group">
         <input type="password"
-               id="<%= LoginFormConfig.PASSWORD %>"
-               name="<%= LoginFormConfig.PASSWORD %>"
+               id="<%= FormConfig.PASSWORD %>"
+               name="<%= FormConfig.PASSWORD %>"
                class="form-control" placeholder="PIN" required >
-        <label for="<%= LoginFormConfig.PASSWORD %>">PIN</label>
+        <label for="<%= FormConfig.PASSWORD %>">PIN</label>
     </div>
 
     <sec:csrfInput/>

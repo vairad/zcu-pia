@@ -13,7 +13,7 @@
 
     <div class="product product-2 p-3 row mb-2">
         <h3 class="m-3">Disponibilní zůstatek:&nbsp;${account.amount}&nbsp;Kč</h3>
-      <!--  <p class="m-3">Účetní zůstatek:&nbsp;18546,8&nbsp;Kč</p> -->
+        <p class="m-3">Účetní zůstatek:&nbsp;${account.trueAmount}&nbsp;Kč</p>
         <p class="m-3">Číslo účtu: ${account.accountInfo}</p>
     </div>
 

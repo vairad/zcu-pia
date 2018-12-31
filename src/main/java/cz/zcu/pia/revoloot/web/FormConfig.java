@@ -1,4 +1,4 @@
-package cz.zcu.pia.revoloot.web.form;
+package cz.zcu.pia.revoloot.web;
 
 public class FormConfig {
 
@@ -15,7 +15,9 @@ public class FormConfig {
     public static final String STATE = "state";
     public static final String EMAIL_1 = "email1";
     public static final String EMAIL_2 = "email2";
-    public static final String PASSWORD = "password";
     public static final String TURING = "turing";
+    public static final String USER_ID = "username";
+    public static final String PASSWORD = "password";
+    public static final String ACTION = ServletNaming.LOGIN_PROCESS;
     
 }

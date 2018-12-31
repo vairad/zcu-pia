@@ -1,6 +1,6 @@
 package cz.zcu.pia.revoloot.entities;
 
-import cz.zcu.pia.revoloot.web.form.FormConfig;
+import cz.zcu.pia.revoloot.web.FormConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
