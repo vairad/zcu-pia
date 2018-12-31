@@ -5,6 +5,7 @@ import cz.zcu.pia.revoloot.web.form.FormConfig;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -124,5 +125,30 @@ public class Address implements IValidable {
      */
     public void setPostalCode(int postalCode) {
         this.postalCode = postalCode;
+    }
+
+    /**
+     * Dvě adresy jsou shodné právě tehdy, když všechn její prvky jsou shodné
+     * @param o objekt k porovnání
+     * @return true pokud jsou adresy shodné
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Address)) return false;
+        Address address = (Address) o;
+        return Objects.equals(street, address.street) &&
+                Objects.equals(houseNo, address.houseNo) &&
+                Objects.equals(city, address.city) &&
+                Objects.equals(postalCode, address.postalCode);
+    }
+
+    /**
+     * Hash funkce k výpočtu využívá všechny atributy s výjímkou houseNo
+     * @return hash hodnota
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(street, city, postalCode);
     }
 }
