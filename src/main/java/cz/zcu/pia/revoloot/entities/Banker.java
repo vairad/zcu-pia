@@ -7,6 +7,11 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * Entitní objekt bankovního poradce
+ *
+ * @author Radek Vais
+ */
 @Entity
 @Table(name = TableConfig.TABLE_BANKERS)
 @PrimaryKeyJoinColumn(name="user", foreignKey = @ForeignKey(name = "fk_banker"))
