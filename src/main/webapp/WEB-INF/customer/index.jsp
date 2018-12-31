@@ -2,11 +2,20 @@
 <!DOCTYPE html>
 <html lang="cs">
 <jsp:include page="../components/head.jsp"/>
-<body>
+
+<body class="body-title">
 
 <!-- Main content -->
 <main class="container content text-center">
-    <jsp:include page="components/loginForm.jsp"/>
+
+    <!-- Money logo -->
+    <div class="money shadow-sm d-none d-sm-none d-md-block d-lg-block">
+        <div class="money-center"></div>
+    </div>
+
+    <h1>Vítej kámo</h1>
+    <p class="lead">Teď můžeš spravovat svoje lováče.</p>
+
 </main>
 <!-- Main content -->
 

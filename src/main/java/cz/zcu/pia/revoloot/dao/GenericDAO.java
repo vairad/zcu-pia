@@ -1,6 +1,7 @@
 package cz.zcu.pia.revoloot.dao;
 
 import cz.zcu.pia.revoloot.entities.BaseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -8,26 +9,34 @@ import javax.persistence.PersistenceContext;
 
 /**
  * todo comment
+ *
  * @param <T>
  */
-public class GenericDAO<T extends BaseEntity> implements IGenericDAO<T> {
+public abstract class GenericDAO<T extends BaseEntity> implements IGenericDAO<T> {
 
     @PersistenceContext
     protected EntityManager em;
+
     private Class<T> persistedType;
 
+
+    GenericDAO(Class<T> persistedType) {
+        this.persistedType = persistedType;
+    }
+
     /**
-     * TODO comment
+     * Constructor for testing
+     *
      * @param persistedType type of the entity persisted by this DAO
      */
-    public GenericDAO(EntityManager em, Class<T> persistedType) {
-        this.persistedType = persistedType;
+    GenericDAO(EntityManager em, Class<T> persistedType) {
+        this(persistedType);
         this.em = em;
     }
 
     @Override
     public T save(T value) {
-        if(value.isNew()) {
+        if (value.isNew()) {
             em.persist(value);
             return value;
         } else {
@@ -42,7 +51,7 @@ public class GenericDAO<T extends BaseEntity> implements IGenericDAO<T> {
 
     @Override
     public void remove(T toRemove) {
-        if(!toRemove.isNew()) {
+        if (!toRemove.isNew()) {
             em.remove(toRemove);
         }
     }

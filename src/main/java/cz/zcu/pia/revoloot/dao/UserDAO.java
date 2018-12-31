@@ -4,24 +4,42 @@ import cz.zcu.pia.revoloot.entities.User;
 import cz.zcu.pia.revoloot.utils.IEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
+
+
+@Repository
 public class UserDAO extends GenericDAO<User> implements IUserDAO {
 
     private Logger logger = LoggerFactory.getLogger(UserDAO.class.getName());
 
-    private IEncoder encoder;
+    private final IEncoder encoder;
+    private boolean prepared = false;
+
+    @Autowired
+    public UserDAO(IEncoder encoder) {
+        super(User.class);
+        this.encoder = encoder;
+    }
 
     /**
-     * TODO comment
+     * Testing constructor
+     *
+     * @param em
+     * @param encoder
      */
     public UserDAO(EntityManager em, IEncoder encoder) {
         super(em, User.class);
         this.encoder = encoder;
-        logger.info("User DAO created");
+        logger.info("User DAO created rich constructor");
     }
 
     /**
@@ -56,5 +74,10 @@ public class UserDAO extends GenericDAO<User> implements IUserDAO {
         }
 
         return encoder.validate(password, user.getPassword());
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return findByUsername(username);
     }
 }

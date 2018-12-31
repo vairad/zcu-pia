@@ -19,57 +19,30 @@
 
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6">
-            <div class="profile card mb-2">
-                <div class="row card-body">
-                    <img src="http://placehold.it/100x100" alt="Thief Peter foto" class="col col-6"/>
-                    <div class="col col-6">
-                        <h4> Thief Peter</h4>
-                        <small>
-                            <cite title="San Francisco, USA">San Francisco, USA <i
-                                    class="glyphicon glyphicon-map-marker"></i></cite>
-                        </small>
-                        <p>
-                            <i class="glyphicon glyphicon-envelope"></i>thief@revoloot.com
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <jsp:include page="components/bankerContact.jsp">
+                <jsp:param name="url" value="no" />
+                <jsp:param name="name" value="Thief Peter" />
+                <jsp:param name="branchAddress" value="Sedláčkova 15, Plzeň" />
+                <jsp:param name="email" value="thief@revoloot.cz" />
+            </jsp:include>
         </div>
 
         <div class="col-xs-12 col-sm-6 col-md-6">
-            <div class="profile card mb-2">
-                <div class="row card-body">
-                    <img src="http://placehold.it/100x100" alt="Thief Peter foto" class="col col-6"/>
-                    <div class="col col-6">
-                        <h4> Thief Peter</h4>
-                        <small>
-                            <cite title="San Francisco, USA">San Francisco, USA <i
-                                    class="glyphicon glyphicon-map-marker"></i></cite>
-                        </small>
-                        <p>
-                            <i class="glyphicon glyphicon-envelope"></i>thief@revoloot.com
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <jsp:include page="components/bankerContact.jsp">
+                <jsp:param name="url" value="no" />
+                <jsp:param name="name" value="Thief Peter" />
+                <jsp:param name="branchAddress" value="Sedláčkova 15, Plzeň" />
+                <jsp:param name="email" value="thief@revoloot.cz" />
+            </jsp:include>
         </div>
 
         <div class="col-xs-12 col-sm-6 col-md-6">
-            <div class="profile card mb-2">
-                <div class="row card-body">
-                    <img src="http://placehold.it/100x100" alt="Thief Peter foto" class="col col-6"/>
-                    <div class="col col-6">
-                        <h4> Thief Peter</h4>
-                        <small>
-                            <cite title="San Francisco, USA">San Francisco, USA <i
-                                    class="glyphicon glyphicon-map-marker"></i></cite>
-                        </small>
-                        <p>
-                            <i class="glyphicon glyphicon-envelope"></i>thief@revoloot.com
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <jsp:include page="components/bankerContact.jsp">
+                <jsp:param name="url" value="no" />
+                <jsp:param name="name" value="Thief Peter" />
+                <jsp:param name="branchAddress" value="Sedláčkova 15, Plzeň" />
+                <jsp:param name="email" value="thief@revoloot.cz" />
+            </jsp:include>
         </div>
     </div>
 

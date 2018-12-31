@@ -2,6 +2,7 @@ package cz.zcu.pia.revoloot.web.servlet.admin;
 
 
 import cz.zcu.pia.revoloot.manager.ICustomerManager;
+import cz.zcu.pia.revoloot.web.ServletNaming;
 import cz.zcu.pia.revoloot.web.servlet.AbstractServlet;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/admin/register")
+@WebServlet(ServletNaming.ADMIN_REGISTER)
 public class RegisterCustomer extends AbstractServlet {
 
     private ICustomerManager customerManager;

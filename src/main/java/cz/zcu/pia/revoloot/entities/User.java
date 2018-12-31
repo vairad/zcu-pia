@@ -1,13 +1,20 @@
 package cz.zcu.pia.revoloot.entities;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
 @Table(name = TableConfig.TABLE_USERS)
 @Inheritance(strategy= InheritanceType.JOINED)
-public class User extends BaseEntity {
+public class User extends BaseEntity implements UserDetails{
 
     //region Fields
     private String login;
@@ -16,8 +23,25 @@ public class User extends BaseEntity {
 
     private String name;
     private String surname;
+
+    private boolean banker;
     // endregion
 
+    /**
+     * TODO comment
+     */
+    public User() {
+        banker = false;
+        created = new Date();
+    }
+
+    /**
+     * TODO comment
+     *
+     */
+    List<String> validate() {
+       return null;
+    }
 
     // region Mapping
 
@@ -30,12 +54,13 @@ public class User extends BaseEntity {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
     }
 
     public Date getCreated() {
@@ -62,6 +87,14 @@ public class User extends BaseEntity {
         this.surname = surname;
     }
 
+    public boolean isBanker() {
+        return banker;
+    }
+
+    public void setBanker(boolean banker) {
+        this.banker = banker;
+    }
+
     // endregion
 
     @Override
@@ -82,9 +115,53 @@ public class User extends BaseEntity {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("User{");
-        sb.append("login='").append(login).append('\'');
-        sb.append('}');
-        return sb.toString();
+        return "User{"
+                + "login='" + login + '\''
+                + '}';
     }
+
+    //region user details
+
+    @Transient
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(isBanker()){
+            return Collections.singleton(new SimpleGrantedAuthority("ROLE_BANKER"));
+        }
+        return Collections.singleton(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
+    }
+
+
+    @Transient
+    @Override
+    public String getUsername() {
+        return getLogin();
+    }
+
+    @Transient
+    @Override
+    public boolean isAccountNonExpired() {
+        return isEnabled();
+    }
+
+    @Transient
+    @Override
+    public boolean isAccountNonLocked() {
+        return isEnabled();
+    }
+
+    @Transient
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return isEnabled();
+    }
+
+    @Transient
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    //endregion user details
+
 }

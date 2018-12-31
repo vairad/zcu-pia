@@ -1,3 +1,4 @@
+<%@ page import="cz.zcu.pia.revoloot.web.ServletNaming" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <a class="navbar-brand" href="#">Revolution Loot</a>
@@ -34,7 +35,9 @@
                 <a class="nav-link " href="product.html">Sjednat produkt</a>
             </li>
         </ul>
-        <a href="../public" class="btn btn-outline-success my-2 my-sm-0 m-2" role="button">Odhlásit</a>
+
+        <jsp:include page="../../components/logoutButton.jsp" />
+
         <a href="" class="btn btn-outline-success my-2 my-sm-0 m-2" role="button">
             <span class="octicon octicon-person"></span>
             <span class="sr-only">Profil</span>
