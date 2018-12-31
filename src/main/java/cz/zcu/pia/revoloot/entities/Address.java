@@ -127,6 +127,17 @@ public class Address implements IValidable {
         this.postalCode = postalCode;
     }
 
+
+    /**
+     * Metoda vrací ustálený zápis adresy:
+     * Ulice ČP, Město, PSČ
+     * @return Ulice ČP, Město, PSČ
+     */
+    @Override
+    public String toString() {
+        return street + " " + houseNo + ", " + city + ", " + postalCode;
+    }
+
     /**
      * Dvě adresy jsou shodné právě tehdy, když všechn její prvky jsou shodné
      * @param o objekt k porovnání

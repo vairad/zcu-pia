@@ -15,6 +15,7 @@ public class DefaultTest extends DaoTest {
     private static AccountDAO accountDAO;
     private static MoveDAO moveDAO;
     private static IEncoder encoder;
+    private static BankerDAO bankerDAO;
 
 
     static Customer prepareCustomer(String login, String password) {
@@ -40,6 +41,26 @@ public class DefaultTest extends DaoTest {
         return customer;
     }
 
+    static Banker prepareBanker(String login, String image){
+        Address address = new Address();
+        address.setCity("Plzeň");
+        address.setHouseNo("15c");
+        address.setStreet("Bukačova");
+        address.setPostalCode(31250);
+
+
+        Banker banker = new Banker();
+        banker.setBranch(address);
+        banker.setLogin(login);
+        banker.setPassword(encoder.encode("pass"));
+        banker.setName("Marek");
+        banker.setSurname("Banker");
+        banker.setPhoto(image);
+        banker.setEmail(login+"@revoloot.cz");
+
+        return banker;
+    }
+
     // region preprare tests
     @BeforeAll
     static void setUpDependencies() {
@@ -47,6 +68,7 @@ public class DefaultTest extends DaoTest {
         customerDAO = new CustomerDAO(em);
         accountDAO = new AccountDAO(em);
         moveDAO = new MoveDAO(em);
+        bankerDAO = new BankerDAO(em);
     }
 
 
@@ -83,6 +105,14 @@ public class DefaultTest extends DaoTest {
         moveDAO.save(m);
 
         assertNotEquals(m.getId(), 0L, "Id was not returned.");
+
+        Banker banker = prepareBanker("bank1", "banker1.png");
+        banker = bankerDAO.save(banker);
+        assertNotEquals(banker.getId(), 0L, "Id was not returned.");
+
+        Banker banker2 = prepareBanker("bank2", "banker2.png");
+        banker2 = bankerDAO.save(banker2);
+        assertNotEquals(banker2.getId(), 0L, "Id was not returned.");
     }
 
 }

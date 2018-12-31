@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="cs">
@@ -18,32 +19,19 @@
     <h2>Naši bankéři</h2>
 
     <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-6">
-            <jsp:include page="components/bankerContact.jsp">
-                <jsp:param name="url" value="no" />
-                <jsp:param name="name" value="Thief Peter" />
-                <jsp:param name="branchAddress" value="Sedláčkova 15, Plzeň" />
-                <jsp:param name="email" value="thief@revoloot.cz" />
-            </jsp:include>
-        </div>
+        <%--@elvariable id="bankers" type="java.util.List"--%>
+        <%--@elvariable id="banker" type="cz.zcu.pia.revoloot.entities.Banker"--%>
+        <c:forEach items="#{bankers}" var="banker">
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <jsp:include page="components/bankerContact.jsp">
+                    <jsp:param name="url" value="${banker.photo}" />
+                    <jsp:param name="name" value="${banker.printName}" />
+                    <jsp:param name="branchAddress" value="${banker.branch}" />
+                    <jsp:param name="email" value="${banker.email}" />
+                </jsp:include>
+            </div>
+        </c:forEach>
 
-        <div class="col-xs-12 col-sm-6 col-md-6">
-            <jsp:include page="components/bankerContact.jsp">
-                <jsp:param name="url" value="no" />
-                <jsp:param name="name" value="Thief Peter" />
-                <jsp:param name="branchAddress" value="Sedláčkova 15, Plzeň" />
-                <jsp:param name="email" value="thief@revoloot.cz" />
-            </jsp:include>
-        </div>
-
-        <div class="col-xs-12 col-sm-6 col-md-6">
-            <jsp:include page="components/bankerContact.jsp">
-                <jsp:param name="url" value="no" />
-                <jsp:param name="name" value="Thief Peter" />
-                <jsp:param name="branchAddress" value="Sedláčkova 15, Plzeň" />
-                <jsp:param name="email" value="thief@revoloot.cz" />
-            </jsp:include>
-        </div>
     </div>
 
 </main>

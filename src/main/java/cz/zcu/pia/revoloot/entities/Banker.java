@@ -23,6 +23,8 @@ public class Banker extends User {
     private String photo;
     /** kontaktní email pracovníka */
     private String email;
+    /** vlajka, zda je bankéř veřejně zobrazen */
+    private boolean secret;
 
     /**
      * Adresu pobočky bankovního poradce
@@ -77,6 +79,33 @@ public class Banker extends User {
         this.email = email;
     }
 
+    /**
+     * Příznak, zda je záznam o bankéři tajný či nikoliv
+     * @return příznak tajemství
+     */
+    @Column
+    public boolean isSecret() {
+        return secret;
+    }
+
+    /**
+     * Nastaví přznak tajemství
+     * @param secret zda má bbýt bankéř veřejně skrytý
+     */
+    public void setSecret(boolean secret) {
+        this.secret = secret;
+    }
+
+    /**
+     * Metoda vrací jméno bankéře ve formátu:
+     * Jméno Příjmení
+     * Kompozice {@link User#getName()} a {@link User#getSurname()}
+     * @return Jmeno Prijmeni
+     */
+    @Transient
+    public String getPrintName(){
+        return getName() + " " + getSurname();
+    }
 
     //region user details
 
