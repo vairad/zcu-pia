@@ -2,6 +2,7 @@ package cz.zcu.pia.revoloot.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.util.Objects;
 
 /**
  * Entitní třída pro uložení čísla účtu.
@@ -92,5 +93,34 @@ public class AccountAddress {
     @Override
     public String toString() {
         return prepend == 0 ? number + "/" + bankCode : prepend + "-" + number + "/" + bankCode;
+    }
+
+    /**
+     * Dva účty jsou shodné právě tehdy, když mají stejnou banku, předčíslí i číslo účtu.
+     *
+     * @param o objekt k porovnání
+     * @return true / false pokud jde o stejný účet
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AccountAddress)) return false;
+        AccountAddress that = (AccountAddress) o;
+        return bankCode == that.bankCode &&
+                prepend == that.prepend &&
+                number == that.number;
+    }
+
+    /**
+     * Do hashovacího algoritmu vstupují všechny atributy objektu.
+     * prepend
+     * number
+     * bankCode
+     *
+     * @return hash objektu
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(prepend, number, bankCode);
     }
 }
