@@ -5,7 +5,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <form class="form-signin"
-      action="<%= FormConfig.ACTION %>"
+      action="<%= FormConfig.ACTION_LOGIN %>"
       method="post">
     <div class="text-center mb-4">
         <h1 class="h3 mb-3 font-weight-normal">Přihlášení</h1>

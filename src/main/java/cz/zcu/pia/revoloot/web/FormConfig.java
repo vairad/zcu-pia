@@ -18,6 +18,6 @@ public class FormConfig {
     public static final String TURING = "turing";
     public static final String USER_ID = "username";
     public static final String PASSWORD = "password";
-    public static final String ACTION = ServletNaming.LOGIN_PROCESS;
+    public static final String ACTION_LOGIN = ServletNaming.LOGIN_PROCESS;
     
 }
