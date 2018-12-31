@@ -2,6 +2,7 @@ package cz.zcu.pia.revoloot.entities;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Entitní objekt účtu v systému
@@ -194,5 +195,27 @@ public class Account extends BaseEntity {
      */
     public void setMoves(List<Move> moves) {
         this.moves = moves;
+    }
+
+    /**
+     * Dva účty jsou shodné, pokud je shodné číslo účtu
+     * @param o objekt k porovnání
+     * @return true pokud jde o stejný účet
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Account)) return false;
+        Account account = (Account) o;
+        return Objects.equals(accountInfo, account.accountInfo);
+    }
+
+    /**
+     * Hash funkce je vypočtena z accountInfo
+     * @return hash pro tento účet
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(accountInfo);
     }
 }
