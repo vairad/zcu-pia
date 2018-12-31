@@ -14,9 +14,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers(ServletNaming.ADMIN + "/*")
+                .antMatchers(ServletNaming.ADMIN + "/**")
                 .hasRole("BANKER")
-                .antMatchers(ServletNaming.CUSTOMER + "/*")
+                .antMatchers(ServletNaming.CUSTOMER + "/**")
                 .hasRole("CUSTOMER")
                 .antMatchers("/*").permitAll()
                 .and()
