@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="cz.zcu.pia.revoloot.web.form.UserFormConfig" %>
+<%@ page import="cz.zcu.pia.revoloot.web.form.FormConfig" %>
 
 <form action="<c:url value="/admin/register"/>">
 
@@ -9,8 +9,8 @@
             <legend class="col-form-legend col-12">Osobní údaje</legend>
 
             <div class="form-label-group">
-                <input type="text" id="<%= UserFormConfig.NAME %>" class="form-control" placeholder="Jméno" required autofocus>
-                <label for="<%= UserFormConfig.NAME %>">Jméno</label>
+                <input type="text" id="<%= FormConfig.NAME %>" class="form-control" placeholder="Jméno" required autofocus>
+                <label for="<%= FormConfig.NAME %>">Jméno</label>
             </div>
 
             <div class="form-label-group">

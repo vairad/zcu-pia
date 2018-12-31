@@ -1,6 +1,6 @@
 package cz.zcu.pia.revoloot.web.form;
 
-public class UserFormConfig {
+public class FormConfig {
 
     public static final String NAME = "name";
     public static final String SURNAME = "surname";

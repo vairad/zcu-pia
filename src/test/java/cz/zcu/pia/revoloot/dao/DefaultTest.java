@@ -24,7 +24,7 @@ public class DefaultTest {
     static Customer prepareCustomer(String login, String password) {
         Address address = new Address();
         address.setCity("Autommat");
-        address.setHouseNo(15);
+        address.setHouseNo("15");
         address.setStreet("Mulajova");
         address.setPostalCode(31250);
 
@@ -80,6 +80,7 @@ public class DefaultTest {
 
         AccountAddress accounInfo = new AccountAddress();
         accounInfo.setNumber(222);
+        accounInfo.setBankCode(3666);
 
         Account a = new Account();
         a.setCustomer(customer);
@@ -96,9 +97,8 @@ public class DefaultTest {
         m.setDestination(accounInfo);
         m.setSource(accounInfo);
         m.setMessage("Messsage");
-        m.setNote("Prasfafoe");
+        m.setNote("To byl ale dement!");
         m.setSubmissionDate(new Date());
-        m.setTransferDate(new Date());
         m.setOwner(a);
 
         moveDAO.save(m);

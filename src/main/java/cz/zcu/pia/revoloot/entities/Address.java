@@ -1,43 +1,127 @@
 package cz.zcu.pia.revoloot.entities;
 
+import cz.zcu.pia.revoloot.web.form.FormConfig;
+
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.util.HashSet;
+import java.util.Set;
 
+/**
+ * Entitní objekt Adrresy.
+ *
+ * @author Radek Vais
+ */
 @Embeddable
-public class Address {
+public class Address implements IValidable {
 
+    /**
+     * ulice
+     */
     private String street;
-    private int houseNo;
+    /**
+     * číslo popisné
+     */
+    private String houseNo;
+    /**
+     * město
+     */
     private String city;
-    private int postalCode;
+    /**
+     * poštovní směrovací číslo
+     */
+    private Integer postalCode;
 
+    /**
+     * Validační metoda ověří, zda jsou atributy vyplněné.
+     * Nejsou akceptovány pouze prázdné hodnoty.
+     *
+     * @return pole šptaně vyplňených atributů
+     * @see FormConfig
+     */
+    @Override
+    public Set<String> validate() {
+        Set<String> errors = new HashSet<>();
+
+        if (street == null || street.isEmpty()) {
+            errors.add(FormConfig.STREET);
+        }
+        if (houseNo == null || houseNo.isEmpty()) {
+            errors.add(FormConfig.HOUSE_NUMBER);
+        }
+        if (city == null || city.isEmpty()) {
+            errors.add(FormConfig.CITY);
+        }
+        if (postalCode == null || postalCode == 0) {
+            errors.add(FormConfig.POSTAL_CODE);
+        }
+        return errors;
+    }
+
+    /**
+     * Vračí část adresy ulice
+     * @return ulice
+     */
+    @Column(nullable = false)
     public String getStreet() {
         return street;
     }
 
+    /**
+     * Nastaví hodnotu adresy ulice
+     * @param street ulice
+     */
     public void setStreet(String street) {
         this.street = street;
     }
 
-    public int getHouseNo() {
+    /**
+     * Vračí část adresy číslo popisné
+     * @return číslo popisné | null pokud není nastaveno
+     */
+    @Column(nullable = false)
+    public String getHouseNo() {
         return houseNo;
     }
 
-    public void setHouseNo(int houseNo) {
+    /**
+     * Nastaví hodnotu adresy číslo popisné
+     * @param houseNo číslo popisné
+     */
+    public void setHouseNo(String  houseNo) {
         this.houseNo = houseNo;
     }
 
+    /**
+     * Vračí část adresy město
+     * @return město | null pokud není nastaveno
+     */
+    @Column(nullable = false)
     public String getCity() {
         return city;
     }
 
+    /**
+     * Nastaví hodnotu adresy město
+     * @param city město
+     */
     public void setCity(String city) {
         this.city = city;
     }
 
+    /**
+     * Vračí část adresy poštovní směrovací číslo
+     * @return psč | null pokud není nastaveno
+     */
+    @Column(nullable = false)
     public int getPostalCode() {
         return postalCode;
     }
 
+    /**
+     * Nastaví hodnotu adresy poštovní směrovací číslo
+     * @param postalCode poštovní směrovací číslo
+     */
     public void setPostalCode(int postalCode) {
         this.postalCode = postalCode;
     }

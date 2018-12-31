@@ -26,7 +26,7 @@ class CustomerDAOTest {
     static Customer prepareCustomer(String login, String password) {
         Address address = new Address();
         address.setCity("Plzeň");
-        address.setHouseNo(15);
+        address.setHouseNo("15");
         address.setStreet("Mulajova");
         address.setPostalCode(31250);
 
