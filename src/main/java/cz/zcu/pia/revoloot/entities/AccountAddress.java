@@ -11,15 +11,22 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class AccountAddress {
 
-    /** předčíslí účtu */
+    /**
+     * předčíslí účtu
+     */
     private long prepend;
-    /** číslo účtu */
+    /**
+     * číslo účtu
+     */
     private long number;
-    /** kód banky */
+    /**
+     * kód banky
+     */
     private int bankCode;
 
     /**
      * Vrací hodnotu předčíslí účtu
+     *
      * @return předšíslí účtu 0, pokud není nastavené
      */
     @Column(updatable = false)
@@ -29,6 +36,7 @@ public class AccountAddress {
 
     /**
      * Setter pro nastavení předčíslí účtu.
+     *
      * @param prepend hodnota předčíslí - 0 pokud je rušeno
      */
     public void setPrepend(long prepend) {
@@ -38,6 +46,7 @@ public class AccountAddress {
 
     /**
      * Vrací hodnotu čísla účtu
+     *
      * @return číslo účtu 0 pokud není nastavené
      */
     @Column(updatable = false)
@@ -47,6 +56,7 @@ public class AccountAddress {
 
     /**
      * Setter pro nastavení čísla účtu
+     *
      * @param number hodnota čísla účtu
      */
     public void setNumber(long number) {
@@ -55,6 +65,7 @@ public class AccountAddress {
 
     /**
      * Vrací hodnoty kódu banky
+     *
      * @return kód banky, 0 pokud není nastavené
      */
     @Column(updatable = false)
@@ -64,6 +75,7 @@ public class AccountAddress {
 
     /**
      * Setter pro nastavení kódu banky
+     *
      * @param bankCode hodnota kódu banky, 0 pokud je rušeno
      */
     public void setBankCode(int bankCode) {
@@ -74,6 +86,7 @@ public class AccountAddress {
      * Vrací sloučený zápis čísla účtu ve formátu:
      * prepend-number/bankCode
      * např 12-58632/3666
+     *
      * @return sloučený zápis čísla účtu
      */
     @Override
