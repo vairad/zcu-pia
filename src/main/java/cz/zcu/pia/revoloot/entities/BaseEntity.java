@@ -5,16 +5,22 @@ import javax.persistence.*;
 
 /**
  * Rodič všech DB objektů.
- *
+ * <p>
  * Garantuje existenci ID (PK)
+ *
+ * @author Radek Vais
  */
 @MappedSuperclass
 public class BaseEntity {
 
+    /**
+     * unikátní identifikátor objektu
+     */
     private Long id;
 
     /**
      * Příznak uložení do db
+     *
      * @return true pokud entita nebyla uložena do db
      */
     @Transient
@@ -24,6 +30,7 @@ public class BaseEntity {
 
     /**
      * Vrací sériové číslo objektu
+     *
      * @return id
      */
     @Id
@@ -34,6 +41,7 @@ public class BaseEntity {
 
     /**
      * Nastavuje seriové číslo
+     *
      * @param id seriové číslo
      */
     public void setId(Long id) {
