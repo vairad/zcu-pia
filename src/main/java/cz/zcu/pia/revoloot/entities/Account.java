@@ -3,6 +3,11 @@ package cz.zcu.pia.revoloot.entities;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Entitní objekt účtu v systému
+ *
+ * @author Radek Vais
+ */
 @Entity
 @Table(name = TableConfig.TABLE_ACCOUNTS)
 public class Account extends BaseEntity {
