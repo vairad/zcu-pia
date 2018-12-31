@@ -55,6 +55,8 @@
             </tbody>
         </table>
     </div>
+
+<!-- TODO stránkování -->
     <nav aria-label="Stránkování výpisu">
         <ul class="pagination justify-content-center">
             <li class="page-item disabled">

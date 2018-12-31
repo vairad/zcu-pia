@@ -10,7 +10,7 @@ import java.util.List;
 
 @Entity
 @Table(name = TableConfig.TABLE_CUSTOMERS)
-@PrimaryKeyJoinColumn(name="user")
+@PrimaryKeyJoinColumn(name="user", foreignKey = @ForeignKey(name = "fk_customer"))
 public class Customer extends User {
 
     private List<Account> accountList;

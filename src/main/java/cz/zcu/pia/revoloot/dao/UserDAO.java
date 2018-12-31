@@ -22,7 +22,6 @@ public class UserDAO extends GenericDAO<User> implements IUserDAO {
     private Logger logger = LoggerFactory.getLogger(UserDAO.class.getName());
 
     private final IEncoder encoder;
-    private boolean prepared = false;
 
     @Autowired
     public UserDAO(IEncoder encoder) {
