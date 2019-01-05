@@ -1,20 +1,19 @@
 package cz.zcu.pia.revoloot.entities;
 
+import cz.zcu.pia.revoloot.utils.IValidator;
+import cz.zcu.pia.revoloot.web.FormConfig;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 @Entity
 @Table(name = TableConfig.TABLE_USERS)
 @Inheritance(strategy= InheritanceType.JOINED)
-public class User extends BaseEntity implements UserDetails{
+public class User extends BaseEntity implements UserDetails, IValidable{
 
     //region Fields
     private String login;
@@ -24,24 +23,16 @@ public class User extends BaseEntity implements UserDetails{
     private String name;
     private String surname;
 
-    private boolean banker;
+    private Gender gender;
     // endregion
 
     /**
      * TODO comment
      */
     public User() {
-        banker = false;
         created = new Date();
     }
 
-    /**
-     * TODO comment
-     *
-     */
-    List<String> validate() {
-       return null;
-    }
 
     // region Mapping
 
@@ -54,15 +45,18 @@ public class User extends BaseEntity implements UserDetails{
         this.login = login;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     @Override
+    @Column
     public String getPassword() {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    @Column
     public Date getCreated() {
         return created;
     }
@@ -71,6 +65,7 @@ public class User extends BaseEntity implements UserDetails{
         this.created = created;
     }
 
+    @Column
     public String getName() {
         return name;
     }
@@ -79,6 +74,7 @@ public class User extends BaseEntity implements UserDetails{
         this.name = name;
     }
 
+    @Column
     public String getSurname() {
         return surname;
     }
@@ -87,12 +83,14 @@ public class User extends BaseEntity implements UserDetails{
         this.surname = surname;
     }
 
-    public boolean isBanker() {
-        return banker;
+    @Column
+    @Enumerated(EnumType.STRING)
+    public Gender getGender() {
+        return gender;
     }
 
-    public void setBanker(boolean banker) {
-        this.banker = banker;
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
     // endregion
@@ -125,10 +123,7 @@ public class User extends BaseEntity implements UserDetails{
     @Transient
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(isBanker()){
-            return Collections.singleton(new SimpleGrantedAuthority("ROLE_BANKER"));
-        }
-        return Collections.singleton(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
+        return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
 
@@ -163,5 +158,31 @@ public class User extends BaseEntity implements UserDetails{
     }
 
     //endregion user details
+
+    /**
+     * Metoda ověří, zda jsou všechny položky objektu správně vyplněné.
+     * @return množina chybných polí
+     */
+    @Override
+    public Set<String> validate(IValidator validator) {
+        Set<String> errors = new HashSet<>();
+        if(validator.isEmptyField(name)){
+            errors.add(FormConfig.NAME);
+        }
+        if(validator.isEmptyField(surname)){
+            errors.add(FormConfig.SURNAME);
+        }
+        if(validator.isEmptyField(login)){
+            errors.add(FormConfig.LOGIN);
+        }
+        if(validator.isEmptyField(password)){
+            errors.add(FormConfig.PASSWORD);
+        }
+        if(gender == null){
+            errors.add(FormConfig.GENDER);
+        }
+
+        return errors;
+    }
 
 }

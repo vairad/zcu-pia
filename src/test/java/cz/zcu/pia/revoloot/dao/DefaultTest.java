@@ -37,6 +37,7 @@ public class DefaultTest extends DaoTest {
         customer.setName("Marek");
         customer.setSurname("Prijmenak");
         customer.setContactInfo(contactInfo);
+        customer.setGender(Gender.MALE);
 
         return customer;
     }
@@ -57,6 +58,7 @@ public class DefaultTest extends DaoTest {
         banker.setSurname("Banker");
         banker.setPhoto(image);
         banker.setEmail(login+"@revoloot.cz");
+        banker.setGender(Gender.FEMALE);
 
         return banker;
     }

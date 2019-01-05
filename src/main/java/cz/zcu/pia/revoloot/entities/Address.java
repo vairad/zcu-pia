@@ -1,5 +1,6 @@
 package cz.zcu.pia.revoloot.entities;
 
+import cz.zcu.pia.revoloot.utils.IValidator;
 import cz.zcu.pia.revoloot.web.FormConfig;
 
 import javax.persistence.Column;
@@ -41,9 +42,9 @@ public class Address implements IValidable {
      * @see FormConfig
      */
     @Override
-    public Set<String> validate() {
+    public Set<String> validate(IValidator validator) {
         Set<String> errors = new HashSet<>();
-
+        //TODO refactor
         if (street == null || street.isEmpty()) {
             errors.add(FormConfig.STREET);
         }

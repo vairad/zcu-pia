@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="cz.zcu.pia.revoloot.web.ServletNaming" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
@@ -10,7 +11,7 @@
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="index.html">Dashboard</a>
+                <a class="nav-link" href="<c:url value="<%=ServletNaming.WELCOME%>" /> ">Dashboard</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="https://example.com" id="overviews" data-toggle="dropdown"
@@ -28,11 +29,11 @@
                 <a class="nav-link disabled" href="">Úkoly k vyřízení <span class="badge badge-light">4</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="createCustomer.html">Založit zákazníka <span
+                <a class="nav-link active" href="<c:url value="<%=ServletNaming.ADMIN_REGISTER%>"/>">Založit zákazníka <span
                         class="sr-only">(aktuální)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="product.html">Sjednat produkt</a>
+                <a class="nav-link " href="<c:url value="<%=ServletNaming.ADMIN_PRODUCT%>"/>">Sjednat produkt</a>
             </li>
         </ul>
 

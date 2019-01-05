@@ -1,11 +1,15 @@
 package cz.zcu.pia.revoloot.entities;
 
+import cz.zcu.pia.revoloot.utils.IValidator;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = TableConfig.TABLE_MOVES)
-public class Move extends BaseEntity {
+public class Move extends BaseEntity implements IValidable {
 
     private Account owner;
 
@@ -143,5 +147,12 @@ public class Move extends BaseEntity {
 
     public void setProcessed(boolean processed) {
         this.processed = processed;
+    }
+
+    @Override
+    public Set<String> validate(IValidator validator) {
+        Set<String> errors = new HashSet<>();
+        //todo validation
+        return errors;
     }
 }

@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage(ServletNaming.LOGIN)
                 .loginProcessingUrl(ServletNaming.LOGIN_PROCESS)
-                .defaultSuccessUrl(ServletNaming.CUSTOMER_DASHBOARD, true)
+                .defaultSuccessUrl(ServletNaming.WELCOME, true)
                 .failureUrl(ServletNaming.LOGIN + "?error=true")
                 //     .failureHandler(authenticationFailureHandler())
                 .permitAll()

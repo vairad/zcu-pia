@@ -1,5 +1,7 @@
 package cz.zcu.pia.revoloot.entities;
 
+import cz.zcu.pia.revoloot.utils.BasicValidator;
+import cz.zcu.pia.revoloot.utils.IValidator;
 import cz.zcu.pia.revoloot.web.FormConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,9 +15,11 @@ class AddressTest {
 
     private Address address;
     private Set<String> allErrors;
+    private IValidator validator;
 
     @BeforeEach
     void setUp(){
+        validator = new BasicValidator();
         address = new Address();
         allErrors = new HashSet<>();
         allErrors.add(FormConfig.POSTAL_CODE);
@@ -58,7 +62,7 @@ class AddressTest {
 
         allErrors.remove(FormConfig.STREET);
 
-        assertEquals(allErrors, address.validate());
+        assertEquals(allErrors, address.validate(validator));
     }
 
     @Test
@@ -67,7 +71,7 @@ class AddressTest {
 
         allErrors.remove(FormConfig.HOUSE_NUMBER);
 
-        assertEquals(allErrors, address.validate());
+        assertEquals(allErrors, address.validate(validator));
     }
 
     @Test
@@ -76,7 +80,7 @@ class AddressTest {
 
         allErrors.remove(FormConfig.CITY);
 
-        assertEquals(allErrors, address.validate());
+        assertEquals(allErrors, address.validate(validator));
     }
 
     @Test
@@ -84,11 +88,11 @@ class AddressTest {
         address.setPostalCode(31200);
         allErrors.remove(FormConfig.POSTAL_CODE);
 
-        assertEquals(allErrors, address.validate());
+        assertEquals(allErrors, address.validate(validator));
     }
 
     @Test
     void validate() {
-        assertEquals(allErrors, address.validate());
+        assertEquals(allErrors, address.validate(validator));
     }
 }

@@ -6,7 +6,6 @@ public class FormConfig {
     public static final String SURNAME = "surname";
     public static final String BIRTH_DATE = "birthDate";
     public static final String PERSON_ID = "personID";
-    public static final String ID_NUM = "idNum";
     public static final String GENDER = "gender";
     public static final String CITY = "city";
     public static final String STREET = "street";
@@ -19,5 +18,9 @@ public class FormConfig {
     public static final String USER_ID = "username";
     public static final String PASSWORD = "password";
     public static final String ACTION_LOGIN = ServletNaming.LOGIN_PROCESS;
-    
+    public static final String ACTION_REGISTER = ServletNaming.ADMIN_REGISTER;
+    public static final String CARD_ID = "cardID" ;
+    public static final String TURING_ID = "turingID";
+    public static final String LOGIN = "login";
+
 }

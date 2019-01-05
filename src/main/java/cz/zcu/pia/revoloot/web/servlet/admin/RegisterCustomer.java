@@ -1,7 +1,10 @@
 package cz.zcu.pia.revoloot.web.servlet.admin;
 
 
+import cz.zcu.pia.revoloot.entities.Customer;
+import cz.zcu.pia.revoloot.entities.exceptions.CustomerValidationException;
 import cz.zcu.pia.revoloot.manager.ICustomerManager;
+import cz.zcu.pia.revoloot.web.FormConfig;
 import cz.zcu.pia.revoloot.web.ServletNaming;
 import cz.zcu.pia.revoloot.web.servlet.AbstractServlet;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 @WebServlet(ServletNaming.ADMIN_REGISTER)
 public class RegisterCustomer extends AbstractServlet {
@@ -30,7 +35,33 @@ public class RegisterCustomer extends AbstractServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //TODO void
+        //naplň objekt daty z formuláře
+        Customer customer = new Customer();
+        customer.setName(req.getParameter(FormConfig.NAME));
+        customer.setSurname(req.getParameter(FormConfig.SURNAME));
+        String date = req.getParameter(FormConfig.BIRTH_DATE);
+        try {
+            customer.setBirthDate(new SimpleDateFormat("dd-MM-yyyy").parse(date));
+        } catch (ParseException |NullPointerException e) {
+            log("Date could not be parsed");
+        }
+
+        customer.setCardID(req.getParameter(FormConfig.CARD_ID));
+        customer.setPersonIDSmart(req.getParameter(FormConfig.PERSON_ID));
+       // customer.setGender();
+
+        //proveď operaci
+        try {
+            customerManager.register(customer);
+        } catch (CustomerValidationException e) {
+            req.setAttribute("customer", customer);
+            req.setAttribute("error", "Uživatel nemohl být vytvořen.");
+            req.setAttribute("errors", e.getErrors());
+            req.getRequestDispatcher("/WEB-INF/admin/createCustomer.jsp").forward(req, resp);
+            return;
+        }
+        req.setAttribute("success", "Zákazník byl vytvořen.");
+        req.getRequestDispatcher("/WEB-INF/home").forward(req, resp);
     }
 
     private void errorDispatch(String err, HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

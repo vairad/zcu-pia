@@ -14,6 +14,7 @@ public class MoveDAO extends GenericDAO<Move> implements IMoveDAO {
 
     private Logger logger = LoggerFactory.getLogger(MoveDAO.class.getName());
 
+
     public MoveDAO() {
         super(Move.class);
     }

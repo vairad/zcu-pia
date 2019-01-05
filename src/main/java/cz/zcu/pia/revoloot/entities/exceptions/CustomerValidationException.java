@@ -1,4 +1,19 @@
 package cz.zcu.pia.revoloot.entities.exceptions;
 
-public class CustomerValidationException extends Exception {
+import java.util.Set;
+
+public class CustomerValidationException extends Exception implements IValidationException {
+
+    private Set<String> errors;
+
+    public CustomerValidationException(Set<String> errors) {
+        super("Customer object has incorrect fields");
+        this.errors = errors;
+    }
+
+    @Override
+    public Set<String> getErrors() {
+        return errors;
+    }
+
 }

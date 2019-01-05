@@ -2,6 +2,9 @@ package cz.zcu.pia.revoloot.web.servlet.customer;
 
 import cz.zcu.pia.revoloot.web.ServletNaming;
 import cz.zcu.pia.revoloot.web.servlet.AbstractServlet;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
