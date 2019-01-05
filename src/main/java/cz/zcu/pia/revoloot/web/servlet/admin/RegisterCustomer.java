@@ -1,9 +1,10 @@
 package cz.zcu.pia.revoloot.web.servlet.admin;
 
 
-import cz.zcu.pia.revoloot.entities.Customer;
+import cz.zcu.pia.revoloot.entities.*;
 import cz.zcu.pia.revoloot.entities.exceptions.CustomerValidationException;
 import cz.zcu.pia.revoloot.manager.ICustomerManager;
+import cz.zcu.pia.revoloot.utils.BasicValidator;
 import cz.zcu.pia.revoloot.web.FormConfig;
 import cz.zcu.pia.revoloot.web.ServletNaming;
 import cz.zcu.pia.revoloot.web.servlet.AbstractServlet;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @WebServlet(ServletNaming.ADMIN_REGISTER)
 public class RegisterCustomer extends AbstractServlet {
@@ -28,8 +30,32 @@ public class RegisterCustomer extends AbstractServlet {
     }
 
 
+    private static Customer prepareCustomer() {
+        Address address = new Address();
+        address.setCity("Autommat");
+        address.setHouseNo("15");
+        address.setStreet("Mulajova");
+        address.setState(State.SVK);
+
+        ContactInfo contactInfo = new ContactInfo();
+        contactInfo.setAddress(address);
+        contactInfo.setEmail("boo@voo.doo");
+        contactInfo.setPhone(123456789);
+
+        Customer customer = new Customer();
+        customer.setName("Marek");
+        customer.setSurname("Prijmenak");
+        customer.setContactInfo(contactInfo);
+        customer.setGender(Gender.MALE);
+
+        return customer;
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        req.setAttribute("customer", prepareCustomer());
+        req.setAttribute("customer", new Customer());
+        req.setAttribute("errors", prepareCustomer().validate(new BasicValidator()));
         req.getRequestDispatcher("/WEB-INF/admin/createCustomer.jsp").forward(req, resp);
     }
 

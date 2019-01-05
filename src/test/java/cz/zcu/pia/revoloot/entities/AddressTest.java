@@ -21,11 +21,7 @@ class AddressTest {
     void setUp(){
         validator = new BasicValidator();
         address = new Address();
-        allErrors = new HashSet<>();
-        allErrors.add(FormConfig.POSTAL_CODE);
-        allErrors.add(FormConfig.CITY);
-        allErrors.add(FormConfig.HOUSE_NUMBER);
-        allErrors.add(FormConfig.STREET);
+        allErrors = new Address().errorFields();
     }
 
     @Test
@@ -94,5 +90,13 @@ class AddressTest {
     @Test
     void validate() {
         assertEquals(allErrors, address.validate(validator));
+    }
+
+    @Test
+    void validateErrors(){
+        Address a = new Address();
+        Set<String> errorsV = a.validate(validator);
+        Set<String> errorsAll = a.errorFields();
+        assertEquals(errorsAll, errorsV, "Validation do not contains all fields");
     }
 }

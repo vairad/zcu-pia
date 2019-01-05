@@ -1,6 +1,5 @@
 package cz.zcu.pia.revoloot.dao;
 
-import cz.zcu.pia.revoloot.utils.PasswordHashEncoder;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;

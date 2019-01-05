@@ -15,4 +15,10 @@ public interface IValidable {
      */
     Set<String> validate(IValidator validator);
 
+    /**
+     * Metoda vrací plnou množinu všech chyb objektu.
+     * @return množina všech validovaných polí.
+     */
+    Set<String> errorFields();
+
 }

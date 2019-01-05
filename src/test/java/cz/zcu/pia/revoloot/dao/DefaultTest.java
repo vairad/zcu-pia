@@ -24,6 +24,7 @@ public class DefaultTest extends DaoTest {
         address.setHouseNo("15");
         address.setStreet("Mulajova");
         address.setPostalCode(31250);
+        address.setState(State.SVK);
 
         ContactInfo contactInfo = new ContactInfo();
         contactInfo.setAddress(address);
@@ -48,6 +49,7 @@ public class DefaultTest extends DaoTest {
         address.setHouseNo("15c");
         address.setStreet("Bukačova");
         address.setPostalCode(31250);
+        address.setState(State.CZ);
 
 
         Banker banker = new Banker();

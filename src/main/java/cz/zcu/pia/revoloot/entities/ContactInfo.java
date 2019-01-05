@@ -48,14 +48,24 @@ public class ContactInfo implements IValidable {
 //            errors.add(FormConfig.PHONE_NUMBER);
 //        }
 
-        if(address != null){
+        if (address != null) {
             errors.addAll(address.validate(validator));
         }
 
-        if(validator.isEmptyField(email)){
+        if (validator.isEmptyField(email)) {
             errors.add(FormConfig.EMAIL_1);
             errors.add(FormConfig.EMAIL_2);
         }
+
+        return errors;
+    }
+
+    @Override
+    public Set<String> errorFields() {
+        Set<String> errors = new HashSet<>(new Address().errorFields());
+//        errors.add(FormConfig.PHONE_NUMBER);
+        errors.add(FormConfig.EMAIL_1);
+        errors.add(FormConfig.EMAIL_2);
 
         return errors;
     }

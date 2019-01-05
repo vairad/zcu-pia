@@ -10,7 +10,7 @@ import java.util.*;
 
 @Entity
 @Table(name = TableConfig.TABLE_CUSTOMERS)
-@PrimaryKeyJoinColumn(name="user", foreignKey = @ForeignKey(name = "fk_customer"))
+@PrimaryKeyJoinColumn(name = "user", foreignKey = @ForeignKey(name = "fk_customer"))
 public class Customer extends User implements IValidable {
 
     private List<Account> accountList;
@@ -48,19 +48,20 @@ public class Customer extends User implements IValidable {
 
     /**
      * Metoda nastaví rodné číslo ve formátu YYMMDD/xxxx nebo YYMMDDxxxx
+     *
      * @param parameter rodné číslo CZ
      */
     public void setPersonIDSmart(String parameter) {
         String id;
-        if(parameter.contains("/")){
-            String[] parts = parameter.split("/",2);
-            id =  parts[0] + parts[1];
-        }else{
+        if (parameter.contains("/")) {
+            String[] parts = parameter.split("/", 2);
+            id = parts[0] + parts[1];
+        } else {
             id = parameter;
         }
         try {
             personID = Long.parseLong(id);
-        }catch (NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             personID = null;
         }
     }
@@ -95,27 +96,43 @@ public class Customer extends User implements IValidable {
 
     //endregion
 
+    //region IValidable
 
     @Override
     public Set<String> validate(IValidator validator) {
         Set<String> errors = new HashSet<>(super.validate(validator));
 
-        if(contactInfo != null){
+        if (contactInfo != null) {
             errors.addAll(contactInfo.validate(validator));
+        } else {
+            errors.addAll(new ContactInfo().errorFields());
         }
 
-        if(validator.isEmptyField(birthDate)){
+        if (validator.isEmptyField(birthDate)) {
             errors.add(FormConfig.BIRTH_DATE);
         }
 
-        if(validator.checkBirthAgainstPersonID(birthDate, getGender(), personID)){
+        if (birthDate == null || personID == null ||
+                validator.checkBirthAgainstPersonID(birthDate, getGender(), personID)) {
             errors.add(FormConfig.PERSON_ID);
         }
 
-        if(validator.isEmptyField(cardID)){
-           errors.add(FormConfig.CARD_ID);
+        if (validator.isEmptyField(cardID)) {
+            errors.add(FormConfig.CARD_ID);
         }
 
         return errors;
     }
+
+    @Override
+    public Set<String> errorFields() {
+        Set<String> errors = new HashSet<>(super.errorFields());
+        errors.addAll(new ContactInfo().errorFields());
+        errors.add(FormConfig.CARD_ID);
+        errors.add(FormConfig.PERSON_ID);
+        errors.add(FormConfig.BIRTH_DATE);
+        return errors;
+    }
+
+    //endregion IValidable
 }

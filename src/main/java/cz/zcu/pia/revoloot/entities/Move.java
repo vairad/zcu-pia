@@ -155,4 +155,11 @@ public class Move extends BaseEntity implements IValidable {
         //todo validation
         return errors;
     }
+
+    @Override
+    public Set<String> errorFields() {
+        Set<String> errors = new HashSet<>();
+        //todo validation
+        return errors;
+    }
 }

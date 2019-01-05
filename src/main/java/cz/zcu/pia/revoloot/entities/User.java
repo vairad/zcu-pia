@@ -12,8 +12,8 @@ import java.util.*;
 
 @Entity
 @Table(name = TableConfig.TABLE_USERS)
-@Inheritance(strategy= InheritanceType.JOINED)
-public class User extends BaseEntity implements UserDetails, IValidable{
+@Inheritance(strategy = InheritanceType.JOINED)
+public class User extends BaseEntity implements UserDetails, IValidable {
 
     //region Fields
     private String login;
@@ -161,26 +161,39 @@ public class User extends BaseEntity implements UserDetails, IValidable{
 
     /**
      * Metoda ověří, zda jsou všechny položky objektu správně vyplněné.
+     *
      * @return množina chybných polí
      */
     @Override
     public Set<String> validate(IValidator validator) {
         Set<String> errors = new HashSet<>();
-        if(validator.isEmptyField(name)){
+        if (validator.isEmptyField(name)) {
             errors.add(FormConfig.NAME);
         }
-        if(validator.isEmptyField(surname)){
+        if (validator.isEmptyField(surname)) {
             errors.add(FormConfig.SURNAME);
         }
-        if(validator.isEmptyField(login)){
+        if (validator.isEmptyField(login)) {
             errors.add(FormConfig.LOGIN);
         }
-        if(validator.isEmptyField(password)){
+        if (validator.isEmptyField(password)) {
             errors.add(FormConfig.PASSWORD);
         }
-        if(gender == null){
+        if (gender == null) {
             errors.add(FormConfig.GENDER);
         }
+
+        return errors;
+    }
+
+    @Override
+    public Set<String> errorFields() {
+        Set<String> errors = new HashSet<>();
+        errors.add(FormConfig.NAME);
+        errors.add(FormConfig.SURNAME);
+        errors.add(FormConfig.LOGIN);
+        errors.add(FormConfig.PASSWORD);
+        errors.add(FormConfig.GENDER);
 
         return errors;
     }
