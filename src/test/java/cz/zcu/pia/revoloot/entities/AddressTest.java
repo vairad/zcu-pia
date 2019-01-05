@@ -47,7 +47,7 @@ class AddressTest {
 
     @Test
     void postalCode() {
-        int val = 31200;
+        Integer val = 31200;
         address.setPostalCode(val);
         assertEquals(val, address.getPostalCode(), "Postal code setter problem");
     }
