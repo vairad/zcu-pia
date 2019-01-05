@@ -17,6 +17,7 @@ public class FormConfig {
     public static final String TURING = "turing";
     public static final String USER_ID = "username";
     public static final String PASSWORD = "password";
+    public static final String SELL_PASSWORD = "sellPassword";
     public static final String ACTION_LOGIN = ServletNaming.LOGIN_PROCESS;
     public static final String ACTION_REGISTER = ServletNaming.ADMIN_REGISTER;
     public static final String CARD_ID = "cardID" ;
