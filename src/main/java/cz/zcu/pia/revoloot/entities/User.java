@@ -36,7 +36,7 @@ public class User extends BaseEntity implements UserDetails, IValidable {
 
     // region Mapping
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     public String getLogin() {
         return login;
     }
@@ -46,7 +46,7 @@ public class User extends BaseEntity implements UserDetails, IValidable {
     }
 
     @Override
-    @Column
+    @Column(nullable = false)
     public String getPassword() {
         return password;
     }
@@ -56,7 +56,7 @@ public class User extends BaseEntity implements UserDetails, IValidable {
     }
 
 
-    @Column
+    @Column(nullable = false)
     public Date getCreated() {
         return created;
     }
@@ -65,7 +65,7 @@ public class User extends BaseEntity implements UserDetails, IValidable {
         this.created = created;
     }
 
-    @Column
+    @Column(nullable = false)
     public String getName() {
         return name;
     }
@@ -74,7 +74,7 @@ public class User extends BaseEntity implements UserDetails, IValidable {
         this.name = name;
     }
 
-    @Column
+    @Column(nullable = false)
     public String getSurname() {
         return surname;
     }
@@ -83,7 +83,7 @@ public class User extends BaseEntity implements UserDetails, IValidable {
         this.surname = surname;
     }
 
-    @Column
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     public Gender getGender() {
         return gender;

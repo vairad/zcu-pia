@@ -11,4 +11,14 @@ public enum State {
     public boolean isSVK() {
         return this == SVK;
     }
+
+    public static State fromString(String state){
+        if(state.toLowerCase().equals("cz")){
+            return CZ;
+        }
+        if(state.toLowerCase().equals("svk")){
+            return SVK;
+        }
+        throw new IllegalArgumentException("Unsupported country");
+    }
 }

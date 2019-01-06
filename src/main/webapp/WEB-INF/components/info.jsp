@@ -2,9 +2,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <c:if test="${not empty requestScope.success}">
-    <div class="alert alert-success">${requestScope.success}</div>
+    <p class="alert alert-success">${requestScope.success}</p>
 </c:if>
 <c:if test="${not empty requestScope.error}">
-    <div class="alert alert-error">${requestScope.error}</div>
+    <p class="alert alert-error">${requestScope.error}</p>
 </c:if>
 

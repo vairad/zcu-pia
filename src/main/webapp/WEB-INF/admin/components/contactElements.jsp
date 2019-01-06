@@ -1,8 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="cz.zcu.pia.revoloot.web.FormConfig" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="fomConfig" class="cz.zcu.pia.revoloot.web.FormConfig" />
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%--@elvariable id="customer" type="cz.zcu.pia.revoloot.entities.Customer"--%>
 <%--@elvariable id="errors" type="java.util.Set"--%>
 

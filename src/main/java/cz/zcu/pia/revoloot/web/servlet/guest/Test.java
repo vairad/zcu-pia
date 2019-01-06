@@ -1,8 +1,11 @@
 package cz.zcu.pia.revoloot.web.servlet.guest;
 
+import cz.zcu.pia.revoloot.dao.ICustomerDAO;
 import cz.zcu.pia.revoloot.entities.*;
+import cz.zcu.pia.revoloot.manager.ICustomerManager;
 import cz.zcu.pia.revoloot.utils.BasicValidator;
 import cz.zcu.pia.revoloot.web.servlet.AbstractServlet;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +17,9 @@ import java.util.Set;
 
 @WebServlet("/boo")
 public class Test extends AbstractServlet {
+
+    @Autowired
+    private ICustomerManager customerManager;
 
     private static Customer prepareCustomer() {
         Address address = new Address();
@@ -38,11 +44,10 @@ public class Test extends AbstractServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        req.setAttribute("customer", prepareCustomer());
-        req.setAttribute("customer", new Customer());
-        Set<String> errSet = new Customer().validate(new BasicValidator());
-        errSet.add("turing");
-        req.setAttribute("errors", Arrays.toString(errSet.toArray()));
-        req.getRequestDispatcher("/WEB-INF/admin/createCustomer.jsp").forward(req, resp);
+        Customer c = customerManager.);
+        req.setAttribute("accounts", c.getAccountList());
+
+
+        req.getRequestDispatcher("/WEB-INF/customer/index.jsp").forward(req, resp);
     }
 }

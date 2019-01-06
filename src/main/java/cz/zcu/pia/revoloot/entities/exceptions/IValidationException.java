@@ -13,7 +13,7 @@ public interface IValidationException {
      * Metoda pro zjištění chyb na objektu, který validátor ověřoval.
      *
      * @see cz.zcu.pia.revoloot.web.FormConfig
-     * @return množina chybných polí
+     * @return řetězec představující množinu chyb
      */
-    Set<String> getErrors();
+    String getErrors();
 }

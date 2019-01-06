@@ -2,6 +2,7 @@ package cz.zcu.pia.revoloot.dao;
 
 import cz.zcu.pia.revoloot.entities.*;
 import cz.zcu.pia.revoloot.utils.IEncoder;
+import cz.zcu.pia.revoloot.utils.IPasswordGenerator;
 import cz.zcu.pia.revoloot.utils.PasswordHashEncoder;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -14,14 +15,16 @@ public class DefaultTest extends DaoTest {
     private static CustomerDAO customerDAO;
     private static AccountDAO accountDAO;
     private static MoveDAO moveDAO;
-    private static IEncoder encoder;
     private static BankerDAO bankerDAO;
+
+    private static IEncoder encoder;
+    private static IPasswordGenerator generator;
 
 
     static Customer prepareCustomer(String login, String password) {
         Address address = new Address();
-        address.setCity("Autommat");
-        address.setHouseNo("15");
+        address.setCity("Plzeň");
+        address.setHouseNo("15E");
         address.setStreet("Mulajova");
         address.setPostalCode(31250);
         address.setState(State.SVK);
@@ -39,6 +42,7 @@ public class DefaultTest extends DaoTest {
         customer.setSurname("Prijmenak");
         customer.setContactInfo(contactInfo);
         customer.setGender(Gender.MALE);
+        customer.setCardID("a15888OP");
 
         return customer;
     }

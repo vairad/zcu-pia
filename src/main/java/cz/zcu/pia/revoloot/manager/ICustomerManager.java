@@ -1,14 +1,17 @@
 package cz.zcu.pia.revoloot.manager;
 
+import cz.zcu.pia.revoloot.entities.Account;
 import cz.zcu.pia.revoloot.entities.Customer;
 import cz.zcu.pia.revoloot.entities.exceptions.CustomerValidationException;
 
+import java.util.List;
+
 public interface ICustomerManager {
 
-    /**
-     * @param newCustomer
-     * @throws CustomerValidationException
-     */
     void register(Customer newCustomer) throws CustomerValidationException;
+
+    List<Customer> getAll();
+
+    List<Account> getAllAccounts(long customerID);
 
 }

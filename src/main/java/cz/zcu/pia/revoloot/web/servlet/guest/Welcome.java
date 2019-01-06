@@ -23,7 +23,7 @@ public class Welcome extends AbstractServlet {
             return;
         }
         if(req.isUserInRole("BANKER")){
-            req.getRequestDispatcher("/WEB-INF/admin/index.jsp").forward(req, resp);
+            req.getRequestDispatcher("/admin/home").forward(req, resp);
             return;
         }
 

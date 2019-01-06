@@ -1,5 +1,6 @@
 package cz.zcu.pia.revoloot.entities.exceptions;
 
+import java.util.Arrays;
 import java.util.Set;
 
 public class CustomerValidationException extends Exception implements IValidationException {
@@ -12,8 +13,8 @@ public class CustomerValidationException extends Exception implements IValidatio
     }
 
     @Override
-    public Set<String> getErrors() {
-        return errors;
+    public String getErrors() {
+        return Arrays.toString(errors.toArray());
     }
 
 }

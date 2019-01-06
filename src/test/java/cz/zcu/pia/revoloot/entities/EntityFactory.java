@@ -1,8 +1,13 @@
 package cz.zcu.pia.revoloot.entities;
 
+import cz.zcu.pia.revoloot.utils.IEncoder;
+import cz.zcu.pia.revoloot.utils.PasswordHashEncoder;
+
 import java.util.Date;
 
 public class EntityFactory {
+
+    static IEncoder encoder = new PasswordHashEncoder();
 
     public static Address createAddress() {
         Address address = new Address();
@@ -28,6 +33,17 @@ public class EntityFactory {
         customer.setPersonIDSmart("9311012138");
         customer.setCardID("sad5684");
         customer.setBirthDate(new Date());
+        customer.setGender(Gender.MALE);
+        customer.setName("Jmeníčko");
+        customer.setSurname("Příjméníčko");
+        customer.setPassword(encoder.encode("pass"));
+        customer.setLogin("login");
         return customer;
+    }
+
+    public static Customer createCustomer(String login) {
+        Customer c = createCustomer();
+        c.setLogin(login);
+        return c;
     }
 }

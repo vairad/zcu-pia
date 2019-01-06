@@ -2,6 +2,8 @@ package cz.zcu.pia.revoloot.dao;
 
 import cz.zcu.pia.revoloot.entities.Customer;
 
+import java.util.List;
+
 public interface ICustomerDAO extends IGenericDAO<Customer> {
 
     /**
@@ -20,4 +22,5 @@ public interface ICustomerDAO extends IGenericDAO<Customer> {
      */
     Customer findByCustomerId(String customerID);
 
+    List<Customer> findAllCustomers();
 }

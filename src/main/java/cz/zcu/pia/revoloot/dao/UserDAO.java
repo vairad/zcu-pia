@@ -79,4 +79,9 @@ public class UserDAO extends GenericDAO<User> implements IUserDAO {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return findByUsername(username);
     }
+
+    @Override
+    public boolean existLogin(String login) {
+        return findByUsername(login) != null;
+    }
 }

@@ -33,4 +33,11 @@ public interface IUserDAO extends IGenericDAO<User>, UserDetailsService {
      * @throws UsernameNotFoundException
      */
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
+
+    /**
+     * TODO
+     * @param login
+     * @return
+     */
+    boolean existLogin(String login);
 }
