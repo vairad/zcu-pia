@@ -3,8 +3,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="cz.zcu.pia.revoloot.web.FormConfig" %>
 
-<%--@elvariable id="customer" type="cz.zcu.pia.revoloot.entities.Customer"--%>
-
 <form action="<c:url value="<%=FormConfig.ACTION_REGISTER%>"/>" method="post">
 
     <div class="row">
@@ -25,7 +23,6 @@
         </fieldset>
 
         <sec:csrfInput/>
-        <sec:csrfMetaTags/>
 
     </div>
     <button class="btn btn-lg btn-default btn-block" type="submit">Založit zákazníka</button>

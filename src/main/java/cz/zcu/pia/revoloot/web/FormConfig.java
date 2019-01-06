@@ -1,5 +1,8 @@
 package cz.zcu.pia.revoloot.web;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class FormConfig {
 
     public static final String NAME = "name";
@@ -24,4 +27,7 @@ public class FormConfig {
     public static final String TURING_ID = "turingID";
     public static final String LOGIN = "login";
 
+    public static String getTURING() {
+        return TURING;
+    }
 }

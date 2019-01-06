@@ -17,7 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Set;
 
 @WebServlet(ServletNaming.ADMIN_REGISTER)
 public class RegisterCustomer extends AbstractServlet {
@@ -29,33 +32,8 @@ public class RegisterCustomer extends AbstractServlet {
         this.customerManager = customerManager;
     }
 
-
-    private static Customer prepareCustomer() {
-        Address address = new Address();
-        address.setCity("Autommat");
-        address.setHouseNo("15");
-        address.setStreet("Mulajova");
-        address.setState(State.SVK);
-
-        ContactInfo contactInfo = new ContactInfo();
-        contactInfo.setAddress(address);
-        contactInfo.setEmail("boo@voo.doo");
-        contactInfo.setPhone(123456789);
-
-        Customer customer = new Customer();
-        customer.setName("Marek");
-        customer.setSurname("Prijmenak");
-        customer.setContactInfo(contactInfo);
-        customer.setGender(Gender.MALE);
-
-        return customer;
-    }
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        req.setAttribute("customer", prepareCustomer());
-        req.setAttribute("customer", new Customer());
-        req.setAttribute("errors", prepareCustomer().validate(new BasicValidator()));
         req.getRequestDispatcher("/WEB-INF/admin/createCustomer.jsp").forward(req, resp);
     }
 

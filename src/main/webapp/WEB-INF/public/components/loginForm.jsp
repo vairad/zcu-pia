@@ -47,7 +47,6 @@
     </div>
 
     <sec:csrfInput/>
-    <sec:csrfMetaTags/>
 
     <button class="btn btn-lg btn-default btn-block" type="submit">Přihlásit</button>
 </form>
