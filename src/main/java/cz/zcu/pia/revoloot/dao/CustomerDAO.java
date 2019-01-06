@@ -10,7 +10,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-
 @Repository
 public class CustomerDAO extends GenericDAO<Customer> implements ICustomerDAO {
 
@@ -19,7 +18,7 @@ public class CustomerDAO extends GenericDAO<Customer> implements ICustomerDAO {
     /**
      * TODO comment
      */
-    public CustomerDAO(){
+    public CustomerDAO() {
         super(Customer.class);
     }
 
@@ -32,6 +31,7 @@ public class CustomerDAO extends GenericDAO<Customer> implements ICustomerDAO {
 
     /**
      * TODO comment
+     *
      * @param accountNumber reprezentace čísla účtu.
      * @return
      */
@@ -42,6 +42,7 @@ public class CustomerDAO extends GenericDAO<Customer> implements ICustomerDAO {
 
     /**
      * TODO comment
+     *
      * @param customerID reprezentace zákkaznického ID
      * @return
      */
@@ -51,7 +52,29 @@ public class CustomerDAO extends GenericDAO<Customer> implements ICustomerDAO {
     }
 
     /**
+     * TODO
+     * @param username
+     * @return
+     */
+    @Override
+    public Customer findByUsername(String username) {
+        logger.info("Load customer: " + username);
+        TypedQuery<Customer> q = em.createQuery("SELECT c FROM Customer c WHERE c.login = :user", Customer.class);
+        q.setParameter("user", username);
+        try {
+            Customer customer = q.getSingleResult();
+            logger.info("Some Customer found: "+customer);
+            return customer;
+        } catch (NoResultException e) {
+            logger.debug("No customers found");
+            //no result found
+            return null;
+        }
+    }
+
+    /**
      * TODO comment
+     *
      * @return
      */
     @Override

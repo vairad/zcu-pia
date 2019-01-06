@@ -1,5 +1,6 @@
 package cz.zcu.pia.revoloot.manager;
 
+import cz.zcu.pia.revoloot.dao.IAccountDAO;
 import cz.zcu.pia.revoloot.dao.ICustomerDAO;
 import cz.zcu.pia.revoloot.dao.IUserDAO;
 import cz.zcu.pia.revoloot.entities.Account;
@@ -25,16 +26,18 @@ public class CustomerManager implements ICustomerManager {
 
     private final IUserDAO userDAO;
     private final ICustomerDAO customerDAO;
+    private final IAccountDAO accountDAO;
     private final IValidator validator;
 
     private final IPasswordGenerator generator;
 
     @Autowired
-    public CustomerManager(IValidator validator, ICustomerDAO customerDAO, IPasswordGenerator generator, IUserDAO userDAO) {
+    public CustomerManager(IValidator validator, ICustomerDAO customerDAO, IPasswordGenerator generator, IUserDAO userDAO, IAccountDAO accountDAO) {
         this.validator = validator;
         this.customerDAO = customerDAO;
         this.generator = generator;
         this.userDAO = userDAO;
+        this.accountDAO = accountDAO;
     }
 
     @Override
@@ -68,8 +71,13 @@ public class CustomerManager implements ICustomerManager {
 
     @Override
     public List<Account> getAllAccounts(long customerID) {
+        return accountDAO.findByUserId(customerID);
 
+    }
 
+    @Override
+    public Customer getByUsername(String username) {
+        return customerDAO.findByUsername(username);
     }
 
 

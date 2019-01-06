@@ -14,4 +14,6 @@ public interface ICustomerManager {
 
     List<Account> getAllAccounts(long customerID);
 
+    Customer getByUsername(String username);
+
 }

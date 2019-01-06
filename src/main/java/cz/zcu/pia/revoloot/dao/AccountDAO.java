@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
+import java.util.List;
 
 
 @Repository
@@ -42,6 +43,23 @@ public class AccountDAO extends GenericDAO<Account> implements IAccountDAO {
             return account;
         } catch (NoResultException e) {
             logger.debug("No account found for account number: " + accNo);
+            //no result found
+            return null;
+        }
+    }
+
+    @Override
+    public List<Account> findByUserId(long customerID) {
+        logger.info("Find accounts for user: " + customerID);
+
+        TypedQuery<Account> q = em.createQuery("SELECT a FROM Account a WHERE a.customer.id = :customerID", Account.class);
+        q.setParameter("customerID", customerID);
+        try {
+            List<Account> account = q.getResultList();
+            logger.info("Account some accounts found.");
+            return account;
+        } catch (NoResultException e) {
+            logger.debug("No accounts found for user id: " + customerID);
             //no result found
             return null;
         }

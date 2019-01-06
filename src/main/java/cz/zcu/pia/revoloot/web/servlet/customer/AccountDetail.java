@@ -3,7 +3,6 @@ package cz.zcu.pia.revoloot.web.servlet.customer;
 import cz.zcu.pia.revoloot.entities.Account;
 import cz.zcu.pia.revoloot.manager.IAccountManager;
 import cz.zcu.pia.revoloot.web.ServletNaming;
-import cz.zcu.pia.revoloot.web.servlet.AbstractServlet;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.ServletException;
@@ -12,15 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(ServletNaming.CUSTOMER_ACCOUNT+"/*")
-public class AccountDetail extends AbstractServlet {
-
-    private IAccountManager accountManager;
+@WebServlet(ServletNaming.CUSTOMER_ACCOUNT + "/*")
+public class AccountDetail extends CustomerBase {
 
     @Autowired
-    public void setAccountDAO(IAccountManager accountDAO) {
-        this.accountManager = accountDAO;
-    }
+    private IAccountManager accountManager;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -31,6 +26,7 @@ public class AccountDetail extends AbstractServlet {
 
         req.setAttribute("account", acc);
 
+        prepareCustomerView(req);
         req.getRequestDispatcher("/WEB-INF/customer/account.jsp").forward(req, resp);
     }
 

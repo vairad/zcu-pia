@@ -1,21 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="cs">
 <jsp:include page="../components/head.jsp"/>
 
-<body class="body-title">
+<body>
 
 <!-- Main content -->
 <main class="container content text-center">
-
-    <!-- Money logo -->
-    <div class="money shadow-sm d-none d-sm-none d-md-block d-lg-block">
-        <div class="money-center"></div>
-    </div>
-
-    <h1>Vítejte</h1>
-    <p class="lead">Teď můžete spravovat svoje prostředky.</p>
-
+    <h1 class="display-4">Příkaz k úhradě</h1>
 </main>
 <!-- Main content -->
 

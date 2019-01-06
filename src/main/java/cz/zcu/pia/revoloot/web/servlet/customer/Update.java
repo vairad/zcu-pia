@@ -8,13 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(ServletNaming.CUSTOMER_DASHBOARD)
-public class Dashboard extends CustomerBase {
+@WebServlet(ServletNaming.CUSTOMER_UPDATE)
+public class Update extends CustomerBase {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         prepareCustomerView(req);
-        req.getRequestDispatcher("/WEB-INF/customer/index.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/customer/update.jsp").forward(req, resp);
     }
-
 }

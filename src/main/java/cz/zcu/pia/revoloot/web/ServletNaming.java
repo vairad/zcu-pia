@@ -4,15 +4,18 @@ public class ServletNaming {
 
     //region customer
     public static final String CUSTOMER = "/customer";
-    public static final String CUSTOMER_DASHBOARD = CUSTOMER+"/home";
-    public static final String CUSTOMER_ACCOUNT = CUSTOMER+"/account";
+    public static final String CUSTOMER_DASHBOARD = CUSTOMER + "/home";
+    public static final String CUSTOMER_ACCOUNT = CUSTOMER + "/account";
+    public static final String CUSTOMER_PAYMENT = CUSTOMER + "/payment";
+    public static final String CUSTOMER_PROFILE = CUSTOMER + "/profile";
+    public static final String CUSTOMER_UPDATE = CUSTOMER + "/update";
     //endregion customer
 
     //region admin
     public static final String ADMIN = "/admin";
-    public static final String ADMIN_DASHBOARD = ADMIN+"/home";
-    public static final String ADMIN_REGISTER = ADMIN+"/register";
-    public static final String ADMIN_PRODUCT =  ADMIN +"/product";
+    public static final String ADMIN_DASHBOARD = ADMIN + "/home";
+    public static final String ADMIN_REGISTER = ADMIN + "/register";
+    public static final String ADMIN_PRODUCT = ADMIN + "/product";
     //endregion admin
 
     //region PUBLIC

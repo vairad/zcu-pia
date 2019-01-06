@@ -22,5 +22,7 @@ public interface ICustomerDAO extends IGenericDAO<Customer> {
      */
     Customer findByCustomerId(String customerID);
 
+    Customer findByUsername(String username);
+
     List<Customer> findAllCustomers();
 }
