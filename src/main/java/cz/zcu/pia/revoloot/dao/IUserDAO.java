@@ -26,18 +26,20 @@ public interface IUserDAO extends IGenericDAO<User>, UserDetailsService {
     boolean authenticate(String login, String password);
 
     /**
-     * TODO comment
-     * authorization mezhod
-     * @param username
-     * @return
-     * @throws UsernameNotFoundException
+     * Metoda vrací údaje o uživateli pro Security službu
+     *
+     * @see UserDetailsService
+     *
+     * @param username uřivatelské jméno
+     * @return nalezený živatel
+     * @throws UsernameNotFoundException v případě neexistujícího uživatele
      */
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
     /**
-     * TODO
-     * @param login
-     * @return
+     * Metoda ověří, zda login již existuje v DB či nikoliv
+     * @param login login k ověření
+     * @return true pokud login v parametru existuje false jindy
      */
     boolean existLogin(String login);
 }

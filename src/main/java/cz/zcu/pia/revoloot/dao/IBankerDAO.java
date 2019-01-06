@@ -6,22 +6,24 @@ import java.util.List;
 
 /**
  * DAO pro práci s bankéři
+ *
+ * @author Radek VAIS
  */
 public interface IBankerDAO {
 
     /**
      * Meotda vyhledá vrátí všechny aktivní existující veřejné bankéře. ({@link Banker#isSecret()})
      *
-     * @see Banker
      * @return seznam všech bankéřů
+     * @see Banker
      */
     List<Banker> loadAllPublicBankers();
 
     /**
      * Meotda vyhledá vrátí všechny aktivní existující soukromé bankéře. ({@link Banker#isSecret()})
      *
-     * @see Banker
      * @return seznam všech bankéřů
+     * @see Banker
      */
     List<Banker> loadAllSecretBankers();
 

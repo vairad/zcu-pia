@@ -9,11 +9,25 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.List;
 
 /**
- * TODO COMMENT
+ * DAO pro práci s účty uživatelů
+ *
+ * @author Radek VAIS
  */
 public interface IAccountDAO extends IGenericDAO<Account> {
 
+    /**
+     * Metoda vyhledá účet podle jeho čísla
+     *
+     * @param accNo číslo místního účtu (accountAddress.number)
+     * @return objekt čísla účtu / null pokud neexistuje
+     */
     Account findByAccountNumber(long accNo);
 
+    /**
+     * Nalezne seznam účtů dle ID uživatele
+     *
+     * @param customerID userID daného zákazníka
+     * @return seznam účtů / null, pokud nebyl zádný nalezen
+     */
     List<Account> findByUserId(long customerID);
 }

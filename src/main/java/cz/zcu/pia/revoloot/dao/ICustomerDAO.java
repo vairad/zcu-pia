@@ -4,6 +4,11 @@ import cz.zcu.pia.revoloot.entities.Customer;
 
 import java.util.List;
 
+/**
+ * DAO pro práci s uživateli
+ *
+ * @author Radek VAIS
+ */
 public interface ICustomerDAO extends IGenericDAO<Customer> {
 
     /**
@@ -22,7 +27,16 @@ public interface ICustomerDAO extends IGenericDAO<Customer> {
      */
     Customer findByCustomerId(String customerID);
 
+    /**
+     * Vyhledá uživatele dle uživatelského jména.
+     * @param username uživatelské jméno
+     * @return nalezený objekt / null
+     */
     Customer findByUsername(String username);
 
+    /**
+     * Metoda připraví seznam všech uživatelů
+     * @return seznam všech uživatelů
+     */
     List<Customer> findAllCustomers();
 }

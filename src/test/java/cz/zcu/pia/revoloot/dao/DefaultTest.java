@@ -1,5 +1,9 @@
 package cz.zcu.pia.revoloot.dao;
 
+import cz.zcu.pia.revoloot.dao.db.AccountDAO;
+import cz.zcu.pia.revoloot.dao.db.BankerDAO;
+import cz.zcu.pia.revoloot.dao.db.CustomerDAO;
+import cz.zcu.pia.revoloot.dao.db.MoveDAO;
 import cz.zcu.pia.revoloot.entities.*;
 import cz.zcu.pia.revoloot.utils.IEncoder;
 import cz.zcu.pia.revoloot.utils.IPasswordGenerator;

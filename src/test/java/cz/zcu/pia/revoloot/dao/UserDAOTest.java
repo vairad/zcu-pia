@@ -1,5 +1,6 @@
 package cz.zcu.pia.revoloot.dao;
 
+import cz.zcu.pia.revoloot.dao.db.UserDAO;
 import cz.zcu.pia.revoloot.entities.User;
 import cz.zcu.pia.revoloot.utils.IEncoder;
 import cz.zcu.pia.revoloot.utils.PasswordHashEncoder;

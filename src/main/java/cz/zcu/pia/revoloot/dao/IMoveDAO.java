@@ -5,7 +5,9 @@ import cz.zcu.pia.revoloot.entities.Move;
 import java.util.List;
 
 /**
- * TODO COMMENT
+ * DAO pro práci s pohyby na účtech
+ *
+ * @author Radek VAIS
  */
 public interface IMoveDAO extends IGenericDAO<Move> {
 

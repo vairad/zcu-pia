@@ -1,36 +1,53 @@
-package cz.zcu.pia.revoloot.dao;
+package cz.zcu.pia.revoloot.dao.db;
 
+import cz.zcu.pia.revoloot.dao.IAccountDAO;
 import cz.zcu.pia.revoloot.entities.Account;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-
+/**
+ * Třída spravující objekty typu Account v DB
+ *
+ * @author Radek VAIS
+ */
 @Repository
 public class AccountDAO extends GenericDAO<Account> implements IAccountDAO {
 
     private Logger logger = LoggerFactory.getLogger(AccountDAO.class.getName());
 
+    /**
+     * Konstruktor volá rodiče s parametrem entity Account
+     *
+     * @see GenericDAO
+     * @see Account
+     */
     public AccountDAO() {
         super(Account.class);
     }
 
     /**
      * Testing constructor
+     * - umožňuje podvržení EntityManageru
      *
-     * @param em
+     * @param em entity manager pro ukládání dat
      */
     public AccountDAO(EntityManager em) {
         super(em, Account.class);
         logger.info("Account DAO created rich constructor");
     }
 
+    /**
+     * Metoda vyhledá účet podle čísla účtu
+     *
+     * @param accNo číslo místního účtu (accountAddress.number)
+     * @return objekt čísla účtu / null pokud neexistuje
+     */
     @Override
     public Account findByAccountNumber(long accNo) {
         logger.info("Find user by username: " + accNo);
@@ -48,6 +65,12 @@ public class AccountDAO extends GenericDAO<Account> implements IAccountDAO {
         }
     }
 
+    /**
+     * Nalezne seznam účtů dle ID uživatele
+     *
+     * @param customerID userID daného zákazníka
+     * @return seznam účtů / null, pokud nebyl zádný nalezen
+     */
     @Override
     public List<Account> findByUserId(long customerID) {
         logger.info("Find accounts for user: " + customerID);

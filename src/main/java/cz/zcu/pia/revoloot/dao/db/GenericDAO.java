@@ -1,16 +1,17 @@
-package cz.zcu.pia.revoloot.dao;
+package cz.zcu.pia.revoloot.dao.db;
 
+import cz.zcu.pia.revoloot.dao.IGenericDAO;
 import cz.zcu.pia.revoloot.entities.BaseEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-
 /**
- * todo comment
+ * Třída spravující objekty typu <T> v DB
+ * Obsahuje základní metody pro CRUD
  *
- * @param <T>
+ * @param <T> typ ukládaného objektu
+ * @author Radek VAIS
  */
 public abstract class GenericDAO<T extends BaseEntity> implements IGenericDAO<T> {
 
@@ -19,13 +20,13 @@ public abstract class GenericDAO<T extends BaseEntity> implements IGenericDAO<T>
 
     private Class<T> persistedType;
 
-
     GenericDAO(Class<T> persistedType) {
         this.persistedType = persistedType;
     }
 
     /**
-     * Constructor for testing
+     * Constructor pro testy
+     * - podvržení entity mangeru
      *
      * @param persistedType type of the entity persisted by this DAO
      */
@@ -34,6 +35,12 @@ public abstract class GenericDAO<T extends BaseEntity> implements IGenericDAO<T>
         this.em = em;
     }
 
+    /**
+     * Meotda uloží element
+     *
+     * @param value element k uložení
+     * @return uložený element (uložení múže doplnit hodnoty - např ID)
+     */
     @Override
     public T save(T value) {
         if (value.isNew()) {
@@ -44,11 +51,22 @@ public abstract class GenericDAO<T extends BaseEntity> implements IGenericDAO<T>
         }
     }
 
+    /**
+     * Metoda najde element dle primárního klíče ID
+     *
+     * @param id primární klíč
+     * @return nalezený objekt / null
+     */
     @Override
     public T findOne(Long id) {
         return em.find(persistedType, id);
     }
 
+    /**
+     * Metoda odstraní objekt z databáze
+     *
+     * @param toRemove objekt k odstranění
+     */
     @Override
     public void remove(T toRemove) {
         if (!toRemove.isNew()) {

@@ -1,10 +1,10 @@
 package cz.zcu.pia.revoloot.dao;
 
+import cz.zcu.pia.revoloot.dao.db.CustomerDAO;
 import cz.zcu.pia.revoloot.entities.Customer;
 import cz.zcu.pia.revoloot.entities.EntityFactory;
 import cz.zcu.pia.revoloot.utils.IEncoder;
 import cz.zcu.pia.revoloot.utils.PasswordHashEncoder;
-import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

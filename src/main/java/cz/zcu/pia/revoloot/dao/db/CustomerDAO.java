@@ -1,5 +1,7 @@
-package cz.zcu.pia.revoloot.dao;
+package cz.zcu.pia.revoloot.dao.db;
 
+import cz.zcu.pia.revoloot.dao.ICustomerDAO;
+import cz.zcu.pia.revoloot.entities.Banker;
 import cz.zcu.pia.revoloot.entities.Customer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,20 +12,31 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
+
+/**
+ * Třída spravující objekty typu Customer v DB
+ *
+ * @author Radek VAIS
+ */
 @Repository
 public class CustomerDAO extends GenericDAO<Customer> implements ICustomerDAO {
 
     private Logger logger = LoggerFactory.getLogger(CustomerDAO.class.getName());
 
     /**
-     * TODO comment
+     * Konstruktor volá rodiče s parametrem entity Customer
+     * @see GenericDAO
+     * @see Customer
      */
     public CustomerDAO() {
         super(Customer.class);
     }
 
     /**
-     * TODO comment
+     * Testing constructor
+     * - umožňuje podvržení EntityManageru
+     *
+     * @param em entity manager pro ukládání dat
      */
     public CustomerDAO(EntityManager em) {
         super(em, Customer.class);
