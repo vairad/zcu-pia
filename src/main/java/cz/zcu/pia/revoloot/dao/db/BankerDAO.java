@@ -28,7 +28,7 @@ public class BankerDAO extends GenericDAO<Banker> implements IBankerDAO {
      * @see GenericDAO
      * @see Banker
      */
-    BankerDAO() {
+    public BankerDAO() {
         super(Banker.class);
     }
 
@@ -38,7 +38,7 @@ public class BankerDAO extends GenericDAO<Banker> implements IBankerDAO {
      *
      * @param em entity manager pro ukládání dat
      */
-    BankerDAO(EntityManager em) {
+    public BankerDAO(EntityManager em) {
         super(em, Banker.class);
     }
 
