@@ -15,15 +15,15 @@ public class AccountAddress {
     /**
      * předčíslí účtu
      */
-    private long prepend;
+    private Long prepend;
     /**
      * číslo účtu
      */
-    private long number;
+    private Long number;
     /**
      * kód banky
      */
-    private int bankCode;
+    private Integer bankCode;
 
     /**
      * Vrací hodnotu předčíslí účtu
@@ -31,7 +31,7 @@ public class AccountAddress {
      * @return předšíslí účtu 0, pokud není nastavené
      */
     @Column(updatable = false)
-    public long getPrepend() {
+    public Long getPrepend() {
         return prepend;
     }
 
@@ -40,7 +40,7 @@ public class AccountAddress {
      *
      * @param prepend hodnota předčíslí - 0 pokud je rušeno
      */
-    public void setPrepend(long prepend) {
+    public void setPrepend(Long prepend) {
         this.prepend = prepend;
     }
 
@@ -51,7 +51,7 @@ public class AccountAddress {
      * @return číslo účtu 0 pokud není nastavené
      */
     @Column(updatable = false)
-    public long getNumber() {
+    public Long getNumber() {
         return number;
     }
 
@@ -60,7 +60,7 @@ public class AccountAddress {
      *
      * @param number hodnota čísla účtu
      */
-    public void setNumber(long number) {
+    public void setNumber(Long number) {
         this.number = number;
     }
 
@@ -70,7 +70,7 @@ public class AccountAddress {
      * @return kód banky, 0 pokud není nastavené
      */
     @Column(updatable = false)
-    public int getBankCode() {
+    public Integer getBankCode() {
         return bankCode;
     }
 
@@ -79,7 +79,7 @@ public class AccountAddress {
      *
      * @param bankCode hodnota kódu banky, 0 pokud je rušeno
      */
-    public void setBankCode(int bankCode) {
+    public void setBankCode(Integer bankCode) {
         this.bankCode = bankCode;
     }
 
@@ -106,9 +106,9 @@ public class AccountAddress {
         if (this == o) return true;
         if (!(o instanceof AccountAddress)) return false;
         AccountAddress that = (AccountAddress) o;
-        return bankCode == that.bankCode &&
-                prepend == that.prepend &&
-                number == that.number;
+        return bankCode.equals(that.bankCode) &&
+                prepend.equals(that.prepend) &&
+                number.equals(that.number);
     }
 
     /**

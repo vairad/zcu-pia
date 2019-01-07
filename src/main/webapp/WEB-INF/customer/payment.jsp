@@ -2,6 +2,7 @@
 <%@ page import="cz.zcu.pia.revoloot.web.ServletNaming" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="cs">
@@ -13,7 +14,7 @@
 <main class="container content text-center">
     <%--@elvariable id="move" type="cz.zcu.pia.revoloot.entities.Move"--%>
     <h1 class="display-4">Příkaz k úhradě</h1>
-    <form class="row" action="<%=ServletNaming.CUSTOMER_PAYMENT%>">
+    <form class="row" action="<%=ServletNaming.CUSTOMER_PAYMENT%>" method="post">
 
         <div class="form-group col col-12">
             <label for="<%=FormConfig.MY_ACCOUNT%>">Z účtu:</label>
@@ -66,15 +67,18 @@
         </div>
         <div class="form-group col col-12 col-md-2">
             <label for="<%=FormConfig.CURRENCY%>" class="sr-only">Měna:</label>
-            <select class="form-control" id="currency">
+            <select class="form-control" id="<%=FormConfig.CURRENCY%>" name="<%=FormConfig.CURRENCY%>">
                 <option value="CZK">
                     Kč (CZK)
                 </option>
                 <option value="EUR">
                     € (EUR)
                 </option>
-                <option disabled>
+                <option>
                     £ (GBP)
+                </option>
+                <option disabled>
+                    $ (USD)
                 </option>
             </select>
         </div>
@@ -122,8 +126,11 @@
             <textarea id="<%=FormConfig.NOTE%>" class="form-control" aria-label="Poznámka"></textarea>
             <label for="<%=FormConfig.NOTE%>">Poznámka</label>
         </div>
-        <button type="submit" value="save" class="btn btn-dark col col-10 col-md-4 offset-1 mb-2">Odeslat platbu</button>
-        <button type="submit" value="process" class="btn btn-dark col col-10 col-md-4 offset-1 offset-md-2">Uložit jako šablonu</button>
+
+        <sec:csrfInput/>
+
+        <button type="submit" value="pay" name="submit" class="btn btn-dark col col-10 col-md-4 offset-1 mb-2">Odeslat platbu</button>
+        <button type="submit" value="save" name="submit" class="btn btn-dark col col-10 col-md-4 offset-1 offset-md-2">Uložit jako šablonu</button>
     </form>
 </main>
 <!-- Main content -->

@@ -1,8 +1,7 @@
 package cz.zcu.pia.revoloot.manager;
 
 import cz.zcu.pia.revoloot.entities.Move;
-
-import java.util.Set;
+import cz.zcu.pia.revoloot.entities.exceptions.MoveValidationException;
 
 public interface IMoveManager {
 
@@ -14,5 +13,7 @@ public interface IMoveManager {
      * @param move validovaný objekt pohybu
      * @return množina chybných polí elementu (empty = success)
      */
-    Set<String> addMove(Move move);
+    void addMove(Move move) throws MoveValidationException;
+
+    void addTemplate(Move move) throws MoveValidationException;
 }

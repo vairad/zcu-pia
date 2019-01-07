@@ -1,9 +1,10 @@
 package cz.zcu.pia.revoloot.entities;
 
 import cz.zcu.pia.revoloot.utils.IValidator;
-import org.springframework.stereotype.Component;
+import cz.zcu.pia.revoloot.web.FormConfig;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,12 +18,12 @@ public class Move extends BaseEntity implements IValidable {
     private AccountAddress source;
     private AccountAddress destination;
 
-    private long amount;
+    private Long amount;
     private Currency currency;
 
-    private int variableSymbol;
-    private int constantSymbol;
-    private int specificSymbol;
+    private Integer variableSymbol;
+    private Integer constantSymbol;
+    private Integer specificSymbol;
 
     private Date submissionDate;
     private Date transferDate;
@@ -43,11 +44,11 @@ public class Move extends BaseEntity implements IValidable {
     }
 
     @Embedded
-    @AttributeOverrides( {
-            @AttributeOverride(name="prepend", column = @Column(name="src_prepend") ),
-            @AttributeOverride(name="number", column = @Column(name="src_number") ),
-            @AttributeOverride(name="bankCode", column = @Column(name="src_bankCode") )
-    } )
+    @AttributeOverrides({
+            @AttributeOverride(name = "prepend", column = @Column(name = "src_prepend")),
+            @AttributeOverride(name = "number", column = @Column(name = "src_number")),
+            @AttributeOverride(name = "bankCode", column = @Column(name = "src_bankCode"))
+    })
     public AccountAddress getSource() {
         return source;
     }
@@ -57,11 +58,11 @@ public class Move extends BaseEntity implements IValidable {
     }
 
     @Embedded
-    @AttributeOverrides( {
-            @AttributeOverride(name="prepend", column = @Column(name="dst_prepend") ),
-            @AttributeOverride(name="number", column = @Column(name="dst_number") ),
-            @AttributeOverride(name="bankCode", column = @Column(name="dst_bankCode") )
-    } )
+    @AttributeOverrides({
+            @AttributeOverride(name = "prepend", column = @Column(name = "dst_prepend")),
+            @AttributeOverride(name = "number", column = @Column(name = "dst_number")),
+            @AttributeOverride(name = "bankCode", column = @Column(name = "dst_bankCode"))
+    })
     public AccountAddress getDestination() {
         return destination;
     }
@@ -71,11 +72,11 @@ public class Move extends BaseEntity implements IValidable {
     }
 
     @Column(nullable = false)
-    public long getAmount() {
+    public Long getAmount() {
         return amount;
     }
 
-    public void setAmount(long amount) {
+    public void setAmount(Long amount) {
         this.amount = amount;
     }
 
@@ -89,34 +90,35 @@ public class Move extends BaseEntity implements IValidable {
     }
 
     @Column
-    public int getVariableSymbol() {
+    public Integer getVariableSymbol() {
         return variableSymbol;
     }
 
-    public void setVariableSymbol(int variableSymbol) {
+    public void setVariableSymbol(Integer variableSymbol) {
         this.variableSymbol = variableSymbol;
     }
 
     @Column
-    public int getConstantSymbol() {
+    public Integer getConstantSymbol() {
         return constantSymbol;
     }
 
-    public void setConstantSymbol(int constantSymbol) {
+    public void setConstantSymbol(Integer constantSymbol) {
         this.constantSymbol = constantSymbol;
     }
 
     @Column
-    public int getSpecificSymbol() {
+    public Integer getSpecificSymbol() {
         return specificSymbol;
     }
 
-    public void setSpecificSymbol(int specificSymbol) {
+    public void setSpecificSymbol(Integer specificSymbol) {
         this.specificSymbol = specificSymbol;
     }
 
     /**
      * Datum splatnosti
+     *
      * @return datum požadovné splatnosti
      */
     @Column(nullable = false)
@@ -130,6 +132,7 @@ public class Move extends BaseEntity implements IValidable {
 
     /**
      * Datum zúčtování transakce
+     *
      * @return datum zaúčtování ransakce
      */
     public Date getTransferDate() {
@@ -167,14 +170,32 @@ public class Move extends BaseEntity implements IValidable {
     @Override
     public Set<String> validate(IValidator validator) {
         Set<String> errors = new HashSet<>();
-        //todo validation
+
+        if (validator.isEmptyField(amount)) {
+            errors.add(FormConfig.AMOUNT);
+        }
+        if (destination == null) {
+            errors.add(FormConfig.ACC_NUM);
+            errors.add(FormConfig.BANK_CODE);
+        } else {
+            if (validator.isEmptyField(destination.getNumber())) {
+                errors.add(FormConfig.ACC_NUM);
+            }
+        }
+        if (validator.isEmptyField(submissionDate)) {
+            errors.add(FormConfig.DUE_DATE);
+        }
         return errors;
     }
 
     @Override
     public Set<String> errorFields() {
         Set<String> errors = new HashSet<>();
-        //todo validation
+        errors.add(FormConfig.AMOUNT);
+        errors.add(FormConfig.DUE_DATE);
+        errors.add(FormConfig.ACC_NUM);
+        errors.add(FormConfig.BANK_CODE);
+
         return errors;
     }
 }

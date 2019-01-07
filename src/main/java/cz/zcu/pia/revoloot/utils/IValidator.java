@@ -12,6 +12,8 @@ public interface IValidator {
 
     boolean isEmptyField(String field);
     boolean isEmptyField(Date date);
+    boolean isEmptyField(Long amount);
+
     boolean checkBirthAgainstPersonID(Date birthDate, Gender gender, long personID);
 
 }

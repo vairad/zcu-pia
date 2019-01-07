@@ -21,6 +21,11 @@ public class BasicValidator implements IValidator {
     }
 
     @Override
+    public boolean isEmptyField(Long amount) {
+        return (amount == null || amount == 0);
+    }
+
+    @Override
     public boolean checkBirthAgainstPersonID(Date birthDate, Gender gender, long personID) {
         if(gender == Gender.FEMALE){
             personID -= 50 * 1000000;
