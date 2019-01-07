@@ -13,6 +13,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 
+import static cz.zcu.pia.revoloot.entities.EntityFactory.createAccountInfo;
+import static cz.zcu.pia.revoloot.entities.EntityFactory.createMove;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class DefaultTest extends DaoTest {
@@ -51,7 +53,7 @@ public class DefaultTest extends DaoTest {
         return customer;
     }
 
-    static Banker prepareBanker(String login, String image){
+    static Banker prepareBanker(String login, String image) {
         Address address = new Address();
         address.setCity("Plzeň");
         address.setHouseNo("15c");
@@ -67,7 +69,7 @@ public class DefaultTest extends DaoTest {
         banker.setName("Marek");
         banker.setSurname("Banker");
         banker.setPhoto(image);
-        banker.setEmail(login+"@revoloot.cz");
+        banker.setEmail(login + "@revoloot.cz");
         banker.setGender(Gender.FEMALE);
 
         return banker;
@@ -86,34 +88,24 @@ public class DefaultTest extends DaoTest {
 
     @Test
     void save() {
-        Customer customer = prepareCustomer("test", "pass");
+        Customer customer = EntityFactory.createCustomer();
+        customer.setLogin("test");
+        customer.setPassword(encoder.encode("pass"));
         customer = customerDAO.save(customer);
 
         assertNotEquals(customer.getId(), 0L, "Id was not returned.");
 
-        AccountAddress accounInfo = new AccountAddress();
-        accounInfo.setNumber(222);
-        accounInfo.setBankCode(3666);
-
         Account a = new Account();
         a.setCustomer(customer);
-        a.setAccountInfo(accounInfo);
+        a.setAccountInfo(createAccountInfo());
         a.setAmount(50000);
 
         accountDAO.save(a);
 
         assertNotEquals(a.getId(), 0L, "Id was not returned.");
 
-        Move m = new Move();
-        m.setAmount(500);
-        m.setConstantSymbol(666);
-        m.setDestination(accounInfo);
-        m.setSource(accounInfo);
-        m.setMessage("Messsage");
-        m.setNote("To byl ale dement!");
-        m.setSubmissionDate(new Date());
+        Move m = createMove();
         m.setOwner(a);
-
         moveDAO.save(m);
 
         assertNotEquals(m.getId(), 0L, "Id was not returned.");

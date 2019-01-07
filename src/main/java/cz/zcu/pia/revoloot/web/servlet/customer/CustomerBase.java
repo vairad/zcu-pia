@@ -17,6 +17,7 @@ public abstract class CustomerBase extends AbstractServlet {
         if(userName != null){
             Customer customer = customerManager.getByUsername(userName);
             if(customer != null){
+                req.setAttribute("customer", customer);
                 req.setAttribute("accountList", customerManager.getAllAccounts(customer.getId()));
             }
         }

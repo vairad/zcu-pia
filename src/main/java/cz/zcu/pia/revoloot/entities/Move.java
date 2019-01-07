@@ -1,6 +1,7 @@
 package cz.zcu.pia.revoloot.entities;
 
 import cz.zcu.pia.revoloot.utils.IValidator;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -69,6 +70,7 @@ public class Move extends BaseEntity implements IValidable {
         this.destination = destination;
     }
 
+    @Column(nullable = false)
     public long getAmount() {
         return amount;
     }
@@ -77,6 +79,7 @@ public class Move extends BaseEntity implements IValidable {
         this.amount = amount;
     }
 
+    @Column(nullable = false)
     public Currency getCurrency() {
         return currency;
     }
@@ -85,6 +88,7 @@ public class Move extends BaseEntity implements IValidable {
         this.currency = currency;
     }
 
+    @Column
     public int getVariableSymbol() {
         return variableSymbol;
     }
@@ -93,6 +97,7 @@ public class Move extends BaseEntity implements IValidable {
         this.variableSymbol = variableSymbol;
     }
 
+    @Column
     public int getConstantSymbol() {
         return constantSymbol;
     }
@@ -101,6 +106,7 @@ public class Move extends BaseEntity implements IValidable {
         this.constantSymbol = constantSymbol;
     }
 
+    @Column
     public int getSpecificSymbol() {
         return specificSymbol;
     }
@@ -109,6 +115,11 @@ public class Move extends BaseEntity implements IValidable {
         this.specificSymbol = specificSymbol;
     }
 
+    /**
+     * Datum splatnosti
+     * @return datum požadovné splatnosti
+     */
+    @Column(nullable = false)
     public Date getSubmissionDate() {
         return submissionDate;
     }
@@ -117,6 +128,10 @@ public class Move extends BaseEntity implements IValidable {
         this.submissionDate = submissionDate;
     }
 
+    /**
+     * Datum zúčtování transakce
+     * @return datum zaúčtování ransakce
+     */
     public Date getTransferDate() {
         return transferDate;
     }

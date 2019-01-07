@@ -46,4 +46,24 @@ public class EntityFactory {
         c.setLogin(login);
         return c;
     }
+
+    public static AccountAddress createAccountInfo() {
+        AccountAddress accountInfo = new AccountAddress();
+        accountInfo.setNumber(222);
+        accountInfo.setBankCode(3666);
+        return accountInfo;
+    }
+
+    public static Move createMove() {
+        Move m = new Move();
+        m.setAmount(500);
+        m.setConstantSymbol(666);
+        m.setDestination(createAccountInfo());
+        m.setSource(createAccountInfo());
+        m.setMessage("Zpráva příjemci");
+        m.setNote("Moje tajná poznámka");
+        m.setSubmissionDate(new Date());
+        m.setCurrency(Currency.CZK);
+        return m;
+    }
 }

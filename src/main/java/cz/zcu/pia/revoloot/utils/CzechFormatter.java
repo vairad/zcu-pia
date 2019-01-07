@@ -10,12 +10,18 @@ public class CzechFormatter implements IDateFormatter {
 
     @Override
     public String dateTimeFormat(Date date) {
+        if (date == null) {
+            return null;
+        }
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd. MM. yyyy HH:mm:ss");
         return dateFormat.format(date);
     }
 
     @Override
     public String dateFormat(Date date) {
+        if (date == null) {
+            return null;
+        }
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd. MM. yyyy");
         return dateFormat.format(date);
     }

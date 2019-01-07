@@ -6,7 +6,7 @@
 <jsp:include page="../components/head.jsp"/>
 
 <body>
-<%--@elvariable id="account" type="cz.zcu.pia.revoloot.entities.Account"--%>
+<%--@elvariable id="customer" type="cz.zcu.pia.revoloot.entities.Customer"--%>
 
 <!-- Main content -->
 <main class="container content text-center">
@@ -15,7 +15,32 @@
         <span class="octicon octicon-clippy"></span>
         Upravit údaje
     </a>
-
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 mb-2 mt-2">
+            <div class="profile card mb-2 p-2">
+                <h2>Osobní informace</h2>
+                <p>Jméno: ${customer.name} </p>
+                <p>Příjmení: ${customer.surname} </p>
+                <p>Rodné číslo: ${customer.printPersonID} </p>
+                <p>Číslo dokladu: ${customer.cardID} </p>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 mb-2 mt-2">
+            <div class="profile card mb-2 p-2">
+                <h2>Kontaktní adresa</h2>
+                <p>Ulice: ${customer.contactInfo.address.street} ${customer.contactInfo.address.houseNo}  </p>
+                <p>Město: ${customer.contactInfo.address.city} ${customer.contactInfo.address.postalCode} </p>
+                <p>Stát: ${customer.contactInfo.address.state} </p>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 mb-2 mt-2">
+            <div class="profile card mb-2 p-2">
+                <h2>Informace systému</h2>
+                <p>Login: ${customer.login} </p>
+                <p>Email: ${customer.contactInfo.email}</p>
+            </div>
+        </div>
+    </div>
 </main>
 <!-- Main content -->
 

@@ -14,6 +14,8 @@ public interface ICustomerManager {
 
     List<Account> getAllAccounts(long customerID);
 
+    List<Account> getAllNonDebetAccounts(long customerID);
+
     Customer getByUsername(String username);
 
 }

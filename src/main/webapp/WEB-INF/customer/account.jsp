@@ -6,6 +6,8 @@
 
 <body>
 <%--@elvariable id="account" type="cz.zcu.pia.revoloot.entities.Account"--%>
+<jsp:useBean id="dateFormatter" class="cz.zcu.pia.revoloot.utils.CzechFormatter" />
+
 
 <!-- Main content -->
 <main class="container content text-center">
@@ -23,8 +25,8 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th scope="col">Datum</th>
-                <th scope="col">Typ transakce</th>
+                <th scope="col">Datum splatnosti<br />Datum zaúčtování</th>
+                <th scope="col">Zdroj<br />Cíl</th>
                 <th scope="col">SS <br/> VS <br/> KS</th>
                 <th scope="col">Částka</th>
                 <th scope="col">Popis</th>
@@ -35,8 +37,10 @@
             <%--@elvariable id="move" type="cz.zcu.pia.revoloot.entities.Move"--%>
             <c:forEach items="#{account.moves}" var="move">
                 <tr>
-                    <td>${move.transferDate}</td>
-                    <td>${move.destination}</td>
+                    <td>${dateFormatter.dateTimeFormat(move.submissionDate)}<br />
+                        ${dateFormatter.dateTimeFormat(move.transferDate)}</td>
+                    <td>${move.source}<br />
+                    ${move.destination}</td>
                     <td>${move.specificSymbol}<br/>
                             ${move.variableSymbol} <br/>
                             ${move.constantSymbol}

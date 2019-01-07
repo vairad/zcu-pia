@@ -19,7 +19,7 @@ public class Customer extends User implements IValidable {
     private Long personID;
     private String cardID;
 
-    @Column
+    @Column(nullable = false)
     public ContactInfo getContactInfo() {
         return contactInfo;
     }
@@ -28,7 +28,7 @@ public class Customer extends User implements IValidable {
         this.contactInfo = contactInfo;
     }
 
-    @Column
+    @Column(nullable = false)
     public Date getBirthDate() {
         return birthDate;
     }
@@ -37,7 +37,7 @@ public class Customer extends User implements IValidable {
         this.birthDate = birthDate;
     }
 
-    @Column
+    @Column(nullable = false)
     public Long getPersonID() {
         return personID;
     }
@@ -66,7 +66,24 @@ public class Customer extends User implements IValidable {
         }
     }
 
-    @Column
+
+    /**
+     * Metoda vrací rodné číslo v CZ formátu
+     * @return YYMMDD/XXXX pokud je z ČR
+     */
+    @Transient
+    public String getPrintPersonID() {
+        if(contactInfo != null && contactInfo.getAddress() != null ) {
+            State state = contactInfo.getAddress().getState();
+            if (state != null && state.isCZ()) {
+                String idS = Long.toString(personID);
+                return idS.substring(0, 6) + "/" + idS.substring(6, 10);
+            }
+        }
+        return Long.toString(personID);
+    }
+
+    @Column(nullable = false)
     public String getCardID() {
         return cardID;
     }
@@ -133,6 +150,7 @@ public class Customer extends User implements IValidable {
         errors.add(FormConfig.BIRTH_DATE);
         return errors;
     }
+
 
     //endregion IValidable
 }

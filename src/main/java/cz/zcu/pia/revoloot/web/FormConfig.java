@@ -26,6 +26,18 @@ public class FormConfig {
     public static final String CARD_ID = "cardID" ;
     public static final String TURING_ID = "turingID";
     public static final String LOGIN = "login";
+    public static final String PRE_ACC_NUM = "preNum";
+    public static final String ACC_NUM = "accNum";
+    public static final String BANK_CODE = "bankCode";
+    public static final String AMOUNT = "amount";
+    public static final String CURRENCY = "currency";
+    public static final String SPECIFIC_SYMBOL = "ss";
+    public static final String CONSTANT_SYMBOL = "ks";
+    public static final String VARIABLE_SYMBOL = "vs";
+    public static final String DUE_DATE = "dueDate";
+    public static final String MESSAGE = "message";
+    public static final String NOTE = "note" ;
+    public static final String MY_ACCOUNT = "myAccount";
 
     public static String getTURING() {
         return TURING;

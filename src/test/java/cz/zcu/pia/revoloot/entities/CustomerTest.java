@@ -40,6 +40,31 @@ class CustomerTest {
     }
 
     @Test
+    void printPersonIDCZ() {
+        Address a = new Address();
+        a.setState(State.CZ);
+
+        ContactInfo ci = new ContactInfo();
+        ci.setAddress(a);
+
+        Customer customer = new Customer();
+        customer.setContactInfo(ci);
+        customer.setPersonIDSmart("9311012139");
+
+        String result = customer.getPrintPersonID();
+        assertEquals("931101/2139", result);
+    }
+
+    @Test
+    void printPersonIDOther() {
+        Customer customer = new Customer();
+        customer.setPersonIDSmart("9311012139");
+
+        String result = customer.getPrintPersonID();
+        assertEquals("9311012139", result);
+    }
+
+    @Test
     void validateContactInfoNull() {
         c.setContactInfo(null);
         Set<String> errors = c.validate(validator);
@@ -86,4 +111,6 @@ class CustomerTest {
         Set<String> errorsAll = c.errorFields();
         assertEquals(errorsAll, errorsV, "Validation do not contains all fields");
     }
+
+
 }

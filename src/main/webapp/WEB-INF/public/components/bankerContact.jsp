@@ -9,10 +9,10 @@
         <div class="col col-6">
             <h4>${param.name}</h4>
             <small>
-                <cite title="${param.branchAddress}"><i class="octicon octicon-home"></i>${param.branchAddress}</cite>
+                <cite title="${param.branchAddress}"><i class="octicon octicon-home"></i> ${param.branchAddress}</cite>
             </small>
             <p>
-                <i class="octicon octicon-mail"></i>${param.email}
+                <i class="octicon octicon-mail"></i> ${param.email}
             </p>
         </div>
     </div>
