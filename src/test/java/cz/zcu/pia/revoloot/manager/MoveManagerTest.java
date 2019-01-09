@@ -27,14 +27,15 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class MoveManagerTest extends ManagerBaseTest {
 
-    MoveManager moveManager;
+    private MoveManager moveManager;
 
-    IMoveDAO moveDAO;
-    IAccountDAO accountDAO;
-    IExchangeDAO exchangeDAO;
+    private IMoveDAO moveDAO;
+    private IAccountDAO accountDAO;
+    private IExchangeDAO exchangeDAO;
 
-    Account one;
-    Account two;
+    private Account one;
+    private Account two;
+    private Account gbp;
 
     @BeforeEach
     void setUp() {
@@ -78,6 +79,17 @@ class MoveManagerTest extends ManagerBaseTest {
         two.setAmount(5000.0);
         accountDAO.save(two);
 
+        accountAddress = createAccountInfo();
+        accountAddress.setNumber(444L);
+
+        gbp = new Account();
+        gbp.setCustomer(customer);
+        gbp.setCurrency(Currency.GBP);
+        gbp.setAccountInfo(accountAddress);
+        gbp.setTrueAmount(5000.0);
+        gbp.setAmount(5000.0);
+        accountDAO.save(gbp);
+
 
         exchangeDAO.save(createExchangeRate(Currency.CZK, Currency.GBP, 0.5));
         exchangeDAO.save(createExchangeRate(Currency.GBP, Currency.CZK, 2.0));
@@ -88,10 +100,20 @@ class MoveManagerTest extends ManagerBaseTest {
         endConnection();
     }
 
+    //====================================================================================================================
+    //====================================================================================================================
+    //====================================================================================================================
+    //====================================================================================================================
+    //====================================================================================================================
+    //====================================================================================================================
+
     @Test
     void sendMoney() {
     }
 
+    //====================================================================================================================
+    //====================================================================================================================
+    //====================================================================================================================
 
     @Test
     void lookUpExchangeRateSame() throws ExchangeRateDoesNotExist {
@@ -111,6 +133,9 @@ class MoveManagerTest extends ManagerBaseTest {
         assertEquals(2.0, rate, 0.000001);
     }
 
+    //====================================================================================================================
+    //====================================================================================================================
+    //====================================================================================================================
 
     @Test
     void tryProcessSend() throws ExchangeRateDoesNotExist, NotEnoughMoneyException {
@@ -165,32 +190,6 @@ class MoveManagerTest extends ManagerBaseTest {
     }
 
     @Test
-    void processMove() throws ExchangeRateDoesNotExist {
-        Move move = new Move();
-        move.setCurrency(Currency.CZK);
-        move.setAmount(500.0);
-        move.setOwner(one);
-        move.setSubmissionDate(new Date());
-        move.setIncome(false);
-        AccountAddress destination = new AccountAddress();
-        destination.setNumber(333L);
-        destination.setBankCode(3666);
-
-        move.setDestination(destination);
-        moveDAO.save(move);
-
-        moveManager.processMove(one, move);
-
-        assertEquals(4500.0, one.getTrueAmount(), 0.00000001);
-        assertEquals(5000.0, one.getAmount(), 0.00000001);
-        assertEquals(5500.0, two.getTrueAmount(), 0.00000001);
-        assertEquals(5500.0, two.getAmount(), 0.00000001);
-
-        assertEquals(500.0, move.getAmount(), 0.00000001);
-        assertFalse(move.isIncome());
-    }
-
-    @Test
     void passMoneyToReceiver() throws ExchangeRateDoesNotExist {
         Move move = new Move();
         move.setCurrency(Currency.CZK);
@@ -219,4 +218,90 @@ class MoveManagerTest extends ManagerBaseTest {
         accountDAO.save(one);
         accountDAO.save(two);
     }
+
+    //====================================================================================================================
+    //====================================================================================================================
+    //====================================================================================================================
+
+    @Test
+    void processMove() throws ExchangeRateDoesNotExist {
+        Move move = new Move();
+        move.setCurrency(Currency.CZK);
+        move.setAmount(500.0);
+        move.setOwner(one);
+        move.setSubmissionDate(new Date());
+        move.setIncome(false);
+        AccountAddress destination = new AccountAddress();
+        destination.setNumber(333L);
+        destination.setBankCode(3666);
+
+        move.setDestination(destination);
+        moveDAO.save(move);
+
+        moveManager.processMove(one, move);
+
+        assertEquals(4500.0, one.getTrueAmount(), 0.00000001);
+        assertEquals(5000.0, one.getAmount(), 0.00000001);
+        assertEquals(5500.0, two.getTrueAmount(), 0.00000001);
+        assertEquals(5500.0, two.getAmount(), 0.00000001);
+
+        assertEquals(500.0, move.getAmount(), 0.00000001);
+        assertFalse(move.isIncome());
+        assertEquals(Currency.CZK, move.getCurrency());
+    }
+
+    @Test
+    void processMoveCurrency() throws ExchangeRateDoesNotExist {
+        Move move = new Move();
+        move.setCurrency(Currency.GBP);
+        move.setAmount(500.0);
+        move.setOwner(one);
+        move.setSubmissionDate(new Date());
+        move.setIncome(false);
+        AccountAddress destination = new AccountAddress();
+        destination.setNumber(333L);
+        destination.setBankCode(3666);
+
+        move.setDestination(destination);
+        moveDAO.save(move);
+
+        moveManager.processMove(one, move);
+
+        assertEquals(4000.0, one.getTrueAmount(), 0.00000001);
+        assertEquals(5000.0, one.getAmount(), 0.00000001);
+        assertEquals(6000.0, two.getTrueAmount(), 0.00000001);
+        assertEquals(6000.0, two.getAmount(), 0.00000001);
+
+        assertEquals(1000.0, move.getAmount(), 0.00000001);
+        assertFalse(move.isIncome());
+        assertEquals(Currency.CZK, move.getCurrency());
+    }
+
+    @Test
+    void processMoveCurrencyAccount() throws ExchangeRateDoesNotExist {
+        Move move = new Move();
+        move.setCurrency(Currency.GBP);
+        move.setAmount(500.0);
+        move.setOwner(one);
+        move.setSubmissionDate(new Date());
+        move.setIncome(false);
+        AccountAddress destination = new AccountAddress();
+        destination.setNumber(444L);
+        destination.setBankCode(3666);
+
+        move.setDestination(destination);
+        moveDAO.save(move);
+
+        moveManager.processMove(one, move);
+
+        assertEquals(4000.0, one.getTrueAmount(), 0.00000001);
+        assertEquals(5000.0, one.getAmount(), 0.00000001);
+        assertEquals(5500.0, gbp.getTrueAmount(), 0.00000001);
+        assertEquals(5500.0, gbp.getAmount(), 0.00000001);
+
+        assertEquals(1000.0, move.getAmount(), 0.00000001);
+        assertFalse(move.isIncome());
+        assertEquals(Currency.CZK, move.getCurrency());
+    }
+
 }
