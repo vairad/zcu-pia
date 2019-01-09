@@ -10,7 +10,7 @@ import cz.zcu.pia.revoloot.dao.db.ExchangeDAO;
 import cz.zcu.pia.revoloot.dao.db.MoveDAO;
 import cz.zcu.pia.revoloot.entities.*;
 import cz.zcu.pia.revoloot.entities.exceptions.ExchangeRateDoesNotExist;
-import cz.zcu.pia.revoloot.utils.BasicBankNumerGenerator;
+import cz.zcu.pia.revoloot.utils.BasicBankNumberGenerator;
 import cz.zcu.pia.revoloot.utils.BasicValidator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,7 +50,7 @@ class MoveManagerTest extends ManagerBaseTest {
                 new BasicValidator(),
                 accountDAO,
                 exchangeDAO,
-                new BasicBankNumerGenerator()
+                new BasicBankNumberGenerator()
         );
 
         ICustomerDAO customerDAO = new CustomerDAO(em);

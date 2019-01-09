@@ -1,6 +1,6 @@
 package cz.zcu.pia.revoloot.utils;
 
-public class BasicBankNumerGenerator implements IBankNumbers {
+public class BasicBankNumberGenerator implements IBankNumbers {
     @Override
     public int getBankCode() {
         return 3666;
