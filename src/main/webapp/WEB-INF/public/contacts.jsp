@@ -10,11 +10,13 @@
     <h1 class="first-element display-3">Revolution loot</h1>
     <jsp:include page="../components/info.jsp"/>
 
-    <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed vel lectus. Donec odio tempus molestie, porttitor
-        ut, iaculis quis, sem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam,
-        nisi ut aliquid ex ea commodi consequatur? Sed convallis magna eu sem. Nulla non lectus sed nisl molestie
-        malesuada. Maecenas lorem. Nullam dapibus fermentum ipsum. Etiam commodo dui eget wisi. Sed vel lectus. Donec
-        odio tempus molestie, porttitor ut, iaculis quis, sem. Etiam quis quam.</p>
+    <p class="h2">... jsme důvěryhodní a klientům vždy nablízku...</p>
+
+    <p>
+        Každý den Vám přinášíme to nejlepší ze světa tradičních bank i moderních technologií.
+        Se zájmem a péčí obsluhujeme Vás a další milion klientů, což z nás dělá čtvrtou největší banku v zemi.
+        S internetovým bankovnictvím Revoloot jsme Vám vždy nablízku.
+    </p>
 
     <h2>Naši bankéři</h2>
 

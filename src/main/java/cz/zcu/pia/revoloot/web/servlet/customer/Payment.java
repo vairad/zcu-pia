@@ -8,7 +8,6 @@ import cz.zcu.pia.revoloot.manager.IMoveManager;
 import cz.zcu.pia.revoloot.web.FormConfig;
 import cz.zcu.pia.revoloot.web.ServletNaming;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,7 +37,7 @@ public class Payment extends CustomerBase {
         String forwardPage = "/WEB-INF/customer/payment.jsp";
 
         Move move = formFiller.fillMoveFromForm(req);
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = getLoggedUser();
         try {
             if (req.getParameter("submit").equals("pay")) {
                 moveManager.sendMoney(move, user.getId());
