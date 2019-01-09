@@ -11,6 +11,8 @@
 <!-- Main content -->
 <main class="container content text-center">
     <h1 class="display-4">Váš profil</h1>
+    <jsp:include page="../components/info.jsp"/>
+
     <a href="<%=ServletNaming.CUSTOMER_UPDATE%>" class="btn btn-outline-success my-2 my-sm-0 m-2" role="button">
         <span class="octicon octicon-clippy"></span>
         Upravit údaje

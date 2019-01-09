@@ -3,6 +3,7 @@ package cz.zcu.pia.revoloot.dao.db;
 import cz.zcu.pia.revoloot.dao.IExchangeDAO;
 import cz.zcu.pia.revoloot.entities.Currency;
 import cz.zcu.pia.revoloot.entities.ExchangeRate;
+import cz.zcu.pia.revoloot.entities.exceptions.ExchangeRateDoesNotExist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -38,7 +39,7 @@ public class ExchangeDAO extends GenericDAO<ExchangeRate> implements IExchangeDA
 
 
     @Override
-    public double getExchchangeRate(Currency from, Currency to) {
+    public double getExchchangeRate(Currency from, Currency to) throws ExchangeRateDoesNotExist {
         logger.info("Find exchange rate: " + from + " -> " + to);
 
         TypedQuery<ExchangeRate> q = em.createQuery("SELECT ex FROM ExchangeRate ex " +
@@ -52,7 +53,7 @@ public class ExchangeDAO extends GenericDAO<ExchangeRate> implements IExchangeDA
             return exchangeRate.getRate();
         } catch (NoResultException e) {
             logger.debug("No exchange rate found: " + from + " -> " + to);
-            throw new NullPointerException("No echange rate");
+            throw new ExchangeRateDoesNotExist();
         }
     }
 }

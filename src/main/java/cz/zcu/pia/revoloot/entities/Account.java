@@ -183,8 +183,7 @@ public class Account extends BaseEntity {
      *
      * @return seznam všech pohybů na účtu
      */
-    @OneToMany
-    @JoinColumn(name = "id")
+    @OneToMany(mappedBy="owner")
     public List<Move> getMoves() {
         return moves;
     }
@@ -200,6 +199,7 @@ public class Account extends BaseEntity {
 
     /**
      * Dva účty jsou shodné, pokud je shodné číslo účtu
+     *
      * @param o objekt k porovnání
      * @return true pokud jde o stejný účet
      */
@@ -213,6 +213,7 @@ public class Account extends BaseEntity {
 
     /**
      * Hash funkce je vypočtena z accountInfo
+     *
      * @return hash pro tento účet
      */
     @Override

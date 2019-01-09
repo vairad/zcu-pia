@@ -6,8 +6,8 @@
 
 <!-- Main content -->
 <main class="container content text-center">
-
     <h1 class="display-3">Naše produkty</h1>
+    <jsp:include page="../components/info.jsp"/>
 
     <!-- MAIN PRODUCT -->
     <div class="row justify-content-md-center">

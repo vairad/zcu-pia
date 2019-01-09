@@ -59,7 +59,6 @@ public class EntityFactory {
         m.setAmount(500.00);
         m.setConstantSymbol(666);
         m.setDestination(createAccountInfo());
-        m.setSource(createAccountInfo());
         m.setMessage("Zpráva příjemci");
         m.setNote("Moje tajná poznámka");
         m.setSubmissionDate(new Date());

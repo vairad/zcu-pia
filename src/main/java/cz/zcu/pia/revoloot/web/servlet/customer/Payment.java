@@ -1,11 +1,14 @@
 package cz.zcu.pia.revoloot.web.servlet.customer;
 
 import cz.zcu.pia.revoloot.entities.Move;
+import cz.zcu.pia.revoloot.entities.User;
 import cz.zcu.pia.revoloot.entities.exceptions.MoveValidationException;
 import cz.zcu.pia.revoloot.manager.IFormFiller;
 import cz.zcu.pia.revoloot.manager.IMoveManager;
+import cz.zcu.pia.revoloot.web.FormConfig;
 import cz.zcu.pia.revoloot.web.ServletNaming;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,26 +35,28 @@ public class Payment extends CustomerBase {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         prepareCustomerView(req);
 
-        Move move = formFiller.fillMoveFromForm(req);
+        String forwardPage = "/WEB-INF/customer/payment.jsp";
 
+        Move move = formFiller.fillMoveFromForm(req);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         try {
             if (req.getParameter("submit").equals("pay")) {
-                moveManager.addMove(move);
+                moveManager.sendMoney(move, user.getId());
                 req.setAttribute("success", "Pohyb byl úspěšně zadán.");
-                req.getRequestDispatcher(ServletNaming.WELCOME).forward(req, resp);
-                return;
+                forwardPage = ServletNaming.WELCOME;
+                resp.sendRedirect(ServletNaming.WELCOME);
             } else {
-                moveManager.addTemplate(move);
+                String templateName = req.getParameter(FormConfig.TEMPLATE_NAME);
+                moveManager.addTemplate(templateName, move);
                 req.setAttribute("success", "Šablona byla úspěšně uložena.");
-                req.getRequestDispatcher(ServletNaming.WELCOME).forward(req, resp);
-                return;
+                forwardPage = ServletNaming.WELCOME;
             }
-        }catch (MoveValidationException ex){
+        } catch (MoveValidationException ex) {
             log("invalid move object");
             req.setAttribute("errors", ex.getErrors());
         }
 
         req.setAttribute("move", move);
-        req.getRequestDispatcher("/WEB-INF/customer/payment.jsp").forward(req, resp);
+        req.getRequestDispatcher(forwardPage).forward(req, resp);
     }
 }

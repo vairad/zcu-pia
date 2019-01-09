@@ -16,6 +16,16 @@ public class FormFiller implements IFormFiller {
 
     private Logger logger = LoggerFactory.getLogger(FormFiller.class.getName());
 
+    private Date parseDateTime(String dateRepresentation) {
+        try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(dateRepresentation);
+            return date;
+        } catch (ParseException | NullPointerException e) {
+            logger.warn("date could not be parsed");
+        }
+        return null;
+    }
+
     private Date parseDate(String dateRepresentation) {
         try {
             Date date = new SimpleDateFormat("dd-MM-yyyy").parse(dateRepresentation);
@@ -132,21 +142,24 @@ public class FormFiller implements IFormFiller {
 
 
     @Override
-    public AccountAddress fillSourceAccountAddressFromForm(HttpServletRequest req) {
+    public Account fillSourceAccountAddressFromForm(HttpServletRequest req) {
         AccountAddress accountAddress = new AccountAddress();
-        accountAddress.setNumber(parseLong(req.getParameter(FormConfig.MY_ACCOUNT)));
-        return accountAddress;
+        Long accNum = parseLong(req.getParameter(FormConfig.MY_ACCOUNT));
+        accountAddress.setNumber(accNum);
+        Account acc = new Account();
+        acc.setAccountInfo(accountAddress);
+        return acc;
     }
 
     @Override
     public Move fillMoveFromForm(HttpServletRequest req) {
         Move move = new Move();
 
-        move.setSource(fillSourceAccountAddressFromForm(req));
+        move.setOwner(fillSourceAccountAddressFromForm(req));
         move.setDestination(fillAccountAddressFromForm(req));
 
         move.setAmount(parseDouble(req.getParameter(FormConfig.AMOUNT)));
-        move.setSubmissionDate(parseDate(req.getParameter(FormConfig.DUE_DATE)));
+        move.setSubmissionDate(parseDateTime(req.getParameter(FormConfig.DUE_DATE)));
         move.setVariableSymbol(parseInteger(req.getParameter(FormConfig.VARIABLE_SYMBOL)));
         move.setConstantSymbol(parseInteger(req.getParameter(FormConfig.CONSTANT_SYMBOL)));
         move.setSpecificSymbol(parseInteger(req.getParameter(FormConfig.SPECIFIC_SYMBOL)));

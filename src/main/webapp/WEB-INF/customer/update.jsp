@@ -11,6 +11,7 @@
 <!-- Main content -->
 <main class="container content text-center">
     <h1 class="display-4">Upravit údaje</h1>
+    <jsp:include page="../components/info.jsp"/>
 
 </main>
 <!-- Main content -->

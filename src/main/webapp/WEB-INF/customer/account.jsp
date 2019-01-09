@@ -6,12 +6,12 @@
 
 <body>
 <%--@elvariable id="account" type="cz.zcu.pia.revoloot.entities.Account"--%>
-<jsp:useBean id="dateFormatter" class="cz.zcu.pia.revoloot.utils.CzechFormatter" />
-
+<jsp:useBean id="dateFormatter" scope="application" class="cz.zcu.pia.revoloot.utils.CzechFormatter" type="cz.zcu.pia.revoloot.utils.IDateFormatter"/>
 
 <!-- Main content -->
 <main class="container content text-center">
     <h1 class="display-4">Detail účtu</h1>
+    <jsp:include page="../components/info.jsp"/>
 
     <div class="product product-2 p-3 row mb-2">
         <h3 class="m-3">Disponibilní zůstatek:&nbsp;${account.amount}&nbsp;Kč</h3>
@@ -26,7 +26,7 @@
             <thead>
             <tr>
                 <th scope="col">Datum splatnosti<br />Datum zaúčtování</th>
-                <th scope="col">Zdroj<br />Cíl</th>
+                <th scope="col">Protiúčet</th>
                 <th scope="col">SS <br/> VS <br/> KS</th>
                 <th scope="col">Částka</th>
                 <th scope="col">Popis</th>
@@ -39,7 +39,8 @@
                 <tr>
                     <td>${dateFormatter.dateTimeFormat(move.submissionDate)}<br />
                         ${dateFormatter.dateTimeFormat(move.transferDate)}</td>
-                    <td>${move.source}<br />
+                    <td><c:if test="${move.income}"><p><span class="octicon oction-diff-added">A<span class="sr-only">Příjem</span></span></p></c:if>
+                        <c:if test="not ${move.income}"><p><span class="octicon oction-diff-removed">v<span class="sr-only">Výdej</span></span></p></c:if>
                     ${move.destination}</td>
                     <td>${move.specificSymbol}<br/>
                             ${move.variableSymbol} <br/>

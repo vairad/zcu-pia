@@ -4,7 +4,6 @@ import cz.zcu.pia.revoloot.utils.IValidator;
 import cz.zcu.pia.revoloot.web.FormConfig;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +14,7 @@ public class Move extends BaseEntity implements IValidable {
 
     private Account owner;
 
-    private AccountAddress source;
+    private boolean income;
     private AccountAddress destination;
 
     private Double amount;
@@ -34,7 +33,7 @@ public class Move extends BaseEntity implements IValidable {
     private boolean processed;
 
     @ManyToOne
-    @JoinColumn(name = "owner")
+    @JoinColumn(nullable=false)
     public Account getOwner() {
         return owner;
     }
@@ -43,26 +42,16 @@ public class Move extends BaseEntity implements IValidable {
         this.owner = owner;
     }
 
-    @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "prepend", column = @Column(name = "src_prepend")),
-            @AttributeOverride(name = "number", column = @Column(name = "src_number")),
-            @AttributeOverride(name = "bankCode", column = @Column(name = "src_bankCode"))
-    })
-    public AccountAddress getSource() {
-        return source;
+    @Column(nullable = false)
+    public boolean isIncome() {
+        return income;
     }
 
-    public void setSource(AccountAddress source) {
-        this.source = source;
+    public void setIncome(boolean income) {
+        this.income = income;
     }
 
     @Embedded
-    @AttributeOverrides({
-            @AttributeOverride(name = "prepend", column = @Column(name = "dst_prepend")),
-            @AttributeOverride(name = "number", column = @Column(name = "dst_number")),
-            @AttributeOverride(name = "bankCode", column = @Column(name = "dst_bankCode"))
-    })
     public AccountAddress getDestination() {
         return destination;
     }
@@ -173,7 +162,7 @@ public class Move extends BaseEntity implements IValidable {
     public Set<String> validate(IValidator validator) {
         Set<String> errors = new HashSet<>();
 
-        if (validator.isEmptyField(amount)) {
+        if (validator.isEmptyField(amount) || amount < 0) {
             errors.add(FormConfig.AMOUNT);
         }
         if (destination == null) {
@@ -181,7 +170,7 @@ public class Move extends BaseEntity implements IValidable {
         } else {
             errors.addAll(destination.validate(validator));
         }
-        if (validator.isEmptyField(submissionDate)) {
+        if (validator.isEmptyField(submissionDate) || submissionDate.before(new Date())) {
             errors.add(FormConfig.DUE_DATE);
         }
         if (currency == null) {
@@ -201,4 +190,5 @@ public class Move extends BaseEntity implements IValidable {
 
         return errors;
     }
+
 }

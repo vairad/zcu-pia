@@ -6,7 +6,8 @@
 <body>
 <main class="container content text-center">
 
-    <jsp:include page="components/customerList.jsp"/>
+<jsp:include page="../components/info.jsp"/>
+<jsp:include page="components/customerList.jsp"/>
 
 
 </main>

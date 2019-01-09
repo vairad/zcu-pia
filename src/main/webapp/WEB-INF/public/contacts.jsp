@@ -7,8 +7,8 @@
 
 <!-- Main content -->
 <main class="container content text-center">
-
     <h1 class="first-element display-3">Revolution loot</h1>
+    <jsp:include page="../components/info.jsp"/>
 
     <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed vel lectus. Donec odio tempus molestie, porttitor
         ut, iaculis quis, sem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam,

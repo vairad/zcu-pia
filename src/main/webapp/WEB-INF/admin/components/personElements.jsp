@@ -26,13 +26,14 @@
         <jsp:param name="VALUE" value="${customer.surname}"/>
     </jsp:include>
 </div>
-
+<jsp:useBean id="dateFormatter" scope="application" class="cz.zcu.pia.revoloot.utils.CzechFormatter" type="cz.zcu.pia.revoloot.utils.IDateFormatter"/>
 <div class="form-label-group">
     <jsp:include page="../../components/labeledInput.jsp">
         <jsp:param name="TYPE" value="date"/>
         <jsp:param name="FIELD" value="<%=FormConfig.BIRTH_DATE%>"/>
         <jsp:param name="VIEW_NAME" value="Datum narozeí"/>
         <jsp:param name="ERROR_MESSAGE" value="Zadejte datum narození ve formátu: dd-MM-YYYY"/>
+        <jsp:param name="VALUE" value="${dateFormatter.dateToForm(customer.birthDate)}"/>
     </jsp:include>
 </div>
 
