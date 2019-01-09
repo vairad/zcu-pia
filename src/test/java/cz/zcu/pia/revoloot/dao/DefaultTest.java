@@ -8,11 +8,7 @@ import cz.zcu.pia.revoloot.utils.PasswordHashEncoder;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.util.Date;
-
-import static cz.zcu.pia.revoloot.entities.EntityFactory.createAccountInfo;
-import static cz.zcu.pia.revoloot.entities.EntityFactory.createExchangeRate;
-import static cz.zcu.pia.revoloot.entities.EntityFactory.createMove;
+import static cz.zcu.pia.revoloot.entities.EntityFactory.*;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class DefaultTest extends DaoTest {
@@ -73,6 +69,16 @@ public class DefaultTest extends DaoTest {
         a.setCustomer(customer);
         a.setAccountInfo(createAccountInfo());
         a.setAmount(50000.00);
+        a.setTrueAmount(50000.00);
+
+        accountDAO.save(a);
+
+        a = new Account();
+        a.setCustomer(customer);
+        a.setAccountInfo(createAccountInfo());
+        a.getAccountInfo().setNumber(333L);
+        a.setAmount(50000.00);
+        a.setTrueAmount(50000.00);
 
         accountDAO.save(a);
 

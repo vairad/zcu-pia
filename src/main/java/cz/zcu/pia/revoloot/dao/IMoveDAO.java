@@ -11,4 +11,5 @@ import java.util.List;
  */
 public interface IMoveDAO extends IGenericDAO<Move> {
 
+    List<Move> getMovesToProcess(int limit);
 }

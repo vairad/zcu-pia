@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-
 @Component
 public class MoveJob {
 
@@ -24,7 +22,7 @@ public class MoveJob {
 
     @Scheduled(fixedRate = 5000)
     public void processMoves() {
-        moveManager.processMoves();
+        moveManager.processMoves(5);
         log.info("All passed moves was processed");
     }
 }

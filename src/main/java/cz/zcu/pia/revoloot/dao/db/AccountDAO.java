@@ -107,4 +107,21 @@ public class AccountDAO extends GenericDAO<Account> implements IAccountDAO {
             return null;
         }
     }
+
+    @Override
+    public Long findMaxAccountNumber() {
+        logger.info("Find max account number");
+
+        TypedQuery<Long> q = em.createQuery("SELECT max(a.accountInfo.number)  FROM Account a", Long.class);
+
+        try {
+            Long accountNumber = q.getSingleResult();
+            logger.info("Max account number was found: " + accountNumber);
+            return accountNumber;
+        } catch (NoResultException e) {
+            logger.debug("Max account number was not found");
+            //no result found
+            return null;
+        }
+    }
 }

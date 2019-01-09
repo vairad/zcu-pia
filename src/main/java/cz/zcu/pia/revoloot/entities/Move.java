@@ -32,6 +32,27 @@ public class Move extends BaseEntity implements IValidable {
 
     private boolean processed;
 
+    public Move(){
+        processed = false;
+        income = false;
+    }
+
+    public Move(Move move){
+        owner = move.owner;
+        income = move.income;
+        destination = move.destination;
+        amount = move.amount;
+        currency = move.currency;
+        variableSymbol = move.variableSymbol;
+        constantSymbol = move.constantSymbol;
+        specificSymbol = move.specificSymbol;
+        submissionDate = move.submissionDate;
+        transferDate = move.transferDate;
+        message = move.message;
+        note = move.note;
+        processed = false;
+    }
+
     @ManyToOne
     @JoinColumn(nullable=false)
     public Account getOwner() {

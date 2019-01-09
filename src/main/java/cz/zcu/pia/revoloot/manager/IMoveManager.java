@@ -15,11 +15,10 @@ public interface IMoveManager {
      */
     void sendMoney(Move move, long customerD) throws MoveValidationException;
 
-
     void addTemplate(String templateName, Move move) throws MoveValidationException;
 
     /**
      * Meotda provede zpracování všech příkazů po splatnosti
      */
-    void processMoves();
+    void processMoves(int limit);
 }

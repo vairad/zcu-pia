@@ -40,4 +40,10 @@ public interface IAccountDAO extends IGenericDAO<Account> {
      * @return účet / null pokud nemá práva
      */
     Account checkAccount(Long userId, Long accNo);
+
+    /**
+     * Metoda najde nejvyšší přidělené číslo
+     * @return max saved account number
+     */
+    Long findMaxAccountNumber();
 }

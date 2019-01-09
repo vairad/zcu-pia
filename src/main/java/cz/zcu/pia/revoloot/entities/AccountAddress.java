@@ -114,9 +114,9 @@ public class AccountAddress implements IValidable {
         if (this == o) return true;
         if (!(o instanceof AccountAddress)) return false;
         AccountAddress that = (AccountAddress) o;
-        return bankCode.equals(that.bankCode) &&
-                prepend.equals(that.prepend) &&
-                number.equals(that.number);
+        return Objects.equals(prepend, that.prepend) &&
+                Objects.equals(number, that.number) &&
+                Objects.equals(bankCode, that.bankCode);
     }
 
     /**
