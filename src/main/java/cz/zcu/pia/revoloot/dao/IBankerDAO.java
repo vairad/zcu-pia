@@ -1,5 +1,6 @@
 package cz.zcu.pia.revoloot.dao;
 
+import cz.zcu.pia.revoloot.entities.Account;
 import cz.zcu.pia.revoloot.entities.Banker;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @author Radek VAIS
  */
-public interface IBankerDAO {
+public interface IBankerDAO extends IGenericDAO<Banker> {
 
     /**
      * Meotda vyhledá vrátí všechny aktivní existující veřejné bankéře. ({@link Banker#isSecret()})

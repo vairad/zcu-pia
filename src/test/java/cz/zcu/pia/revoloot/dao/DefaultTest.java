@@ -1,9 +1,6 @@
 package cz.zcu.pia.revoloot.dao;
 
-import cz.zcu.pia.revoloot.dao.db.AccountDAO;
-import cz.zcu.pia.revoloot.dao.db.BankerDAO;
-import cz.zcu.pia.revoloot.dao.db.CustomerDAO;
-import cz.zcu.pia.revoloot.dao.db.MoveDAO;
+import cz.zcu.pia.revoloot.dao.db.*;
 import cz.zcu.pia.revoloot.entities.*;
 import cz.zcu.pia.revoloot.utils.IEncoder;
 import cz.zcu.pia.revoloot.utils.IPasswordGenerator;
@@ -14,44 +11,20 @@ import org.junit.jupiter.api.Test;
 import java.util.Date;
 
 import static cz.zcu.pia.revoloot.entities.EntityFactory.createAccountInfo;
+import static cz.zcu.pia.revoloot.entities.EntityFactory.createExchangeRate;
 import static cz.zcu.pia.revoloot.entities.EntityFactory.createMove;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class DefaultTest extends DaoTest {
-    private static CustomerDAO customerDAO;
-    private static AccountDAO accountDAO;
-    private static MoveDAO moveDAO;
-    private static BankerDAO bankerDAO;
+    private static ICustomerDAO customerDAO;
+    private static IAccountDAO accountDAO;
+    private static IMoveDAO moveDAO;
+    private static IBankerDAO bankerDAO;
+    private static IExchangeDAO exchangeDAO;
 
     private static IEncoder encoder;
     private static IPasswordGenerator generator;
 
-
-    static Customer prepareCustomer(String login, String password) {
-        Address address = new Address();
-        address.setCity("Plzeň");
-        address.setHouseNo("15E");
-        address.setStreet("Mulajova");
-        address.setPostalCode(31250);
-        address.setState(State.SVK);
-
-        ContactInfo contactInfo = new ContactInfo();
-        contactInfo.setAddress(address);
-        contactInfo.setEmail("boo@voo.doo");
-        contactInfo.setPhone(123456789);
-
-        Customer customer = new Customer();
-        customer.setCreated(new Date());
-        customer.setLogin(login);
-        customer.setPassword(encoder.encode(password));
-        customer.setName("Marek");
-        customer.setSurname("Prijmenak");
-        customer.setContactInfo(contactInfo);
-        customer.setGender(Gender.MALE);
-        customer.setCardID("a15888OP");
-
-        return customer;
-    }
 
     static Banker prepareBanker(String login, String image) {
         Address address = new Address();
@@ -83,6 +56,7 @@ public class DefaultTest extends DaoTest {
         accountDAO = new AccountDAO(em);
         moveDAO = new MoveDAO(em);
         bankerDAO = new BankerDAO(em);
+        exchangeDAO = new ExchangeDAO(em);
     }
 
 
@@ -98,7 +72,7 @@ public class DefaultTest extends DaoTest {
         Account a = new Account();
         a.setCustomer(customer);
         a.setAccountInfo(createAccountInfo());
-        a.setAmount(50000);
+        a.setAmount(50000.00);
 
         accountDAO.save(a);
 
@@ -117,6 +91,11 @@ public class DefaultTest extends DaoTest {
         Banker banker2 = prepareBanker("bank2", "banker2.png");
         banker2 = bankerDAO.save(banker2);
         assertNotEquals(banker2.getId(), 0L, "Id was not returned.");
+
+        ExchangeRate ex = createExchangeRate(Currency.CZK, Currency.GBP, 0.0351080553);
+        exchangeDAO.save(ex);
+        ex = createExchangeRate(Currency.GBP, Currency.CZK, 28.4834916);
+        exchangeDAO.save(ex);
     }
 
 }

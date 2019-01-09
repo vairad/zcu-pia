@@ -16,4 +16,9 @@ public interface IMoveManager {
     void addMove(Move move) throws MoveValidationException;
 
     void addTemplate(Move move) throws MoveValidationException;
+
+    /**
+     * Meotda provede zpracování všech příkazů po splatnosti
+     */
+    void processMoves();
 }

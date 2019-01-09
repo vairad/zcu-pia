@@ -25,11 +25,11 @@ public class Account extends BaseEntity {
     /**
      * disponibilní zůstatek
      */
-    private double amount;
+    private Double amount;
     /**
      * účetní zůstatek
      */
-    private double trueAmount;
+    private Double trueAmount;
 
     /**
      * seznam pohybů na účtu
@@ -62,7 +62,7 @@ public class Account extends BaseEntity {
      *
      * @return číslo účtu
      */
-    @Column(updatable = false)
+    @Column(updatable = false, nullable = false)
     @Embedded
     public AccountAddress getAccountInfo() {
         return accountInfo;
@@ -83,7 +83,7 @@ public class Account extends BaseEntity {
      * @return disponibilní zůstatek účtu.
      */
     @Column
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
@@ -93,7 +93,7 @@ public class Account extends BaseEntity {
      *
      * @param amount aktuální stav konta.
      */
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
@@ -103,7 +103,7 @@ public class Account extends BaseEntity {
      * @return účetní zůstatek účtu
      */
     @Column
-    public double getTrueAmount() {
+    public Double getTrueAmount() {
         return trueAmount;
     }
 
@@ -114,7 +114,7 @@ public class Account extends BaseEntity {
      *
      * @param trueAmount aktuální hodnota disponibilního zůstatku
      */
-    public void setTrueAmount(double trueAmount) {
+    public void setTrueAmount(Double trueAmount) {
         this.trueAmount = trueAmount;
     }
 
@@ -124,6 +124,7 @@ public class Account extends BaseEntity {
      * @return měna účtu
      */
     @Column(updatable = false)
+    @Enumerated(EnumType.STRING)
     public Currency getCurrency() {
         return currency;
     }

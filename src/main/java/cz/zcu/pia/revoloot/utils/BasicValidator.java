@@ -16,13 +16,23 @@ public class BasicValidator implements IValidator {
     }
 
     @Override
-    public boolean isEmptyField(Date date) {
-        return date == null;
+    public boolean isEmptyField(Date field) {
+        return field == null;
     }
 
     @Override
-    public boolean isEmptyField(Long amount) {
-        return (amount == null || amount == 0);
+    public boolean isEmptyField(Long field) {
+        return (field == null || field == 0);
+    }
+
+    @Override
+    public boolean isEmptyField(Integer field) {
+        return (field == null || field == 0);
+    }
+
+    @Override
+    public boolean isEmptyField(Double field) {
+        return (field == null || field == 0);
     }
 
     @Override

@@ -4,13 +4,14 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation=
                "http://www.springframework.org/schema/beans
      http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
      http://www.springframework.org/schema/context
      http://www.springframework.org/schema/context/spring-context-4.0.xsd
      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-     http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd"
+     http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"
 >
 
     <context:annotation-config/>
@@ -45,4 +46,9 @@
 
     <security:global-method-security pre-post-annotations="enabled"/>
 
+    <task:scheduled-tasks scheduler="myScheduler">
+        <task:scheduled ref="moveJob" method="processMoves" fixed-delay="5000" />
+    </task:scheduled-tasks>
+
+    <task:scheduler id="myScheduler"/>
 </beans>

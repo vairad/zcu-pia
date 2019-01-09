@@ -87,4 +87,24 @@ public class AccountDAO extends GenericDAO<Account> implements IAccountDAO {
             return null;
         }
     }
+
+    @Override
+    public Account checkAccount(Long userId, Long accNo) {
+        logger.info("Find accounts for user: " + userId + " accNo " + accNo);
+
+        TypedQuery<Account> q = em.createQuery("SELECT a FROM Account a " +
+                "WHERE a.customer.id = :customerID AND a.accountInfo.number = :accNo", Account.class);
+        q.setParameter("customerID", userId);
+        q.setParameter("accNo", accNo);
+
+        try {
+            Account account = q.getSingleResult();
+            logger.info("Account some accounts found.");
+            return account;
+        } catch (NoResultException e) {
+            logger.debug("User" + userId + " not owe accNo: " + accNo);
+            //no result found
+            return null;
+        }
+    }
 }

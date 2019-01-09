@@ -10,5 +10,8 @@ public interface IFormFiller {
     Address fillAddressFromForm(HttpServletRequest req);
     ContactInfo fillContactInfoFromForm(HttpServletRequest req);
     AccountAddress fillAccountAddressFromForm(HttpServletRequest req);
+
+    AccountAddress fillSourceAccountAddressFromForm(HttpServletRequest req);
+
     Move fillMoveFromForm(HttpServletRequest request);
 }

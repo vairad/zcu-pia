@@ -49,14 +49,14 @@ public class EntityFactory {
 
     public static AccountAddress createAccountInfo() {
         AccountAddress accountInfo = new AccountAddress();
-        accountInfo.setNumber(222);
+        accountInfo.setNumber(222L);
         accountInfo.setBankCode(3666);
         return accountInfo;
     }
 
     public static Move createMove() {
         Move m = new Move();
-        m.setAmount(500);
+        m.setAmount(500.00);
         m.setConstantSymbol(666);
         m.setDestination(createAccountInfo());
         m.setSource(createAccountInfo());
@@ -65,5 +65,13 @@ public class EntityFactory {
         m.setSubmissionDate(new Date());
         m.setCurrency(Currency.CZK);
         return m;
+    }
+
+    public static ExchangeRate createExchangeRate(Currency from, Currency to, double rate){
+        ExchangeRate exchangeRate = new ExchangeRate();
+        exchangeRate.setFromCur(from);
+        exchangeRate.setToCur(to);
+        exchangeRate.setRate(rate);
+        return exchangeRate;
     }
 }

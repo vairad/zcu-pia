@@ -38,6 +38,7 @@ public class FormConfig {
     public static final String MESSAGE = "message";
     public static final String NOTE = "note" ;
     public static final String MY_ACCOUNT = "myAccount";
+    public static final String TEMPLATE_NAME = "template";
 
     public static String getTURING() {
         return TURING;

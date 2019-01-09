@@ -50,6 +50,18 @@ public class FormFiller implements IFormFiller {
         return null;
     }
 
+    private Double parseDouble(String doubleRepre) {
+        if (doubleRepre == null || doubleRepre.isEmpty()) {
+            return null;
+        }
+        try {
+            return Double.parseDouble(doubleRepre);
+        } catch (NumberFormatException ex) {
+            logger.warn("Wrong number format", ex);
+        }
+        return null;
+    }
+
     @Override
     public Customer fillCustomerFromForm(HttpServletRequest req) {
         logger.info("start");
@@ -118,15 +130,33 @@ public class FormFiller implements IFormFiller {
         return accountAddress;
     }
 
+
+    @Override
+    public AccountAddress fillSourceAccountAddressFromForm(HttpServletRequest req) {
+        AccountAddress accountAddress = new AccountAddress();
+        accountAddress.setNumber(parseLong(req.getParameter(FormConfig.MY_ACCOUNT)));
+        return accountAddress;
+    }
+
     @Override
     public Move fillMoveFromForm(HttpServletRequest req) {
         Move move = new Move();
+
+        move.setSource(fillSourceAccountAddressFromForm(req));
         move.setDestination(fillAccountAddressFromForm(req));
-        move.setAmount(parseLong(req.getParameter(FormConfig.AMOUNT)));
+
+        move.setAmount(parseDouble(req.getParameter(FormConfig.AMOUNT)));
         move.setSubmissionDate(parseDate(req.getParameter(FormConfig.DUE_DATE)));
         move.setVariableSymbol(parseInteger(req.getParameter(FormConfig.VARIABLE_SYMBOL)));
         move.setConstantSymbol(parseInteger(req.getParameter(FormConfig.CONSTANT_SYMBOL)));
         move.setSpecificSymbol(parseInteger(req.getParameter(FormConfig.SPECIFIC_SYMBOL)));
+
+        String currency = req.getParameter(FormConfig.CURRENCY);
+        try {
+            move.setCurrency(Currency.fromString(currency));
+        } catch (IllegalArgumentException | NullPointerException ex) {
+            logger.warn("currency could not be parsed");
+        }
 
         return move;
     }

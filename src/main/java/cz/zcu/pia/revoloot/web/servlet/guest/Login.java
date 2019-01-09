@@ -15,10 +15,11 @@ public class Login extends AbstractServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if(req.isUserInRole("USER")){
+        if(req.isUserInRole("CUSTOMER") || req.isUserInRole("CUSTOMER")){
             RequestDispatcher dispatcher = getServletContext()
-                    .getRequestDispatcher("/home");
+                    .getRequestDispatcher(ServletNaming.WELCOME);
             dispatcher.forward(req, resp);
+            return;
         }
         req.setAttribute("title", "Přihlášení");
         req.getRequestDispatcher("/WEB-INF/public/login.jsp").forward(req, resp);

@@ -1,8 +1,13 @@
 package cz.zcu.pia.revoloot.entities;
 
+import cz.zcu.pia.revoloot.utils.IValidator;
+import cz.zcu.pia.revoloot.web.FormConfig;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * Entitní třída pro uložení čísla účtu.
@@ -10,7 +15,7 @@ import java.util.Objects;
  * @author Radek Vais
  */
 @Embeddable
-public class AccountAddress {
+public class AccountAddress implements IValidable {
 
     /**
      * předčíslí účtu
@@ -92,7 +97,10 @@ public class AccountAddress {
      */
     @Override
     public String toString() {
-        return prepend == 0 ? number + "/" + bankCode : prepend + "-" + number + "/" + bankCode;
+        if(prepend == null){
+            return number + "/" + bankCode;
+        }
+        return prepend + "-" + number + "/" + bankCode;
     }
 
     /**
@@ -122,5 +130,39 @@ public class AccountAddress {
     @Override
     public int hashCode() {
         return Objects.hash(prepend, number, bankCode);
+    }
+
+    /**
+     * Meotda validuje vyplnění polí objektu
+     * @see cz.zcu.pia.revoloot.web.FormConfig
+     * @param validator používá předaný vylidátor polí
+     * @return množina chyb polí
+     */
+    @Override
+    public Set<String> validate(IValidator validator) {
+        Set<String> errors = new HashSet<>();
+        if (validator.isEmptyField(number)) {
+            errors.add(FormConfig.ACC_NUM);
+        }
+        if (validator.isEmptyField(bankCode)) {
+            errors.add(FormConfig.BANK_CODE);
+        }
+
+        return errors;
+    }
+
+    /**
+     * Maximální množina chyb na polích
+     * @see cz.zcu.pia.revoloot.web.FormConfig
+     * @param
+     * @return maximální množina chyb polí
+     */
+    @Override
+    public Set<String> errorFields() {
+        Set<String> errors = new HashSet<>();
+        errors.add(FormConfig.ACC_NUM);
+        errors.add(FormConfig.BANK_CODE);
+
+        return errors;
     }
 }

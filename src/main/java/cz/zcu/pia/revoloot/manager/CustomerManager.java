@@ -71,7 +71,8 @@ public class CustomerManager implements ICustomerManager {
 
     @Override
     public List<Account> getAllAccounts(long customerID) {
-        return accountDAO.findByUserId(customerID);
+        List<Account> foundedAccounts = accountDAO.findByUserId(customerID);
+        return foundedAccounts;
     }
 
     @Override

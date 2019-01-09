@@ -108,7 +108,11 @@ public class UserDAO extends GenericDAO<User> implements IUserDAO {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return findByUsername(username);
+        UserDetails userDetails = findByUsername(username);
+        if(userDetails == null){
+            throw new UsernameNotFoundException(username);
+        }
+        return userDetails;
     }
 
     /**

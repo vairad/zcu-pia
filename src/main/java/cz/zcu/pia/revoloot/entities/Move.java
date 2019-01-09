@@ -18,7 +18,7 @@ public class Move extends BaseEntity implements IValidable {
     private AccountAddress source;
     private AccountAddress destination;
 
-    private Long amount;
+    private Double amount;
     private Currency currency;
 
     private Integer variableSymbol;
@@ -72,15 +72,17 @@ public class Move extends BaseEntity implements IValidable {
     }
 
     @Column(nullable = false)
-    public Long getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(Long amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
+
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     public Currency getCurrency() {
         return currency;
     }
@@ -175,15 +177,15 @@ public class Move extends BaseEntity implements IValidable {
             errors.add(FormConfig.AMOUNT);
         }
         if (destination == null) {
-            errors.add(FormConfig.ACC_NUM);
-            errors.add(FormConfig.BANK_CODE);
+            errors.addAll(new AccountAddress().errorFields());
         } else {
-            if (validator.isEmptyField(destination.getNumber())) {
-                errors.add(FormConfig.ACC_NUM);
-            }
+            errors.addAll(destination.validate(validator));
         }
         if (validator.isEmptyField(submissionDate)) {
             errors.add(FormConfig.DUE_DATE);
+        }
+        if (currency == null) {
+            errors.add(FormConfig.CURRENCY);
         }
         return errors;
     }
@@ -195,6 +197,7 @@ public class Move extends BaseEntity implements IValidable {
         errors.add(FormConfig.DUE_DATE);
         errors.add(FormConfig.ACC_NUM);
         errors.add(FormConfig.BANK_CODE);
+        errors.add(FormConfig.CURRENCY);
 
         return errors;
     }

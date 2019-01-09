@@ -1,6 +1,7 @@
 package cz.zcu.pia.revoloot.dao;
 
 import cz.zcu.pia.revoloot.entities.Account;
+import cz.zcu.pia.revoloot.entities.AccountAddress;
 import cz.zcu.pia.revoloot.entities.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,4 +31,13 @@ public interface IAccountDAO extends IGenericDAO<Account> {
      * @return seznam účtů / null, pokud nebyl zádný nalezen
      */
     List<Account> findByUserId(long customerID);
+
+    /**
+     * Metoda ověří, že daný uživatel je majitelem účtu a vrátí nalezený objekt účtu.
+     * Pokud takový účet neexistuje je vráceno null
+     * @param userId id uřivatele
+     * @param accNo číslo hledaného účtu
+     * @return účet / null pokud nemá práva
+     */
+    Account checkAccount(Long userId, Long accNo);
 }

@@ -111,10 +111,10 @@
         </div>
         <div class="form-label-group col col-12 col-md-3">
             <jsp:include page="../components/labeledInput.jsp">
-                <jsp:param name="TYPE" value="text"/>
+                <jsp:param name="TYPE" value="datetime-local"/>
                 <jsp:param name="FIELD" value="<%=FormConfig.DUE_DATE%>"/>
                 <jsp:param name="VIEW_NAME" value="Datum splatnosti"/>
-                <jsp:param name="ERROR_MESSAGE" value="Je třeba zadat datum splatnosti"/>
+                <jsp:param name="ERROR_MESSAGE" value="Datum musí být ve formátu dd-MM-yyyy HH:mm"/>
                 <jsp:param name="VALUE" value="${move.submissionDate}"/>
             </jsp:include>
         </div>
@@ -125,6 +125,15 @@
         <div class="form-label-group col col-12 col-md-6">
             <textarea id="<%=FormConfig.NOTE%>" class="form-control" aria-label="Poznámka"></textarea>
             <label for="<%=FormConfig.NOTE%>">Poznámka</label>
+        </div>
+        <div class="form-label-group col col-12">
+            <jsp:include page="../components/labeledInput.jsp">
+                <jsp:param name="TYPE" value="text"/>
+                <jsp:param name="FIELD" value="<%=FormConfig.TEMPLATE_NAME%>"/>
+                <jsp:param name="VIEW_NAME" value="Název šablony"/>
+                <jsp:param name="ERROR_MESSAGE" value="Chybný název šablony."/>
+                <jsp:param name="VALUE" value="${param.template}"/>
+            </jsp:include>
         </div>
 
         <sec:csrfInput/>
