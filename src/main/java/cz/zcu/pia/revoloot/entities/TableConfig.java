@@ -9,4 +9,5 @@ class TableConfig {
     static final String TABLE_ACCOUNTS = PREPEND + "accounts";
     static final String TABLE_MOVES = PREPEND + "moves";
     static final String TABLE_EXCHANGES = PREPEND + "exchanges";
+    static final String TABLE_PRODUCTS = PREPEND + "products";
 }

@@ -17,6 +17,7 @@ public class DefaultTest extends DaoTest {
     private static IMoveDAO moveDAO;
     private static IBankerDAO bankerDAO;
     private static IExchangeDAO exchangeDAO;
+    private static IProductDAO productDAO;
 
     private static IEncoder encoder;
     private static IPasswordGenerator generator;
@@ -53,6 +54,7 @@ public class DefaultTest extends DaoTest {
         moveDAO = new MoveDAO(em);
         bankerDAO = new BankerDAO(em);
         exchangeDAO = new ExchangeDAO(em);
+        productDAO = new ProductDAO(em);
     }
 
 
@@ -65,11 +67,25 @@ public class DefaultTest extends DaoTest {
 
         assertNotEquals(customer.getId(), 0L, "Id was not returned.");
 
+        Product product = createProduct();
+        product.setMarketing(true);
+
+        productDAO.save(product);
+
+        product = createProduct();
+        product.setName("Speciání účet");
+        productDAO.save(product);
+
+        product = createProduct();
+        product.setName("Super účet");
+        productDAO.save(product);
+
         Account a = new Account();
         a.setCustomer(customer);
         a.setAccountInfo(createAccountInfo());
         a.setAmount(50000.00);
         a.setTrueAmount(50000.00);
+        a.setProduct(product);
 
         accountDAO.save(a);
 
@@ -79,6 +95,7 @@ public class DefaultTest extends DaoTest {
         a.getAccountInfo().setNumber(333L);
         a.setAmount(50000.00);
         a.setTrueAmount(50000.00);
+        a.setProduct(product);
 
         accountDAO.save(a);
 
@@ -102,6 +119,7 @@ public class DefaultTest extends DaoTest {
         exchangeDAO.save(ex);
         ex = createExchangeRate(Currency.GBP, Currency.CZK, 28.4834916);
         exchangeDAO.save(ex);
+
     }
 
 }

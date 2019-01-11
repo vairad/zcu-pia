@@ -100,10 +100,8 @@
                 </div>
             </div>
         </div>
-    </div>
 
     <!-- OTHER PRODUCTS -->
-    <div class="row justify-content-md-center">
         <div id="saving" class="product product-1 col col-12 col-md-5 mb-3 p-5 text-center">
             <h2 class="display-4 font-weight-normal">Spořák</h2>
             <p class="lead font-weight-normal">Velký úrok i na spořícím účtu 0,1%pa.</p>
@@ -117,9 +115,6 @@
             <a class="btn btn-dark" href="#">Podmínky</a>
             <a class="btn btn-dark" href="login.html">Sjednat</a>
         </div>
-    </div>
-
-    <div class="row justify-content-md-center">
 
         <div class="product product-2 col col-12 col-md-5 mb-3 p-5 text-center">
             <h2 class="display-4 font-weight-normal">Lorem</h2>
@@ -134,10 +129,6 @@
             <a class="btn btn-dark" href="#">Podmínky</a>
             <a class="btn btn-dark" href="login.html">Sjednat</a>
         </div>
-
-    </div>
-
-    <div class="row justify-content-md-center">
 
         <div class="product product-1 col col-12 col-md-5 mb-3 p-5 text-center">
             <h2 class="display-4 font-weight-normal">Dolor</h2>

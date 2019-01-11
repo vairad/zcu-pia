@@ -10,7 +10,7 @@ import java.util.*;
 
 @Entity
 @Table(name = TableConfig.TABLE_CUSTOMERS)
-@PrimaryKeyJoinColumn(name = "user", foreignKey = @ForeignKey(name = "fk_customer"))
+@PrimaryKeyJoinColumn(name = "id", foreignKey = @ForeignKey(name = "fk_customer"))
 public class Customer extends User implements IValidable {
 
     private List<Account> accountList;
@@ -100,8 +100,7 @@ public class Customer extends User implements IValidable {
         return Collections.singleton(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
     }
 
-    @OneToMany
-    @JoinColumn(name = "customer")
+    @OneToMany(mappedBy = "customer")
     public List<Account> getAccountList() {
         return accountList;
     }

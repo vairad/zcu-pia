@@ -25,9 +25,10 @@
         <table class="table table-hover">
             <thead>
             <tr>
+                <th></th>
                 <th scope="col">Datum splatnosti<br />Datum zaúčtování</th>
                 <th scope="col">Protiúčet</th>
-                <th scope="col">SS <br/> VS <br/> KS</th>
+                <th scope="col"><p>SS</p> <p>VS</p> <p>KS</p></th>
                 <th scope="col">Částka</th>
                 <th scope="col">Popis</th>
                 <th></th>
@@ -37,20 +38,27 @@
             <%--@elvariable id="move" type="cz.zcu.pia.revoloot.entities.Move"--%>
             <c:forEach items="#{account.moves}" var="move">
                 <tr>
-                    <td>${dateFormatter.dateTimeFormat(move.submissionDate)}<br />
-                        ${dateFormatter.dateTimeFormat(move.transferDate)}</td>
-                    <td><c:if test="${move.income}"><p><span class="octicon oction-diff-added">A<span class="sr-only">Příjem</span></span></p></c:if>
-                        <c:if test="not ${move.income}"><p><span class="octicon oction-diff-removed">v<span class="sr-only">Výdej</span></span></p></c:if>
-                    ${move.destination}</td>
-                    <td>${move.specificSymbol}<br/>
-                            ${move.variableSymbol} <br/>
-                            ${move.constantSymbol}
+                    <td class="align-middle"><c:if test="${move.income}"><p><span class="octicon octicon-diff-added"></span><span class="sr-only">Příjem</span></p></c:if>
+                        <c:if test="${not move.income}"><p><span class="octicon octicon-diff-removed"></span><span class="sr-only">Výdej</span></p></c:if></td>
+                    <td class="align-middle">
+                        <p>${dateFormatter.dateTimeFormat(move.submissionDate)}</p>
+                        <p>${dateFormatter.dateTimeFormat(move.transferDate)}</p>
                     </td>
-                    <td>${move.amount}</td>
-                    <td>${move.message} <br/>
+                    <td class="align-middle">
+                        <p>${move.destination}</p>
+                    </td>
+                    <td class="align-middle">
+                        <p>${move.specificSymbol}</p>
+                        <p>${move.variableSymbol}</p>
+                        <p>${move.constantSymbol}</p>
+                    </td>
+                    <td class="align-middle"><c:if test="${move.income}">+</c:if><c:if test="${not move.income}">-</c:if>${move.amount}</td>
+                    <td class="align-middle">
+                        <p>${move.message}</p>
                         <i>${move.note}</i>
+                        <p>${move.bankNote}</p>
                     </td>
-                    <td>
+                    <td class="align-middle">
                         <button type="button" class="btn btn-dark"><span class="octicon octicon-credit-card"></span>
                         </button>
                         <button type="button" class="btn btn-dark"><span class="octicon octicon-file-pdf"></span></button>

@@ -45,6 +45,11 @@ public class Account extends BaseEntity {
     private boolean blocked;
 
     /**
+     * typ účtu
+     */
+    private Product product;
+
+    /**
      * Konstruktor objektu nastaví výchozí hodnoty nového účtu:
      * amount = trueAmount = 0
      * currency = CZK
@@ -164,7 +169,7 @@ public class Account extends BaseEntity {
      * @return Objekt majitele účtu
      */
     @ManyToOne
-    @JoinColumn(name = "customer", updatable = false)
+    @JoinColumn(updatable = false)
     public Customer getCustomer() {
         return customer;
     }
@@ -176,6 +181,24 @@ public class Account extends BaseEntity {
      */
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    /**
+     * Typ produktu tohoto účtu
+     * @return typ produktu
+     */
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    public Product getProduct() {
+        return product;
+    }
+
+    /**
+     * Nastavuje typ produktu
+     * @param accountType nový typ účtu
+     */
+    public void setProduct(Product accountType) {
+        this.product = accountType;
     }
 
     /**

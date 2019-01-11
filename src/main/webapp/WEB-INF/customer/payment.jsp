@@ -120,11 +120,11 @@
 
         </div>
         <div class="form-label-group col col-12 col-md-6">
-            <textarea id="<%=FormConfig.MESSAGE%>" class="form-control" aria-label="Zpráva pro příjemce"></textarea>
+            <textarea id="<%=FormConfig.MESSAGE%>" class="form-control" aria-label="Zpráva pro příjemce">${param.message}</textarea>
             <label for="<%=FormConfig.MESSAGE%>">Zpráva pro příjemce</label>
         </div>
         <div class="form-label-group col col-12 col-md-6">
-            <textarea id="<%=FormConfig.NOTE%>" class="form-control" aria-label="Poznámka"></textarea>
+            <textarea id="<%=FormConfig.NOTE%>" class="form-control" aria-label="Poznámka">${param.note}</textarea>
             <label for="<%=FormConfig.NOTE%>">Poznámka</label>
         </div>
         <div class="form-label-group col col-12">
@@ -135,6 +135,18 @@
                 <jsp:param name="ERROR_MESSAGE" value="Chybný název šablony."/>
                 <jsp:param name="VALUE" value="${param.template}"/>
             </jsp:include>
+        </div>
+
+        <div class="col col-12 col-sm-12 col-md-6">
+            <p>${turingAsk}</p>
+        </div>
+        <div class="form-label-group col col-12 col-md-6">
+        <jsp:include page="../components/labeledInput.jsp">
+            <jsp:param name="TYPE" value="text"/>
+            <jsp:param name="FIELD" value="<%=FormConfig.TURING%>"/>
+            <jsp:param name="VIEW_NAME" value="Odpověď pro turinga"/>
+            <jsp:param name="ERROR_MESSAGE" value="Špatná odpověď na Allanovu otázku."/>
+        </jsp:include>
         </div>
 
         <sec:csrfInput/>

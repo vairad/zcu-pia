@@ -183,7 +183,7 @@ public class MoveManager implements IMoveManager {
         double movedAmount = move.getAmount() * exchangeRate;
 
         if (exchangeRate != 1.0) { //jde o jinou měnu uprav pohyb
-            move.setNote("Příjem cizí měny :" + move.getCurrency() + " ve výši " + move.getAmount());
+            move.setBankNote("Příjem cizí měny :" + move.getCurrency() + " ve výši " + move.getAmount());
             move.setAmount(movedAmount);
             move.setCurrency(targetAccount.getCurrency());
         }
@@ -218,7 +218,7 @@ public class MoveManager implements IMoveManager {
         if (ownerAcc.getTrueAmount() < movedAmount) {
 
             //označení zrušení
-            move.setNote("Příkaz zrušen pro nedostatek financí (" + move.getAmount() + " "+ move.getCurrency() + "). "+ move.getNote());
+            move.setBankNote("Příkaz zrušen pro nedostatek financí (" + move.getAmount() + " "+ move.getCurrency() + ").");
 
             //označení vynulování příkazu
             move.setCurrency(ownerAcc.getCurrency());
@@ -232,7 +232,7 @@ public class MoveManager implements IMoveManager {
 
             // příkaz v jiné měně
             if(exchangeRate != 1.0) {
-                move.setNote("Příkaz odeslání cizí měny " + move.getAmount() + " " + move.getCurrency() + ". " + move.getNote());
+                move.setBankNote("Příkaz odeslání cizí měny " + move.getAmount() + " " + move.getCurrency() + ".");
                 move.setCurrency(ownerAcc.getCurrency());
                 move.setAmount(movedAmount);
             }

@@ -27,6 +27,7 @@ public class Payment extends CustomerBase {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         prepareCustomerView(req);
+        prepareTuringQuestion(req);
         req.getRequestDispatcher("/WEB-INF/customer/payment.jsp").forward(req, resp);
     }
 
@@ -38,23 +39,28 @@ public class Payment extends CustomerBase {
 
         Move move = formFiller.fillMoveFromForm(req);
         User user = getLoggedUser();
-        try {
-            if (req.getParameter("submit").equals("pay")) {
-                moveManager.sendMoney(move, user.getId());
-                req.setAttribute("success", "Pohyb byl úspěšně zadán.");
-                forwardPage = ServletNaming.WELCOME;
-                resp.sendRedirect(ServletNaming.WELCOME);
-            } else {
-                String templateName = req.getParameter(FormConfig.TEMPLATE_NAME);
-                moveManager.addTemplate(templateName, move);
-                req.setAttribute("success", "Šablona byla úspěšně uložena.");
-                forwardPage = ServletNaming.WELCOME;
+
+        if(checkTuringQuestion(req)) {
+            try {
+                if (req.getParameter("submit").equals("pay")) {
+                    moveManager.sendMoney(move, user.getId());
+                    req.setAttribute("success", "Pohyb byl úspěšně zadán.");
+                    forwardPage = ServletNaming.WELCOME;
+                } else {
+                    String templateName = req.getParameter(FormConfig.TEMPLATE_NAME);
+                    moveManager.addTemplate(templateName, move);
+                    req.setAttribute("success", "Šablona byla úspěšně uložena.");
+                    forwardPage = ServletNaming.WELCOME;
+                }
+            } catch (MoveValidationException ex) {
+                log("invalid move object");
+                req.setAttribute("errors", ex.getErrors());
             }
-        } catch (MoveValidationException ex) {
-            log("invalid move object");
-            req.setAttribute("errors", ex.getErrors());
+        }else {
+            req.setAttribute("errors", FormConfig.TURING);
         }
 
+        prepareTuringQuestion(req);
         req.setAttribute("move", move);
         req.getRequestDispatcher(forwardPage).forward(req, resp);
     }

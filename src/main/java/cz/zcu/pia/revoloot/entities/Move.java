@@ -2,6 +2,7 @@ package cz.zcu.pia.revoloot.entities;
 
 import cz.zcu.pia.revoloot.utils.IValidator;
 import cz.zcu.pia.revoloot.web.FormConfig;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -29,6 +30,7 @@ public class Move extends BaseEntity implements IValidable {
 
     private String message;
     private String note;
+    private String bankNote;
 
     private boolean processed;
 
@@ -169,6 +171,19 @@ public class Move extends BaseEntity implements IValidable {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    /**
+     * Místo pro zprávu z banky v případě, že dojde k úpravě pohybu
+     * @return zpráva z banky
+     */
+    @Column
+    public String getBankNote() {
+        return bankNote;
+    }
+
+    public void setBankNote(String bankNote) {
+        this.bankNote = bankNote;
     }
 
     public boolean isProcessed() {
