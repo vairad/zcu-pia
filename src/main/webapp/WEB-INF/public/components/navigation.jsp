@@ -13,20 +13,22 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="<c:url value="<%=ServletNaming.WELCOME%>"/>">Úvod <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="<c:url value="<%=ServletNaming.WELCOME%>"/>">Úvod <!--<span class="sr-only">(current)</span>--></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="<c:url value="<%=ServletNaming.CONTACTS%>"/>">Kontakt</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="<c:url value="<%=ServletNaming.PRODUCTS%>"/>" id="dropdown01" data-toggle="dropdown"
+                <a class="nav-link dropdown-toggle" href="<c:url value="<%=ServletNaming.PRODUCTS%>"/>" id="dropdown-products" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">Nabídky</a>
-                <div class="dropdown-menu" aria-labelledby="dropdown01">
+                <div class="dropdown-menu" aria-labelledby="dropdown-products">
                     <a class="dropdown-item" href="<c:url value="<%=ServletNaming.PRODUCTS%>"/>">Nabídky</a>
                     <hr/>
-                    <a class="dropdown-item" href="<c:url value="/products#account"/>">Běžný účet</a>
-                    <a class="dropdown-item" href="<c:url value="/products#saving"/>">Spořící účet</a>
-                    <a class="dropdown-item" href="<c:url value="/products#business"/>">Podnikatelský účet</a>
+                    <%--@elvariable id="productList" type="java.util.List"--%>
+                    <%--@elvariable id="product" type="cz.zcu.pia.revoloot.entities.Product"--%>
+                    <c:forEach items="#{productList}" var="product">
+                    <a class="dropdown-item" href="<%=ServletNaming.PRODUCTS%>#account-${product.id}">${product.name}</a>
+                    </c:forEach>
                 </div>
             </li>
         </ul>

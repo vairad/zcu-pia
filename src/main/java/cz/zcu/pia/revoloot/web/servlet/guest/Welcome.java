@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(ServletNaming.WELCOME)
-public class Welcome extends AbstractServlet {
+public class Welcome extends BaseGuestServlet {
 
 
     @Override
@@ -24,6 +24,8 @@ public class Welcome extends AbstractServlet {
             req.getRequestDispatcher(ServletNaming.ADMIN_DASHBOARD).forward(req, resp);
             return;
         }
+
+        loadProducts(req);
         req.getRequestDispatcher("/WEB-INF/public/index.jsp").forward(req, resp);
     }
 

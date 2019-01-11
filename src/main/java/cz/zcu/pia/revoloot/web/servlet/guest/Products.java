@@ -16,17 +16,12 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet(ServletNaming.PRODUCTS)
-public class Products extends AbstractServlet {
-
-    @Autowired
-    private IProductManager productManager;
+public class Products extends BaseGuestServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        loadProducts(req);
         req.setAttribute("title", "Produkty");
-
-        List<Product> productList = productManager.getAllAvailableProducts();
-        req.setAttribute("productList", productList);
 
         req.getRequestDispatcher("/WEB-INF/public/products.jsp").forward(req, resp);
     }
