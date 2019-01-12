@@ -27,7 +27,7 @@
     </div>
 
     <h2>Přehled operací:</h2>
-
+<jsp:include page="../components/pages.jsp"/>
     <div class="table-responsive">
         <table class="table table-hover">
             <thead>
@@ -80,20 +80,7 @@
         </table>
     </div>
 
-    <!-- TODO stránkování -->
-    <nav aria-label="Stránkování výpisu">
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Předcházející</a>
-            </li>
-            <li class="page-item"><a class="page-link " href="#">1</a></li>
-            <li class="page-item"><a class="page-link btn-dark" href="#">2</a></li>
-            <li class="page-item"><a class="page-link btn-dark" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link btn-dark" href="#">Další</a>
-            </li>
-        </ul>
-    </nav>
+<jsp:include page="../components/pages.jsp"/>
 
 
 </main>

@@ -2,6 +2,7 @@ package cz.zcu.pia.revoloot.dao;
 
 import cz.zcu.pia.revoloot.entities.Account;
 import cz.zcu.pia.revoloot.entities.AccountAddress;
+import cz.zcu.pia.revoloot.entities.Pages;
 import cz.zcu.pia.revoloot.entities.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

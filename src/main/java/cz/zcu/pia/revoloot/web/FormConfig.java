@@ -43,6 +43,15 @@ public class FormConfig {
     public static final String TEMPLATE_NAME = "template";
     public static final String PRODUCT = "product";
     public static final String RBI = "rbi";
+
+    public static String getPage() {
+        return PAGE;
+    }
+
+    public static String getPageSize() {
+        return PAGE_SIZE;
+    }
+
     public static final String PAGE = "p";
     public static final String PAGE_SIZE = "s";
 }

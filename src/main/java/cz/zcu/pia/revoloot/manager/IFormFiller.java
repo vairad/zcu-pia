@@ -21,4 +21,6 @@ public interface IFormFiller {
 
     Currency fillCurrency(HttpServletRequest req);
 
+    Pages fillPages(HttpServletRequest request);
+
 }

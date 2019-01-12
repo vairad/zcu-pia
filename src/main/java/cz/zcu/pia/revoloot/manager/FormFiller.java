@@ -184,4 +184,21 @@ public class FormFiller implements IFormFiller {
         }
         return currency;
     }
+
+    @Override
+    public Pages fillPages(HttpServletRequest request) {
+        String pageNumberStr = request.getParameter(FormConfig.PAGE);
+        String pageSizeStr = request.getParameter(FormConfig.PAGE_SIZE);
+
+        Integer pageNumber = parseInteger(pageNumberStr);
+        Integer pageSize = parseInteger(pageSizeStr);
+
+        if(pageNumber == null || pageNumber < 0){
+            pageNumber = 0;
+        }
+        if(pageSize == null || pageSize < 0){
+            pageSize = 20;
+        }
+        return new Pages(pageNumber, pageSize);
+    }
 }

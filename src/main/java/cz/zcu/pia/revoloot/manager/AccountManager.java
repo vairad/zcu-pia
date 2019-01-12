@@ -2,11 +2,11 @@ package cz.zcu.pia.revoloot.manager;
 
 import cz.zcu.pia.revoloot.dao.IAccountDAO;
 import cz.zcu.pia.revoloot.dao.ICustomerDAO;
+import cz.zcu.pia.revoloot.dao.IMoveDAO;
 import cz.zcu.pia.revoloot.dao.IProductDAO;
 import cz.zcu.pia.revoloot.entities.*;
 import cz.zcu.pia.revoloot.utils.IBankNumbers;
 import cz.zcu.pia.revoloot.web.FormConfig;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class AccountManager implements IAccountManager {
 
+    @Autowired
+    private IMoveDAO moveDAO;
 
     @Autowired
     public IAccountDAO accountDAO;
@@ -29,9 +31,10 @@ public class AccountManager implements IAccountManager {
     public IBankNumbers bankNumbers;
 
     @Override
-    public Account loadAllAccountInfo(long accNum) {
+    public Account loadAllAccountInfo(long accNum, Pages pages) {
         Account a = accountDAO.findByAccountNumber(accNum);
-        Hibernate.initialize(a.getMoves());
+        a.setMoves(moveDAO.findMovesForAccount(a, pages));
+       // Hibernate.initialize(a.getMoves());
         return a;
     }
 

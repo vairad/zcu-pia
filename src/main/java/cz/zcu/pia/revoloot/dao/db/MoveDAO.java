@@ -1,8 +1,10 @@
 package cz.zcu.pia.revoloot.dao.db;
 
 import cz.zcu.pia.revoloot.dao.IMoveDAO;
+import cz.zcu.pia.revoloot.entities.Account;
 import cz.zcu.pia.revoloot.entities.Customer;
 import cz.zcu.pia.revoloot.entities.Move;
+import cz.zcu.pia.revoloot.entities.Pages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -53,7 +55,30 @@ public class MoveDAO extends GenericDAO<Move> implements IMoveDAO {
             logger.info("Moves to process found");
             return moves;
         } catch (NoResultException e) {
-            logger.debug("No customers found");
+            logger.debug("No moves found");
+            //no result found
+            return null;
+        }
+    }
+
+    @Override
+    public List<Move> findMovesForAccount(Account a, Pages pages) {
+        TypedQuery<Long> countQuery = em.createQuery("SELECT count(m) FROM Move m WHERE m.owner = :account", Long.class);
+        countQuery.setParameter("account", a);
+        resolvePageing(pages, countQuery);
+
+        TypedQuery<Move> q = em.createQuery("SELECT m FROM Move m WHERE m.owner = :account order by m.submissionDate DESC", Move.class);
+        q.setParameter("account", a);
+        resolvePageing(pages, countQuery);
+        q.setMaxResults(pages.getPageSize());
+        q.setFirstResult(pages.getOffset());
+
+        try {
+            List<Move> moves = q.getResultList();
+            logger.info("Moves to show found");
+            return moves;
+        } catch (NoResultException e) {
+            logger.debug("No moves found");
             //no result found
             return null;
         }

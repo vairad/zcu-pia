@@ -2,9 +2,12 @@ package cz.zcu.pia.revoloot.dao.db;
 
 import cz.zcu.pia.revoloot.dao.IGenericDAO;
 import cz.zcu.pia.revoloot.entities.BaseEntity;
+import cz.zcu.pia.revoloot.entities.Pages;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  * Třída spravující objekty typu <T> v DB
@@ -72,5 +75,17 @@ public abstract class GenericDAO<T extends BaseEntity> implements IGenericDAO<T>
         if (!toRemove.isNew()) {
             em.remove(toRemove);
         }
+    }
+
+
+    void resolvePageing(Pages pages, TypedQuery<Long> countQuery) {
+        Long countResults;
+        try {
+            countResults = countQuery.getSingleResult();
+        } catch (NoResultException e) {
+            countResults = 0L;
+        }
+
+        pages.setPagesCount(countResults / pages.getPageSize());
     }
 }

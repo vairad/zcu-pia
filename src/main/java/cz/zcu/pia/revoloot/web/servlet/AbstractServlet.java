@@ -1,5 +1,6 @@
 package cz.zcu.pia.revoloot.web.servlet;
 
+import cz.zcu.pia.revoloot.entities.Pages;
 import cz.zcu.pia.revoloot.entities.Product;
 import cz.zcu.pia.revoloot.entities.User;
 import cz.zcu.pia.revoloot.manager.IPager;
@@ -37,13 +38,6 @@ public abstract class AbstractServlet extends HttpServlet {
     protected User getLoggedUser(){
         return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
-
-//    protected IPager getPageing(HttpServletRequest request){
-//        int pageNum = request.getParameter(FormConfig.PAGE);
-//        int pageSize = request.getParameter(FormConfig.PAGE_SIZE);
-//
-//        IPager pager = new Pager(pageNum, pageSize);
-//    }
 
     protected void prepareTuringQuestion(HttpServletRequest request){
         String uuid = turingGenerator.generateQuestion();
