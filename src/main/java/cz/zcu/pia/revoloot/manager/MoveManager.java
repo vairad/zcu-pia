@@ -118,6 +118,7 @@ public class MoveManager implements IMoveManager {
 //endregion IMoveManager
 
 //region hidden (private) functions ... public for tests
+
     /**
      * Metoda provede vyhodnocení kurzu.
      * Pokud jsou měny stejné, vrací 1.0 jinak provede dotaz do DB
@@ -141,17 +142,18 @@ public class MoveManager implements IMoveManager {
      * Provede kontrolu zůstatku, jeho úpravu a případný převod
      *
      * @param ownerAccount účet na kterém dochází k blokaci
-     * @param move pohyb k provedení
+     * @param move         pohyb k provedení
      * @throws IllegalArgumentException v případě, že se účet neshoduje s vlastníkem pohybu
      */
     public void tryProcessSend(Account ownerAccount, Move move) throws NotEnoughMoneyException, ExchangeRateDoesNotExist {
-        if(!ownerAccount.equals(move.getOwner())){
-            throw  new IllegalArgumentException();
+        if (!ownerAccount.equals(move.getOwner())) {
+            throw new IllegalArgumentException();
         }
         double exchangeRate = lookUpExchangeRate(ownerAccount.getCurrency(), move.getCurrency());
 
         // přepočet pohybu pro blokaci na účtě
         double movedAmount = move.getAmount() / exchangeRate;
+        movedAmount = Math.round(movedAmount * 100.0) / 100.0;
 
         //kontrola prostředků
         if (ownerAccount.getAmount() < movedAmount) {
@@ -165,25 +167,25 @@ public class MoveManager implements IMoveManager {
     /**
      * Meotda pokusí připsat peníze na cílový účet
      * Provede kontrolu zůstatku, jeho úpravu a případný převod
-     *
+     * <p>
      * Meotda očekává, že cílový a účet je vlastníkem pohybu a pohyb je příjem jinak vyhodí výjimku
      *
      * @param targetAccount cílový účet pohybu
      * @param move          pohyb
-     *
      * @throws IllegalArgumentException v případě, že target account není vlastník pohybu nebo pohyb není příjem
      */
     public void tryProcessReceive(Account targetAccount, Move move) throws ExchangeRateDoesNotExist {
-        if(!targetAccount.equals(move.getOwner()) || !move.isIncome()){
+        if (!targetAccount.equals(move.getOwner()) || !move.isIncome()) {
             throw new IllegalArgumentException();
         }
         double exchangeRate = lookUpExchangeRate(move.getCurrency(), targetAccount.getCurrency());
 
         // přepočet pohybu pro blokaci na účtě
         double movedAmount = move.getAmount() * exchangeRate;
+        movedAmount = Math.round(movedAmount * 100.0) / 100.0;
 
         if (exchangeRate != 1.0) { //jde o jinou měnu uprav pohyb
-            move.setBankNote("Příjem cizí měny :" + move.getCurrency() + " ve výši " + move.getAmount());
+            move.setBankNote("Příjem cizí měny: " + move.getAmount() + " " + move.getCurrency());
             move.setAmount(movedAmount);
             move.setCurrency(targetAccount.getCurrency());
         }
@@ -198,7 +200,7 @@ public class MoveManager implements IMoveManager {
 
     /**
      * Metoda zpracuje příkaz odchozí platby.
-     *
+     * <p>
      * Provede přepočet dle aktuálního kurzu.
      * Zkontroluje prostředky. - jinak zruší příkaz
      * Iniciuje předání příjemci
@@ -213,12 +215,14 @@ public class MoveManager implements IMoveManager {
 
         // přepočet pohybu pro blokaci na účtě
         double movedAmount = move.getAmount() / exchangeRate;
+        movedAmount = Math.round(movedAmount * 100.0) / 100.0;
 
         //kontrola prostředků
         if (ownerAcc.getTrueAmount() < movedAmount) {
 
             //označení zrušení
-            move.setBankNote("Příkaz zrušen pro nedostatek financí (" + move.getAmount() + " "+ move.getCurrency() + ").");
+            move.setBankNote("Příkaz převodu " + move.getAmount() + " " + move.getCurrency()
+                    + " zrušen pro nedostatek financí (" + ownerAcc.getTrueAmount() + " " + ownerAcc.getCurrency() + ").");
 
             //označení vynulování příkazu
             move.setCurrency(ownerAcc.getCurrency());
@@ -231,8 +235,8 @@ public class MoveManager implements IMoveManager {
             passMoneyToReceiver(move);
 
             // příkaz v jiné měně
-            if(exchangeRate != 1.0) {
-                move.setBankNote("Příkaz odeslání cizí měny " + move.getAmount() + " " + move.getCurrency() + ".");
+            if (exchangeRate != 1.0) {
+                move.setBankNote("Příkaz odeslání cizí měny: " + move.getAmount() + " " + move.getCurrency() + ".");
                 move.setCurrency(ownerAcc.getCurrency());
                 move.setAmount(movedAmount);
             }
@@ -247,6 +251,7 @@ public class MoveManager implements IMoveManager {
 
     /**
      * Metoda iniciuje předání peněz na cílový účet
+     *
      * @param move
      * @throws ExchangeRateDoesNotExist
      */
@@ -259,12 +264,29 @@ public class MoveManager implements IMoveManager {
             if (acc != null) {
                 newMove.setOwner(acc);
                 tryProcessReceive(acc, newMove);
-            }else {
-                //TODO handle non existing account
+                moveDAO.save(newMove);
+                accountDAO.save(acc);
+            } else {
+                // return money if account does not exist
+                Account owner = move.getOwner();
+                double exchangeRate = lookUpExchangeRate(owner.getCurrency(), move.getCurrency());
+
+                // přepočet pohybu pro blokaci na účtě
+                double movedAmount = move.getAmount() / exchangeRate;
+                movedAmount = Math.round(movedAmount * 100.0) / 100.0;
+                //označení zrušení
+                move.setBankNote("Příkaz převodu " + move.getAmount() + " " + move.getCurrency()
+                        + " zrušen pro neexistenci cílového účtu " + move.getDestination() + ".");
+
+                //označení vynulování příkazu
+                move.setCurrency(owner.getCurrency());
+                move.setAmount(0.0);
+
+                //zrušení blokace peněz... příkaz zrušen
+                move.getOwner().setAmount(owner.getAmount() + movedAmount );
+                move.setProcessed(true);
+                accountDAO.save(owner);
             }
-            moveDAO.save(newMove);
-            accountDAO.save(acc);
         }
     }
-
 }

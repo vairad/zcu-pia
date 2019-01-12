@@ -7,7 +7,7 @@ public interface IMoveManager {
 
     /**
      * Zařadí pohyb ke zpracování
-     *
+     * <p>
      * pokud je výsledkem prázná množina - operace proběhla úspěšně
      *
      * @param move validovaný objekt pohybu
@@ -18,7 +18,9 @@ public interface IMoveManager {
     void addTemplate(String templateName, Move move) throws MoveValidationException;
 
     /**
-     * Meotda provede zpracování všech příkazů po splatnosti
+     * Meotda provede zpracování všech příkazů po splatnosti do výče splatnosti
+     *
+     * @param limit počet zpracovaných pohybů v jednom kroku
      */
     void processMoves(int limit);
 }

@@ -51,12 +51,14 @@ public class FormFiller implements IFormFiller {
         return null;
     }
 
-    private Double parseDouble(String doubleRepre) {
+    private Double parseAmount(String doubleRepre) {
         if (doubleRepre == null || doubleRepre.isEmpty()) {
             return null;
         }
         try {
-            return Double.parseDouble(doubleRepre);
+            double value = Double.parseDouble(doubleRepre);
+            value = Math.round(value * 100.0) / 100.0;
+            return value;
         } catch (NumberFormatException ex) {
             logger.warn("Wrong number format", ex);
         }
@@ -149,7 +151,7 @@ public class FormFiller implements IFormFiller {
         move.setOwner(fillSourceAccountAddressFromForm(req));
         move.setDestination(fillAccountAddressFromForm(req));
 
-        move.setAmount(parseDouble(req.getParameter(FormConfig.AMOUNT)));
+        move.setAmount(parseAmount(req.getParameter(FormConfig.AMOUNT)));
         move.setSubmissionDate(parseDateTime(req.getParameter(FormConfig.DUE_DATE)));
         move.setVariableSymbol(parseInteger(req.getParameter(FormConfig.VARIABLE_SYMBOL)));
         move.setConstantSymbol(parseInteger(req.getParameter(FormConfig.CONSTANT_SYMBOL)));
