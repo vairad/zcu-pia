@@ -30,4 +30,8 @@ public class AccountDetail extends CustomerBase {
         req.getRequestDispatcher("/WEB-INF/customer/account.jsp").forward(req, resp);
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
+    }
 }

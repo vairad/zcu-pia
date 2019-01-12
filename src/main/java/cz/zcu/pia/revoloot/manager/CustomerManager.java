@@ -4,10 +4,13 @@ import cz.zcu.pia.revoloot.dao.IAccountDAO;
 import cz.zcu.pia.revoloot.dao.ICustomerDAO;
 import cz.zcu.pia.revoloot.dao.IUserDAO;
 import cz.zcu.pia.revoloot.entities.Account;
+import cz.zcu.pia.revoloot.entities.Address;
+import cz.zcu.pia.revoloot.entities.ContactInfo;
 import cz.zcu.pia.revoloot.entities.Customer;
 import cz.zcu.pia.revoloot.entities.exceptions.CustomerValidationException;
 import cz.zcu.pia.revoloot.utils.IPasswordGenerator;
 import cz.zcu.pia.revoloot.utils.IValidator;
+import cz.zcu.pia.revoloot.web.FormConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +44,7 @@ public class CustomerManager implements ICustomerManager {
     }
 
     @Override
-    public void register(Customer newCustomer) throws CustomerValidationException {
+    public void register(boolean save, Customer newCustomer) throws CustomerValidationException {
         newCustomer.setPassword(generator.generatePassword());
 
         String login = generator.generateLogin();
@@ -52,6 +55,9 @@ public class CustomerManager implements ICustomerManager {
         newCustomer.setLogin(login);
 
         Set<String> errors = newCustomer.validate(validator);
+        if(!save){
+            errors.add(FormConfig.TURING);
+        }
         if(!errors.isEmpty()){
             throw new CustomerValidationException(errors);
         }
@@ -97,5 +103,43 @@ public class CustomerManager implements ICustomerManager {
         return customer;
     }
 
+    @Override
+    public void updateCustomerInfo(boolean save, ContactInfo changes, Customer user) throws CustomerValidationException {
+        if(changes != null){
+            Set<String> errors = changes.validate(validator);
+            if(!save){
+                errors.add(FormConfig.TURING);
+            }
+            if(errors.isEmpty()){
+                user.setContactInfo(changes);
+                userDAO.save(user);
+            }else {
+                throw new CustomerValidationException(errors);
+            }
+        }
+    }
 
+    @Override
+    public void updateCustomer(boolean save, Customer changes, Customer user) throws CustomerValidationException {
+        if(changes != null){
+            changes.setPassword(user.getPassword());
+            changes.setLogin(user.getLogin());
+            changes.setId(user.getId());
+            Set<String> errors = changes.validate(validator);
+            if(!save){
+                errors.add(FormConfig.TURING);
+            }
+            if(errors.isEmpty()){
+                userDAO.save(changes);
+            }else {
+                throw new CustomerValidationException(errors);
+            }
+        }
+    }
+
+    @Override
+    public void removeCustomer(Customer customer) {
+        Customer toRemove = customerDAO.findOne(customer.getId());
+        customerDAO.remove(toRemove);
+    }
 }

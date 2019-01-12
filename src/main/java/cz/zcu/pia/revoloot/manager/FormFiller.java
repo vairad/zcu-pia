@@ -106,7 +106,7 @@ public class FormFiller implements IFormFiller {
         try {
             address.setState(State.fromString(state));
         } catch (IllegalArgumentException | NullPointerException ex) {
-            logger.warn("gender could not be parsed");
+            logger.warn("state could not be parsed");
         }
 
         return address;

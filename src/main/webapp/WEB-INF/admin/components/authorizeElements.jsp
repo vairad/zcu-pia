@@ -23,6 +23,7 @@
         <jsp:param name="FIELD" value="<%=FormConfig.TURING%>"/>
         <jsp:param name="VIEW_NAME" value="Odpověď pro turinga"/>
         <jsp:param name="ERROR_MESSAGE" value="Špatná odpověď na Allanovu otázku."/>
+        <jsp:param name="REQ" value="true"/>
     </jsp:include>
 </div>
 </div>

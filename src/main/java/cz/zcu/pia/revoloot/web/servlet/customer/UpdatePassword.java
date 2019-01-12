@@ -8,17 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(ServletNaming.CUSTOMER_PROFILE)
-public class Profile extends CustomerBase {
-    
+@WebServlet(ServletNaming.CUSTOMER_PASSWORD)
+public class UpdatePassword extends CustomerBase {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         prepareCustomerView(req);
-        req.getRequestDispatcher("/WEB-INF/customer/profile.jsp").forward(req, resp);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doGet(req, resp);
+        req.getRequestDispatcher("/WEB-INF/customer/updatePassword.jsp").forward(req, resp);
     }
 }

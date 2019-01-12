@@ -41,6 +41,7 @@ public class Error extends AbstractServlet {
         }
 
         req.setAttribute("errorMsg", errorMsg);
+        loadProducts(req);
         req.getRequestDispatcher("/WEB-INF/public/errorPage.jsp").forward(req, resp);
     }
 

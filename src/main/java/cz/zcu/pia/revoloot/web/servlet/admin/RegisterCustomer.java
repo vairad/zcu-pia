@@ -33,6 +33,7 @@ public class RegisterCustomer extends AbstractServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        prepareTuringQuestion(req);
         req.getRequestDispatcher("/WEB-INF/admin/createCustomer.jsp").forward(req, resp);
     }
 
@@ -41,10 +42,9 @@ public class RegisterCustomer extends AbstractServlet {
         //naplň objekt daty z formuláře
         Customer customer = formFiller.fillCustomerFromForm(req);
         //proveď operaci
-        boolean success = false;
+        boolean success = checkTuringQuestion(req);
         try {
-            customerManager.register(customer);
-            success = true;
+            customerManager.register(success, customer);
 
         } catch (CustomerValidationException e) {
             req.setAttribute("customer", customer);

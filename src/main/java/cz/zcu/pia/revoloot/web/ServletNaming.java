@@ -9,6 +9,7 @@ public class ServletNaming {
     public static final String CUSTOMER_PAYMENT = CUSTOMER + "/payment";
     public static final String CUSTOMER_PROFILE = CUSTOMER + "/profile";
     public static final String CUSTOMER_UPDATE = CUSTOMER + "/update";
+    public static final String CUSTOMER_PASSWORD = CUSTOMER + "/password";
     //endregion customer
 
     //region admin
@@ -16,6 +17,7 @@ public class ServletNaming {
     public static final String ADMIN_DASHBOARD = ADMIN + "/home";
     public static final String ADMIN_REGISTER = ADMIN + "/register";
     public static final String ADMIN_PRODUCT = ADMIN + "/product";
+    public static final String ADMIN_CUSTOMER = ADMIN + "/customer";
     //endregion admin
 
     //region PUBLIC

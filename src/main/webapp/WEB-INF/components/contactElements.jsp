@@ -7,21 +7,23 @@
 
 <legend>Údaje pro systém</legend>
 <div class="form-label-group">
-    <jsp:include page="../../components/labeledInput.jsp">
+    <jsp:include page="labeledInput.jsp">
         <jsp:param name="TYPE" value="text"/>
         <jsp:param name="FIELD" value="<%=FormConfig.EMAIL_1%>"/>
         <jsp:param name="VIEW_NAME" value="Kontakrní email"/>
         <jsp:param name="ERROR_MESSAGE" value="Zadejte emailovou adresu v platném formátu (např. exm@revoloot.cz)."/>
         <jsp:param name="VALUE" value="${customer.contactInfo.email}"/>
+        <jsp:param name="REQ" value="true"/>
     </jsp:include>
 </div>
 <div class="form-label-group">
-    <jsp:include page="../../components/labeledInput.jsp">
+    <jsp:include page="labeledInput.jsp">
         <jsp:param name="TYPE" value="text"/>
         <jsp:param name="FIELD" value="<%=FormConfig.EMAIL_2%>"/>
         <jsp:param name="VIEW_NAME" value="Kontrola emailu"/>
         <jsp:param name="ERROR_MESSAGE" value="Zopakujte shodnou adresu."/>
         <jsp:param name="VALUE" value="${customer.contactInfo.email}"/>
+        <jsp:param name="REQ" value="true"/>
     </jsp:include>
 </div>
 <%--<div class="form-label-group">--%>

@@ -27,9 +27,10 @@
                 <td>${customer.contactInfo.email}</td>
                 <td>${customer.cardID}</td>
                 <td>
-                    <a href="<%=ServletNaming.ADMIN_PRODUCT%>/${customer.id}" class="btn btn-dark" role="button"><span class="octicon octicon-credit-card"></span>
-                    </a>
-                    <%--<button type="button" class="btn btn-dark"><span class="octicon octicon-file-pdf"></span></button>--%>
+                    <a href="<%=ServletNaming.ADMIN_PRODUCT%>/${customer.id}" class="btn btn-dark" role="button"><span class="octicon octicon-credit-card"></span></a>
+                    <a href="<%=ServletNaming.ADMIN_CUSTOMER%>/${customer.id}" class="btn btn-dark" role="button"><span class="octicon octicon-person"></span></a>
+                    <a href="<%=ServletNaming.ADMIN_CUSTOMER%>/${customer.id}?d=true" class="btn btn-dark"
+                       role="button" onclick="return confirm('Opravdu chcete odstranit zákazníka: ${customer.name} ${customer.surname} RBI:${customer.RBI}')"><span class="octicon octicon-trashcan"></span></a>
                 </td>
             </tr>
         </c:forEach>

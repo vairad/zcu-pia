@@ -15,7 +15,7 @@ public class CzechFormatter implements IDateFormatter {
     private Logger logger = LoggerFactory.getLogger(CzechFormatter.class.getName());
 
     private final String formDateTimeFormat = "yyyy-MM-dd'T'HH:mm";
-    private final String formDateFormat = "dd-MM-yyyy";
+    private final String formDateFormat = "yyyy-MM-dd";
 
     private final String userDateTimeFormat = "dd. MM. yyyy HH:mm:ss";
     private final String userDateFormat = "dd. MM. yyyy";

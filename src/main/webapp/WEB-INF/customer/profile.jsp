@@ -7,6 +7,8 @@
 
 <body>
 <%--@elvariable id="customer" type="cz.zcu.pia.revoloot.entities.Customer"--%>
+<jsp:useBean id="dateFormatter" scope="application" class="cz.zcu.pia.revoloot.utils.CzechFormatter"
+             type="cz.zcu.pia.revoloot.utils.IDateFormatter"/>
 
 <!-- Main content -->
 <main class="container content text-center">
@@ -17,12 +19,17 @@
         <span class="octicon octicon-clippy"></span>
         Upravit údaje
     </a>
+    <a href="<%=ServletNaming.CUSTOMER_PASSWORD%>" class="btn btn-outline-success my-2 my-sm-0 m-2" role="button">
+        <span class="octicon octicon-clippy"></span>
+        Změnit heslo
+    </a>
     <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6 mb-2 mt-2">
             <div class="profile card mb-2 p-2">
                 <h2>Osobní informace</h2>
                 <p>Jméno: ${customer.name} </p>
                 <p>Příjmení: ${customer.surname} </p>
+                <p>Datum narození: ${dateFormatter.dateFormat(customer.birthDate)} </p>
                 <p>Rodné číslo: ${customer.printPersonID} </p>
                 <p>Číslo dokladu: ${customer.cardID} </p>
             </div>

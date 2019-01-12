@@ -14,6 +14,7 @@
         <jsp:param name="VIEW_NAME" value="Jméno"/>
         <jsp:param name="ERROR_MESSAGE" value="Zadejte jméno."/>
         <jsp:param name="VALUE" value="${customer.name}"/>
+        <jsp:param name="REQ" value="true"/>
     </jsp:include>
 </div>
 
@@ -24,9 +25,11 @@
         <jsp:param name="VIEW_NAME" value="Příjmení"/>
         <jsp:param name="ERROR_MESSAGE" value="Zadejte příjmení."/>
         <jsp:param name="VALUE" value="${customer.surname}"/>
+        <jsp:param name="REQ" value="true"/>
     </jsp:include>
 </div>
-<jsp:useBean id="dateFormatter" scope="application" class="cz.zcu.pia.revoloot.utils.CzechFormatter" type="cz.zcu.pia.revoloot.utils.IDateFormatter"/>
+<jsp:useBean id="dateFormatter" scope="application" class="cz.zcu.pia.revoloot.utils.CzechFormatter"
+             type="cz.zcu.pia.revoloot.utils.IDateFormatter"/>
 <div class="form-label-group">
     <jsp:include page="../../components/labeledInput.jsp">
         <jsp:param name="TYPE" value="date"/>
@@ -34,6 +37,7 @@
         <jsp:param name="VIEW_NAME" value="Datum narozeí"/>
         <jsp:param name="ERROR_MESSAGE" value="Zadejte datum narození ve formátu: dd-MM-YYYY"/>
         <jsp:param name="VALUE" value="${dateFormatter.dateToForm(customer.birthDate)}"/>
+        <jsp:param name="REQ" value="true"/>
     </jsp:include>
 </div>
 
@@ -44,6 +48,7 @@
         <jsp:param name="VIEW_NAME" value="Rodné číslo"/>
         <jsp:param name="ERROR_MESSAGE" value="Zadejte rodné číslo"/>
         <jsp:param name="VALUE" value="${customer.personID}"/>
+        <jsp:param name="REQ" value="true"/>
     </jsp:include>
 </div>
 
@@ -54,6 +59,7 @@
         <jsp:param name="VIEW_NAME" value="Číslo OP"/>
         <jsp:param name="ERROR_MESSAGE" value="Zadejte číslo dokladu totožnosti."/>
         <jsp:param name="VALUE" value="${customer.cardID}"/>
+        <jsp:param name="REQ" value="true"/>
     </jsp:include>
 </div>
 
@@ -61,19 +67,15 @@
 <div class="row <c:if test="${fn:contains(errors, errorFlag)}">alert-danger</c:if>">
     <div class="form-check col col-6">
         <label class="form-check-label">
-            <input type="radio"
-                   class="form-check-input"
-                   name="<%= FormConfig.GENDER %>"
-                   id="male"
-                   value="male"
-                   required/>
+            <input type="radio" class="form-check-input" name="<%= FormConfig.GENDER %>"
+                   id="male" value="male" <c:if test="${customer.gender.MALE}">checked</c:if> required/>
             Muž
         </label>
     </div>
     <div class="form-check col col-6">
         <label class="form-check-label">
             <input type="radio" class="form-check-input" name="<%= FormConfig.GENDER %>" id="female"
-                   value="female">
+                   value="female" <c:if test="${customer.gender.FEMALE}">checked</c:if>>
             Žena
         </label>
     </div>
