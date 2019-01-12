@@ -14,4 +14,11 @@ public interface IFormFiller {
     Account fillSourceAccountAddressFromForm(HttpServletRequest req);
 
     Move fillMoveFromForm(HttpServletRequest request);
+
+    Long fillAccountType(HttpServletRequest req);
+
+    Long fillRBI(HttpServletRequest req);
+
+    Currency fillCurrency(HttpServletRequest req);
+
 }

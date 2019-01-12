@@ -1,7 +1,9 @@
 package cz.zcu.pia.revoloot.web.servlet;
 
+import cz.zcu.pia.revoloot.entities.Product;
 import cz.zcu.pia.revoloot.entities.User;
 import cz.zcu.pia.revoloot.manager.IPager;
+import cz.zcu.pia.revoloot.manager.IProductManager;
 import cz.zcu.pia.revoloot.manager.Pager;
 import cz.zcu.pia.revoloot.utils.ITuringGenerator;
 import cz.zcu.pia.revoloot.web.FormConfig;
@@ -15,6 +17,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 public abstract class AbstractServlet extends HttpServlet {
 
@@ -22,6 +25,14 @@ public abstract class AbstractServlet extends HttpServlet {
 
     @Autowired
     private ITuringGenerator turingGenerator;
+
+    @Autowired
+    private IProductManager productManager;
+
+    protected void loadProducts(HttpServletRequest request) {
+        List<Product> productList = productManager.getAllAvailableProducts();
+        request.setAttribute("productList", productList);
+    }
 
     protected User getLoggedUser(){
         return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

@@ -20,14 +20,6 @@ public interface ICustomerDAO extends IGenericDAO<Customer> {
     Customer findByAccountNumber(String accountNumber);
 
     /**
-     * Metoda vyhledá uživatele dle zákaznického ID
-     *
-     * @param customerID reprezentace zákkaznického ID
-     * @return Objekt User / null v případě chyby, nebo neexistujícího záznamu.
-     */
-    Customer findByCustomerId(String customerID);
-
-    /**
      * Vyhledá uživatele dle uživatelského jména.
      * @param username uživatelské jméno
      * @return nalezený objekt / null
@@ -39,4 +31,11 @@ public interface ICustomerDAO extends IGenericDAO<Customer> {
      * @return seznam všech uživatelů
      */
     List<Customer> findAllCustomers();
+
+    /**
+     * Metoda vyhledá úživatele dle RBI
+     * @param rbi zákaznické číslo
+     * @return Customer nebo null, pokud není nalezen.
+     */
+    Customer findByRBI(Long rbi);
 }

@@ -65,21 +65,7 @@
             </jsp:include>
         </div>
         <div class="form-group col col-12 col-md-2">
-            <label for="<%=FormConfig.CURRENCY%>" class="sr-only">Měna:</label>
-            <select class="form-control" id="<%=FormConfig.CURRENCY%>" name="<%=FormConfig.CURRENCY%>">
-                <option value="CZK">
-                    Kč (CZK)
-                </option>
-                <option value="EUR">
-                    € (EUR)
-                </option>
-                <option>
-                    £ (GBP)
-                </option>
-                <option disabled>
-                    $ (USD)
-                </option>
-            </select>
+            <jsp:include page="../components/currencySelect.jsp" />
         </div>
         <div class="form-label-group col col-12 col-md-3">
             <jsp:include page="../components/labeledInput.jsp">

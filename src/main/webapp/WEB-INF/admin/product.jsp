@@ -6,6 +6,8 @@
 <body>
 <main class="container content text-center">
 
+    <jsp:include page="components/productForm.jsp" />
+
 </main>
 <jsp:include page="components/navigation.jsp" />
 <jsp:include page="../components/scripts.jsp"/>

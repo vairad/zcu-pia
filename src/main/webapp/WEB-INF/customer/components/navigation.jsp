@@ -23,7 +23,7 @@
                     <c:forEach items="#{accountList}" var="account">
                         <a class="dropdown-item" href="/customer/account/${account.accountInfo.number}">
                             <small class="font-weight-bold">${account.accountInfo}</small>
-                            <small class="font-weight-light small">(${account.amount})</small>
+                            <small class="font-weight-light small">(${account.amount}${account.currency})</small>
                         </a>
                     </c:forEach>
                 </div>

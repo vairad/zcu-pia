@@ -4,6 +4,7 @@ import cz.zcu.pia.revoloot.utils.IValidator;
 import cz.zcu.pia.revoloot.web.FormConfig;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.*;
@@ -109,6 +110,14 @@ public class Customer extends User implements IValidable {
         this.accountList = accountList;
     }
 
+    /**
+     * Vrací zákaznícké číslo pro sjenání produktu
+     * @return zákaznické číslo
+     */
+    @Transient
+    public long getRBI(){
+        return getId();
+    }
 
     //endregion
 

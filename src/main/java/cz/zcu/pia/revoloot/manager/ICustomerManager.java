@@ -18,4 +18,5 @@ public interface ICustomerManager {
 
     Customer getByUsername(String username);
 
+    Customer getCustomerByRBI(Long accNo);
 }

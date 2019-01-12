@@ -11,4 +11,8 @@ public interface IDateFormatter {
     String datetimeToForm(Date date);
 
     String dateToForm(Date date);
+
+    Date formToDate(String dateRepresentation);
+
+    Date formToDateTime(String dateRepresentation);
 }

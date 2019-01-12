@@ -1,39 +1,30 @@
 package cz.zcu.pia.revoloot.manager;
 
 import cz.zcu.pia.revoloot.entities.*;
+import cz.zcu.pia.revoloot.utils.IDateFormatter;
 import cz.zcu.pia.revoloot.web.FormConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Service
 public class FormFiller implements IFormFiller {
 
+    @Autowired
+    private IDateFormatter dateFormatter;
+
     private Logger logger = LoggerFactory.getLogger(FormFiller.class.getName());
 
     private Date parseDateTime(String dateRepresentation) {
-        try {
-            Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(dateRepresentation);
-            return date;
-        } catch (ParseException | NullPointerException e) {
-            logger.warn("date could not be parsed");
-        }
-        return null;
+        return dateFormatter.formToDateTime(dateRepresentation);
     }
 
     private Date parseDate(String dateRepresentation) {
-        try {
-            Date date = new SimpleDateFormat("dd-MM-yyyy").parse(dateRepresentation);
-            return date;
-        } catch (ParseException | NullPointerException e) {
-            logger.warn("date could not be parsed");
-        }
-        return null;
+        return dateFormatter.formToDate(dateRepresentation);
     }
 
     private Integer parseInteger(String intRepre) {
@@ -163,14 +154,29 @@ public class FormFiller implements IFormFiller {
         move.setVariableSymbol(parseInteger(req.getParameter(FormConfig.VARIABLE_SYMBOL)));
         move.setConstantSymbol(parseInteger(req.getParameter(FormConfig.CONSTANT_SYMBOL)));
         move.setSpecificSymbol(parseInteger(req.getParameter(FormConfig.SPECIFIC_SYMBOL)));
+        move.setCurrency(fillCurrency(req));
+        return move;
+    }
 
-        String currency = req.getParameter(FormConfig.CURRENCY);
+    @Override
+    public Long fillAccountType(HttpServletRequest req) {
+        return parseLong(req.getParameter(FormConfig.PRODUCT));
+    }
+
+    @Override
+    public Long fillRBI(HttpServletRequest req) {
+        return parseLong(req.getParameter(FormConfig.RBI));
+    }
+
+    @Override
+    public Currency fillCurrency(HttpServletRequest req) {
+        String currencyString = req.getParameter(FormConfig.CURRENCY);
+        Currency currency = null;
         try {
-            move.setCurrency(Currency.fromString(currency));
+            currency = Currency.fromString(currencyString);
         } catch (IllegalArgumentException | NullPointerException ex) {
             logger.warn("currency could not be parsed");
         }
-
-        return move;
+        return currency;
     }
 }

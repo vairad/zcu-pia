@@ -23,6 +23,7 @@ public class FormConfig {
     public static final String SELL_PASSWORD = "sellPassword";
     public static final String ACTION_LOGIN = ServletNaming.LOGIN_PROCESS;
     public static final String ACTION_REGISTER = ServletNaming.ADMIN_REGISTER;
+    public static final String ACTION_PRODUCT = ServletNaming.ADMIN_PRODUCT;
     public static final String CARD_ID = "cardID" ;
     public static final String TURING_ID = "turingID";
     public static final String LOGIN = "login";
@@ -41,6 +42,8 @@ public class FormConfig {
     public static final String TEMPLATE_NAME = "template";
     public static final String PAGE = "p" ;
     public static final String PAGE_SIZE = "s" ;
+    public static final String PRODUCT = "product";
+    public static final String RBI = "rbi";
 
 
     public static String getTURING() {

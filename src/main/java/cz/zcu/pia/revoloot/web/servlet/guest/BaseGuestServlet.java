@@ -10,12 +10,4 @@ import java.util.List;
 
 public abstract class BaseGuestServlet extends AbstractServlet {
 
-    @Autowired
-    private IProductManager productManager;
-
-    void loadProducts(HttpServletRequest request) {
-        List<Product> productList = productManager.getAllAvailableProducts();
-        request.setAttribute("productList", productList);
-    }
-
 }

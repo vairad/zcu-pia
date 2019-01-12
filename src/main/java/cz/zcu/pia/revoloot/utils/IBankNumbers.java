@@ -4,4 +4,6 @@ public interface IBankNumbers {
 
     int getBankCode();
     long getNewAccNum(Long maxAccNum);
+
+    boolean validateNumber(Long accNum);
 }

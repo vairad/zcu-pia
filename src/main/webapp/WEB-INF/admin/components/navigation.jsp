@@ -14,23 +14,13 @@
                 <a class="nav-link" href="<c:url value="<%=ServletNaming.WELCOME%>" /> ">Dashboard</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="https://example.com" id="overviews" data-toggle="dropdown"
+                <a class="disabled nav-link dropdown-toggle" href="#" id="overviews" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">Přehledy</a>
                 <div class="dropdown-menu" aria-labelledby="overviews">
-                    <a class="dropdown-item" href="list.html">
-                        <small class="font-weight-bold">Domicilující klienti</small>
-                    </a>
-                    <a class="dropdown-item" href="list.html">
-                        <small class="font-weight-bold">Klienti v debetu</small>
-                    </a>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="">Úkoly k vyřízení <span class="badge badge-light">4</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="<c:url value="<%=ServletNaming.ADMIN_REGISTER%>"/>">Založit zákazníka <span
-                        class="sr-only">(aktuální)</span></a>
+                <a class="nav-link active" href="<c:url value="<%=ServletNaming.ADMIN_REGISTER%>"/>">Založit zákazníka <!--<span class="sr-only">(aktuální)</span>--></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link " href="<c:url value="<%=ServletNaming.ADMIN_PRODUCT%>"/>">Sjednat produkt</a>

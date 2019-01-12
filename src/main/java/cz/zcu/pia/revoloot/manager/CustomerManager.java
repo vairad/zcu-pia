@@ -85,5 +85,17 @@ public class CustomerManager implements ICustomerManager {
         return customerDAO.findByUsername(username);
     }
 
+    /**
+     * Metoda vyhledá uživatele dle zákaznického ID (RBI - revoloot banking index)
+     *
+     * @param rbi reprezentace zákkaznického ID
+     * @return Objekt User / null v případě chyby, nebo neexistujícího záznamu.
+     */
+    @Override
+    public Customer getCustomerByRBI(Long rbi) {
+        Customer customer = customerDAO.findByRBI(rbi);
+        return customer;
+    }
+
 
 }

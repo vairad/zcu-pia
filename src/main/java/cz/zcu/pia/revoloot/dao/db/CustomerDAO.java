@@ -53,16 +53,6 @@ public class CustomerDAO extends GenericDAO<Customer> implements ICustomerDAO {
         return null;
     }
 
-    /**
-     * TODO comment
-     *
-     * @param customerID reprezentace zákkaznického ID
-     * @return
-     */
-    @Override
-    public Customer findByCustomerId(String customerID) {
-        return null;
-    }
 
     /**
      * TODO
@@ -104,5 +94,18 @@ public class CustomerDAO extends GenericDAO<Customer> implements ICustomerDAO {
             //no result found
             return null;
         }
+    }
+
+    /**
+     * Implementace vyhledání zákazníka pro entitu, která překrývá RBI a databázové ID
+     * @param rbi zákaznické číslo
+     * @return null/nalezený objekt
+     */
+    @Override
+    public Customer findByRBI(Long rbi) {
+        if(rbi == null){
+            return null;
+        }
+        return findOne(rbi);
     }
 }
