@@ -3,6 +3,7 @@ package cz.zcu.pia.revoloot.manager;
 import cz.zcu.pia.revoloot.entities.Account;
 import cz.zcu.pia.revoloot.entities.ContactInfo;
 import cz.zcu.pia.revoloot.entities.Customer;
+import cz.zcu.pia.revoloot.entities.Pages;
 import cz.zcu.pia.revoloot.entities.exceptions.CustomerValidationException;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface ICustomerManager {
 
     void register(boolean save, Customer newCustomer) throws CustomerValidationException;
 
-    List<Customer> getAll();
+    List<Customer> getAll(Pages pages);
 
     List<Account> getAllAccounts(long customerID);
 

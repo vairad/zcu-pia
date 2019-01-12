@@ -3,6 +3,7 @@ package cz.zcu.pia.revoloot.dao.db;
 import cz.zcu.pia.revoloot.dao.ICustomerDAO;
 import cz.zcu.pia.revoloot.entities.Banker;
 import cz.zcu.pia.revoloot.entities.Customer;
+import cz.zcu.pia.revoloot.entities.Pages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -81,10 +82,15 @@ public class CustomerDAO extends GenericDAO<Customer> implements ICustomerDAO {
      * @return
      */
     @Override
-    public List<Customer> findAllCustomers() {
+    public List<Customer> findAllCustomers(Pages pages) {
         logger.info("Load all customers:");
 
+        TypedQuery<Long> countQuery = em.createQuery("SELECT count (c) FROM Customer c WHERE 1 > 0", Long.class);
+        resolvePageing(pages, countQuery);
+
         TypedQuery<Customer> q = em.createQuery("SELECT c FROM Customer c WHERE 1 > 0", Customer.class);
+        q.setMaxResults(pages.getPageSize());
+        q.setFirstResult(pages.getOffset());
         try {
             List<Customer> customerList = q.getResultList();
             logger.info("Some Customers found");

@@ -3,10 +3,7 @@ package cz.zcu.pia.revoloot.manager;
 import cz.zcu.pia.revoloot.dao.IAccountDAO;
 import cz.zcu.pia.revoloot.dao.ICustomerDAO;
 import cz.zcu.pia.revoloot.dao.IUserDAO;
-import cz.zcu.pia.revoloot.entities.Account;
-import cz.zcu.pia.revoloot.entities.Address;
-import cz.zcu.pia.revoloot.entities.ContactInfo;
-import cz.zcu.pia.revoloot.entities.Customer;
+import cz.zcu.pia.revoloot.entities.*;
 import cz.zcu.pia.revoloot.entities.exceptions.CustomerValidationException;
 import cz.zcu.pia.revoloot.utils.IPasswordGenerator;
 import cz.zcu.pia.revoloot.utils.IValidator;
@@ -71,8 +68,8 @@ public class CustomerManager implements ICustomerManager {
     }
 
     @Override
-    public List<Customer> getAll() {
-        return customerDAO.findAllCustomers();
+    public List<Customer> getAll(Pages pages) {
+        return customerDAO.findAllCustomers(pages);
     }
 
     @Override

@@ -2,6 +2,7 @@ package cz.zcu.pia.revoloot.web.servlet.admin;
 
 
 import cz.zcu.pia.revoloot.entities.Customer;
+import cz.zcu.pia.revoloot.entities.Pages;
 import cz.zcu.pia.revoloot.entities.exceptions.CustomerValidationException;
 import cz.zcu.pia.revoloot.manager.ICustomerManager;
 import cz.zcu.pia.revoloot.manager.IFormFiller;
@@ -20,6 +21,9 @@ import java.util.List;
 public class Dashboard extends AbstractServlet {
 
     @Autowired
+    private IFormFiller formFiller;
+
+    @Autowired
     public ICustomerManager customerManager;
 
     @Autowired
@@ -29,8 +33,10 @@ public class Dashboard extends AbstractServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Customer> customerList = customerManager.getAll();
+        Pages pages = formFiller.fillPages(req);
+        List<Customer> customerList = customerManager.getAll(pages);
         req.setAttribute("customerList", customerList);
+        req.setAttribute("page", pages);
         req.getRequestDispatcher("/WEB-INF/admin/index.jsp").forward(req, resp);
     }
 

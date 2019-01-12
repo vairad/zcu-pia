@@ -7,8 +7,9 @@
 <main class="container content text-center">
 
 <jsp:include page="../components/info.jsp"/>
+<h1>Seznam zákazníků</h1>
+<jsp:include page="../components/pages.jsp"/>
 <jsp:include page="components/customerList.jsp"/>
-
 
 </main>
 <jsp:include page="components/navigation.jsp" />

@@ -1,6 +1,7 @@
 package cz.zcu.pia.revoloot.dao;
 
 import cz.zcu.pia.revoloot.entities.Customer;
+import cz.zcu.pia.revoloot.entities.Pages;
 
 import java.util.List;
 
@@ -29,8 +30,9 @@ public interface ICustomerDAO extends IGenericDAO<Customer> {
     /**
      * Metoda připraví seznam všech uživatelů
      * @return seznam všech uživatelů
+     * @param pages
      */
-    List<Customer> findAllCustomers();
+    List<Customer> findAllCustomers(Pages pages);
 
     /**
      * Metoda vyhledá úživatele dle RBI
