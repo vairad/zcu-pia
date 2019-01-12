@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.PersistenceException;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -107,16 +106,14 @@ public class MoveManager implements IMoveManager {
             }
             move.setOwner(account);
 
-            Template template = new Template();
+            Template template = templateDAO.fidByName(templateName);
+            if (template == null) {
+                template = new Template();
+            }
             template.setName(templateName);
             template.setOwner(user);
             template.setMove(move);
-            try {
-                templateDAO.save(template);
-            } catch (PersistenceException ex) {
-                errors.add(FormConfig.TEMPLATE_NAME);
-                throw new MoveValidationException(errors);
-            }
+            templateDAO.save(template);
             return;
         }
         throw new MoveValidationException(errors);
