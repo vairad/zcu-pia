@@ -14,14 +14,25 @@
     <%--@elvariable id="move" type="cz.zcu.pia.revoloot.entities.Move"--%>
     <h1 class="display-4">Příkaz k úhradě</h1>
     <form class="row" action="<%=ServletNaming.CUSTOMER_PAYMENT%>" method="post">
-
+        <%--@elvariable id="templateList" type="java.util.List"--%>
+        <c:if test="${not empty templateList}">
+        <div class="form-group col col-12">
+            <h3>Šablony:</h3>
+            <%--@elvariable id="templateList" type="java.util.List"--%>
+            <%--@elvariable id="template" type="cz.zcu.pia.revoloot.entities.Template"--%>
+            <c:forEach items="#{templateList}" var="template">
+            <a class="btn btn-dark" href="<%=ServletNaming.CUSTOMER_PAYMENT%>/${template.id}">${template.name}</a>
+            <a class="btn btn-dark" href="<%=ServletNaming.CUSTOMER_PAYMENT%>/${template.id}?d=true"><span class="octicon octicon-trashcan"></span><span class="sr-only">Smazat ${template.name}</span></a>
+            </c:forEach>
+        </div>
+        </c:if>
         <div class="form-group col col-12">
             <label for="<%=FormConfig.MY_ACCOUNT%>">Z účtu:</label>
             <select class="form-control" id="<%=FormConfig.MY_ACCOUNT%>" name="<%=FormConfig.MY_ACCOUNT%>">
                 <%--@elvariable id="accountList" type="java.util.List"--%>
                     <%--@elvariable id="account" type="cz.zcu.pia.revoloot.entities.Account"--%>
                 <c:forEach items="#{accountList}" var="account">
-                    <option value="${account.accountInfo.number}">
+                    <option value="${account.accountInfo.number}" <c:if test="${account.accountInfo == move.owner.accountInfo}">selected</c:if>>
                         ${account.accountInfo} (${account.amount}${account.currency})
                     </option>
                 </c:forEach>
@@ -105,13 +116,13 @@
             </jsp:include>
 
         </div>
-        <div class="form-label-group col col-12 col-md-6">
-            <textarea id="<%=FormConfig.MESSAGE%>" class="form-control" aria-label="Zpráva pro příjemce">${param.message}</textarea>
-            <label for="<%=FormConfig.MESSAGE%>">Zpráva pro příjemce</label>
+        <div class="col col-12 col-md-6 mb-2">
+            <label for="<%=FormConfig.MESSAGE%>">Zpráva pro příjemce:</label>
+            <textarea id="<%=FormConfig.MESSAGE%>" name="<%=FormConfig.MESSAGE%>" class="form-control" aria-label="Zpráva pro příjemce">${move.message}</textarea>
         </div>
-        <div class="form-label-group col col-12 col-md-6">
-            <textarea id="<%=FormConfig.NOTE%>" class="form-control" aria-label="Poznámka">${param.note}</textarea>
-            <label for="<%=FormConfig.NOTE%>">Poznámka</label>
+        <div class="col col-12 col-md-6 mb-2">
+            <label for="<%=FormConfig.NOTE%>">Poznámka:</label>
+            <textarea id="<%=FormConfig.NOTE%>" name="<%=FormConfig.NOTE%>" class="form-control" aria-label="Poznámka">${move.note}</textarea>
         </div>
         <div class="form-label-group col col-12">
             <jsp:include page="../components/labeledInput.jsp">

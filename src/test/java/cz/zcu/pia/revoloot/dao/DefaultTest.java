@@ -18,6 +18,7 @@ public class DefaultTest extends DaoTest {
     private static IBankerDAO bankerDAO;
     private static IExchangeDAO exchangeDAO;
     private static IProductDAO productDAO;
+    private static ITemplateDAO templateDAO;
 
     private static IEncoder encoder;
     private static IPasswordGenerator generator;
@@ -55,6 +56,7 @@ public class DefaultTest extends DaoTest {
         bankerDAO = new BankerDAO(em);
         exchangeDAO = new ExchangeDAO(em);
         productDAO = new ProductDAO(em);
+        templateDAO = new TemplateDAO(em);
     }
 
 
@@ -104,6 +106,10 @@ public class DefaultTest extends DaoTest {
         Move m = createMove();
         m.setOwner(a);
         moveDAO.save(m);
+
+        Template t = createTemplate();
+        t.setOwner(customer);
+        templateDAO.save(t);
 
         assertNotEquals(m.getId(), 0L, "Id was not returned.");
 

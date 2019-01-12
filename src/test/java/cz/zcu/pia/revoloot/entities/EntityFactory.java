@@ -89,4 +89,11 @@ public class EntityFactory {
         );
         return product;
     }
+
+    public static Template createTemplate(){
+        Template template = new Template();
+        template.setMove(createMove());
+        template.setName("Šablona 0");
+        return template;
+    }
 }

@@ -4,10 +4,7 @@ import cz.zcu.pia.revoloot.dao.IAccountDAO;
 import cz.zcu.pia.revoloot.dao.ICustomerDAO;
 import cz.zcu.pia.revoloot.dao.IExchangeDAO;
 import cz.zcu.pia.revoloot.dao.IMoveDAO;
-import cz.zcu.pia.revoloot.dao.db.AccountDAO;
-import cz.zcu.pia.revoloot.dao.db.CustomerDAO;
-import cz.zcu.pia.revoloot.dao.db.ExchangeDAO;
-import cz.zcu.pia.revoloot.dao.db.MoveDAO;
+import cz.zcu.pia.revoloot.dao.db.*;
 import cz.zcu.pia.revoloot.entities.*;
 import cz.zcu.pia.revoloot.entities.exceptions.ExchangeRateDoesNotExist;
 import cz.zcu.pia.revoloot.utils.BasicBankNumberGenerator;
@@ -50,8 +47,8 @@ class MoveManagerTest extends ManagerBaseTest {
                 new BasicValidator(),
                 accountDAO,
                 exchangeDAO,
-                new BasicBankNumberGenerator()
-        );
+                new BasicBankNumberGenerator(),
+                new TemplateDAO(em));
 
         ICustomerDAO customerDAO = new CustomerDAO(em);
         Customer customer = createCustomer();

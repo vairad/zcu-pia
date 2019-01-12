@@ -3,9 +3,8 @@ package cz.zcu.pia.revoloot.manager;
 import cz.zcu.pia.revoloot.dao.IAccountDAO;
 import cz.zcu.pia.revoloot.dao.IExchangeDAO;
 import cz.zcu.pia.revoloot.dao.IMoveDAO;
-import cz.zcu.pia.revoloot.entities.Account;
-import cz.zcu.pia.revoloot.entities.Currency;
-import cz.zcu.pia.revoloot.entities.Move;
+import cz.zcu.pia.revoloot.dao.ITemplateDAO;
+import cz.zcu.pia.revoloot.entities.*;
 import cz.zcu.pia.revoloot.entities.exceptions.ExchangeRateDoesNotExist;
 import cz.zcu.pia.revoloot.entities.exceptions.MoveValidationException;
 import cz.zcu.pia.revoloot.utils.IBankNumbers;
@@ -17,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.PersistenceException;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -33,14 +33,16 @@ public class MoveManager implements IMoveManager {
     private final IAccountDAO accountDAO;
     private final IExchangeDAO exchangeDAO;
     private final IBankNumbers bankNumbers;
+    private final ITemplateDAO templateDAO;
 
     @Autowired
-    public MoveManager(IMoveDAO moveDAO, IValidator validator, IAccountDAO accountDAO, IExchangeDAO exchangeDAO, IBankNumbers bankNumbers) {
+    public MoveManager(IMoveDAO moveDAO, IValidator validator, IAccountDAO accountDAO, IExchangeDAO exchangeDAO, IBankNumbers bankNumbers, ITemplateDAO templateDAO) {
         this.moveDAO = moveDAO;
         this.validator = validator;
         this.accountDAO = accountDAO;
         this.exchangeDAO = exchangeDAO;
         this.bankNumbers = bankNumbers;
+        this.templateDAO = templateDAO;
     }
 
 //region IMoveManager
@@ -52,19 +54,19 @@ public class MoveManager implements IMoveManager {
      * @throws MoveValidationException v případě validační chyby
      */
     @Override
-    public void sendMoney(Move move, long customerID) throws MoveValidationException {
+    public void sendMoney(boolean save, Move move, long customerID) throws MoveValidationException {
         move.setIncome(false);
 
         Set<String> errors = move.validate(validator);
+        if (!save) {
+            errors.add(FormConfig.TURING);
+        }
         if (errors.isEmpty()) {
-            Long accNo = move.getOwner().getAccountInfo().getNumber();
-            Account ownerAccount = accountDAO.checkAccount(customerID, accNo);
-
+            Account ownerAccount = verifyMoveOwner(move, customerID);
             if (ownerAccount == null) {
                 errors.add(FormConfig.MY_ACCOUNT);
                 throw new MoveValidationException(errors);
             }
-
             move.setOwner(ownerAccount);
 
             try {
@@ -89,16 +91,65 @@ public class MoveManager implements IMoveManager {
      * @throws MoveValidationException v případě validační chyby
      */
     @Override
-    public void addTemplate(String templateName, Move move) throws MoveValidationException {
+    public void addTemplate(boolean save, String templateName, Move move, Customer user) throws MoveValidationException {
         Set<String> errors = move.validate(validator);
+        if (!save) {
+            errors.add(FormConfig.TURING);
+        }
         if (validator.isEmptyField(templateName)) {
             errors.add(FormConfig.TEMPLATE_NAME);
         }
         if (errors.isEmpty()) {
-            //moveDAO.save(move);
+            Account account = verifyMoveOwner(move, user.getId());
+            if (account == null) {
+                errors.add(FormConfig.MY_ACCOUNT);
+                throw new MoveValidationException(errors);
+            }
+            move.setOwner(account);
+
+            Template template = new Template();
+            template.setName(templateName);
+            template.setOwner(user);
+            template.setMove(move);
+            try {
+                templateDAO.save(template);
+            } catch (PersistenceException ex) {
+                errors.add(FormConfig.TEMPLATE_NAME);
+                throw new MoveValidationException(errors);
+            }
             return;
         }
         throw new MoveValidationException(errors);
+    }
+
+    @Override
+    public Template loadTemplate(Long templateID, Long id) {
+        if (templateID == null || id == null) {
+            return null;
+        }
+        Template template = templateDAO.findOne(templateID);
+        if (template == null) {
+            return null;
+        }
+        if (!template.getOwner().getId().equals(id)) {
+            return null;
+        }
+        return template;
+    }
+
+    @Override
+    public void removeTemplate(Long templateId, Long id) {
+        if (templateId == null || id == null) {
+            return;
+        }
+        Template template = templateDAO.findOne(templateId);
+        if (template == null) {
+            return;
+        }
+        if (!template.getOwner().getId().equals(id)) {
+            return;
+        }
+        templateDAO.remove(template);
     }
 
     @Override
@@ -115,9 +166,24 @@ public class MoveManager implements IMoveManager {
             }
         }
     }
+
+    @Override
+    public List<Template> getTemplatesByUser(Long id) {
+        if (id == null) {
+            return null;
+        }
+        return templateDAO.getAllTemplatesByUser(id);
+    }
 //endregion IMoveManager
 
 //region hidden (private) functions ... public for tests
+
+
+    private Account verifyMoveOwner(Move move, long customerID) {
+        Long accNo = move.getOwner().getAccountInfo().getNumber();
+        Account ownerAccount = accountDAO.checkAccount(customerID, accNo);
+        return ownerAccount;
+    }
 
     /**
      * Metoda provede vyhodnocení kurzu.
@@ -283,7 +349,7 @@ public class MoveManager implements IMoveManager {
                 move.setAmount(0.0);
 
                 //zrušení blokace peněz... příkaz zrušen
-                move.getOwner().setAmount(owner.getAmount() + movedAmount );
+                move.getOwner().setAmount(owner.getAmount() + movedAmount);
                 move.setProcessed(true);
                 accountDAO.save(owner);
             }

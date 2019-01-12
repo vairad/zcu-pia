@@ -156,6 +156,9 @@ public class FormFiller implements IFormFiller {
         move.setVariableSymbol(parseInteger(req.getParameter(FormConfig.VARIABLE_SYMBOL)));
         move.setConstantSymbol(parseInteger(req.getParameter(FormConfig.CONSTANT_SYMBOL)));
         move.setSpecificSymbol(parseInteger(req.getParameter(FormConfig.SPECIFIC_SYMBOL)));
+        move.setMessage(req.getParameter(FormConfig.MESSAGE));
+        move.setNote(req.getParameter(FormConfig.NOTE));
+
         move.setCurrency(fillCurrency(req));
         return move;
     }

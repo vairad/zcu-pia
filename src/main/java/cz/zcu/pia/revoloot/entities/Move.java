@@ -51,7 +51,8 @@ public class Move extends BaseEntity implements IValidable {
         submissionDate = move.submissionDate;
         transferDate = move.transferDate;
         message = move.message;
-        note = move.note;
+//        note = move.note;
+//        bankNote = move.bankNote;
         processed = false;
     }
 
