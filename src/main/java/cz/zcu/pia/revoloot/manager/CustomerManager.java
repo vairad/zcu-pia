@@ -4,7 +4,7 @@ import cz.zcu.pia.revoloot.dao.IAccountDAO;
 import cz.zcu.pia.revoloot.dao.ICustomerDAO;
 import cz.zcu.pia.revoloot.dao.IUserDAO;
 import cz.zcu.pia.revoloot.entities.*;
-import cz.zcu.pia.revoloot.entities.exceptions.CustomerValidationException;
+import cz.zcu.pia.revoloot.exceptions.CustomerValidationException;
 import cz.zcu.pia.revoloot.utils.IEncoder;
 import cz.zcu.pia.revoloot.utils.IMailSender;
 import cz.zcu.pia.revoloot.utils.IPasswordGenerator;

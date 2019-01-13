@@ -2,7 +2,7 @@ package cz.zcu.pia.revoloot.web.servlet.admin;
 
 
 import cz.zcu.pia.revoloot.entities.Customer;
-import cz.zcu.pia.revoloot.entities.exceptions.CustomerValidationException;
+import cz.zcu.pia.revoloot.exceptions.CustomerValidationException;
 import cz.zcu.pia.revoloot.manager.ICustomerManager;
 import cz.zcu.pia.revoloot.manager.IFormFiller;
 import cz.zcu.pia.revoloot.web.ServletNaming;

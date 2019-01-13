@@ -1,4 +1,4 @@
-package cz.zcu.pia.revoloot.entities.exceptions;
+package cz.zcu.pia.revoloot.exceptions;
 
 public class ExchangeRateDoesNotExist extends Exception {
 }

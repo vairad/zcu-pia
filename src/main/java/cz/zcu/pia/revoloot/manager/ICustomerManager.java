@@ -1,7 +1,7 @@
 package cz.zcu.pia.revoloot.manager;
 
 import cz.zcu.pia.revoloot.entities.*;
-import cz.zcu.pia.revoloot.entities.exceptions.CustomerValidationException;
+import cz.zcu.pia.revoloot.exceptions.CustomerValidationException;
 
 import java.util.List;
 

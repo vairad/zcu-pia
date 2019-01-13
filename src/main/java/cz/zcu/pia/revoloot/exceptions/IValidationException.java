@@ -1,6 +1,4 @@
-package cz.zcu.pia.revoloot.entities.exceptions;
-
-import java.util.Set;
+package cz.zcu.pia.revoloot.exceptions;
 
 /**
  * Rozhraní pro třídy ValidationException, deklarující metodu pro zjištění chyb na objektu.

@@ -5,8 +5,9 @@ import cz.zcu.pia.revoloot.dao.IExchangeDAO;
 import cz.zcu.pia.revoloot.dao.IMoveDAO;
 import cz.zcu.pia.revoloot.dao.ITemplateDAO;
 import cz.zcu.pia.revoloot.entities.*;
-import cz.zcu.pia.revoloot.entities.exceptions.ExchangeRateDoesNotExist;
-import cz.zcu.pia.revoloot.entities.exceptions.MoveValidationException;
+import cz.zcu.pia.revoloot.exceptions.ExchangeRateDoesNotExist;
+import cz.zcu.pia.revoloot.exceptions.MoveValidationException;
+import cz.zcu.pia.revoloot.exceptions.NotEnoughMoneyException;
 import cz.zcu.pia.revoloot.utils.IBankNumbers;
 import cz.zcu.pia.revoloot.utils.IMailSender;
 import cz.zcu.pia.revoloot.utils.IValidator;
@@ -326,7 +327,7 @@ public class MoveManager implements IMoveManager {
     /**
      * Metoda iniciuje předání peněz na cílový účet
      *
-     * @param move
+     * @param move pohyb k odeslání
      * @throws ExchangeRateDoesNotExist
      */
     public void passMoneyToReceiver(Move move) throws ExchangeRateDoesNotExist {

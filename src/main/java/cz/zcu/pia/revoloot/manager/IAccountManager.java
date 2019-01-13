@@ -3,6 +3,7 @@ package cz.zcu.pia.revoloot.manager;
 import cz.zcu.pia.revoloot.entities.Account;
 import cz.zcu.pia.revoloot.entities.Currency;
 import cz.zcu.pia.revoloot.entities.Pages;
+import cz.zcu.pia.revoloot.exceptions.AccountCreateException;
 
 public interface IAccountManager {
 

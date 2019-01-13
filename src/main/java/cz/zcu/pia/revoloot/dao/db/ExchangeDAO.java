@@ -3,7 +3,7 @@ package cz.zcu.pia.revoloot.dao.db;
 import cz.zcu.pia.revoloot.dao.IExchangeDAO;
 import cz.zcu.pia.revoloot.entities.Currency;
 import cz.zcu.pia.revoloot.entities.ExchangeRate;
-import cz.zcu.pia.revoloot.entities.exceptions.ExchangeRateDoesNotExist;
+import cz.zcu.pia.revoloot.exceptions.ExchangeRateDoesNotExist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;

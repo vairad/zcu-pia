@@ -1,4 +1,4 @@
-package cz.zcu.pia.revoloot.manager;
+package cz.zcu.pia.revoloot.exceptions;
 
 public class AccountCreateException extends Exception {
 

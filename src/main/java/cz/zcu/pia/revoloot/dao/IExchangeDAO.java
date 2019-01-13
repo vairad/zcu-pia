@@ -2,7 +2,7 @@ package cz.zcu.pia.revoloot.dao;
 
 import cz.zcu.pia.revoloot.entities.Currency;
 import cz.zcu.pia.revoloot.entities.ExchangeRate;
-import cz.zcu.pia.revoloot.entities.exceptions.ExchangeRateDoesNotExist;
+import cz.zcu.pia.revoloot.exceptions.ExchangeRateDoesNotExist;
 
 public interface IExchangeDAO extends IGenericDAO<ExchangeRate> {
 

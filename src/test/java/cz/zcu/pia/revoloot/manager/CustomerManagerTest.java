@@ -6,7 +6,7 @@ import cz.zcu.pia.revoloot.dao.db.UserDAO;
 import cz.zcu.pia.revoloot.entities.ContactInfo;
 import cz.zcu.pia.revoloot.entities.Customer;
 import cz.zcu.pia.revoloot.entities.EntityFactory;
-import cz.zcu.pia.revoloot.entities.exceptions.CustomerValidationException;
+import cz.zcu.pia.revoloot.exceptions.CustomerValidationException;
 import cz.zcu.pia.revoloot.utils.BasicPasswordGenerator;
 import cz.zcu.pia.revoloot.utils.BasicValidator;
 import cz.zcu.pia.revoloot.utils.PasswordHashEncoder;

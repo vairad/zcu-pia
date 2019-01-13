@@ -1,4 +1,4 @@
-package cz.zcu.pia.revoloot.entities.exceptions;
+package cz.zcu.pia.revoloot.exceptions;
 
 import java.util.Arrays;
 import java.util.Set;

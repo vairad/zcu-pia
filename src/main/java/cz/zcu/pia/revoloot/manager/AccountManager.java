@@ -5,6 +5,7 @@ import cz.zcu.pia.revoloot.dao.ICustomerDAO;
 import cz.zcu.pia.revoloot.dao.IMoveDAO;
 import cz.zcu.pia.revoloot.dao.IProductDAO;
 import cz.zcu.pia.revoloot.entities.*;
+import cz.zcu.pia.revoloot.exceptions.AccountCreateException;
 import cz.zcu.pia.revoloot.utils.IBankNumbers;
 import cz.zcu.pia.revoloot.web.FormConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +16,24 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class AccountManager implements IAccountManager {
 
-    @Autowired
-    private IMoveDAO moveDAO;
+    private final IMoveDAO moveDAO;
+
+    private final IAccountDAO accountDAO;
+
+    private final ICustomerDAO customerDAO;
+
+    private final IProductDAO productDAO;
+
+    private final IBankNumbers bankNumbers;
 
     @Autowired
-    public IAccountDAO accountDAO;
-
-    @Autowired
-    public ICustomerDAO customerDAO;
-
-    @Autowired
-    public IProductDAO productDAO;
-
-    @Autowired
-    public IBankNumbers bankNumbers;
+    public AccountManager(IMoveDAO moveDAO, IAccountDAO accountDAO, ICustomerDAO customerDAO, IProductDAO productDAO, IBankNumbers bankNumbers) {
+        this.moveDAO = moveDAO;
+        this.accountDAO = accountDAO;
+        this.customerDAO = customerDAO;
+        this.productDAO = productDAO;
+        this.bankNumbers = bankNumbers;
+    }
 
     @Override
     public Account loadAllAccountInfo(long accNum, Pages pages) {

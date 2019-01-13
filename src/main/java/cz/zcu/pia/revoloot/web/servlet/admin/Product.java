@@ -2,7 +2,7 @@ package cz.zcu.pia.revoloot.web.servlet.admin;
 
 import cz.zcu.pia.revoloot.entities.Currency;
 import cz.zcu.pia.revoloot.entities.Customer;
-import cz.zcu.pia.revoloot.manager.AccountCreateException;
+import cz.zcu.pia.revoloot.exceptions.AccountCreateException;
 import cz.zcu.pia.revoloot.manager.IAccountManager;
 import cz.zcu.pia.revoloot.manager.ICustomerManager;
 import cz.zcu.pia.revoloot.manager.IFormFiller;

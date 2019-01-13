@@ -1,10 +1,9 @@
 package cz.zcu.pia.revoloot.manager;
 
-import cz.zcu.pia.revoloot.entities.Currency;
 import cz.zcu.pia.revoloot.entities.Customer;
 import cz.zcu.pia.revoloot.entities.Move;
 import cz.zcu.pia.revoloot.entities.Template;
-import cz.zcu.pia.revoloot.entities.exceptions.MoveValidationException;
+import cz.zcu.pia.revoloot.exceptions.MoveValidationException;
 
 import java.util.List;
 

@@ -4,7 +4,7 @@ import cz.zcu.pia.revoloot.entities.Customer;
 import cz.zcu.pia.revoloot.entities.Move;
 import cz.zcu.pia.revoloot.entities.Template;
 import cz.zcu.pia.revoloot.entities.User;
-import cz.zcu.pia.revoloot.entities.exceptions.MoveValidationException;
+import cz.zcu.pia.revoloot.exceptions.MoveValidationException;
 import cz.zcu.pia.revoloot.manager.IFormFiller;
 import cz.zcu.pia.revoloot.manager.IMoveManager;
 import cz.zcu.pia.revoloot.web.FormConfig;
