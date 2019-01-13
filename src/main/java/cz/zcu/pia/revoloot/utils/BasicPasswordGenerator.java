@@ -14,10 +14,10 @@ public class BasicPasswordGenerator implements IPasswordGenerator {
 
     @Override
     public String generateLogin() {
-        String  number = Integer.toString(rnd.nextInt()%1000 );
-        char char1 = loginchars.charAt(rnd.nextInt(loginchars.length()-1));
-        char char2 = loginchars.charAt(rnd.nextInt(loginchars.length()-1));
-        return prefix+number+char1+char2;
+        String number = String.format("%03d", rnd.nextInt(999));
+        char char1 = loginchars.charAt(rnd.nextInt(loginchars.length() - 1));
+        char char2 = loginchars.charAt(rnd.nextInt(loginchars.length() - 1));
+        return prefix +  number + char1 + char2;
     }
 
     @Override

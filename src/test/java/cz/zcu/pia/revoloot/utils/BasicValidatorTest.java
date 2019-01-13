@@ -56,5 +56,14 @@ class BasicValidatorTest {
         assertFalse(result);
     }
 
+    @Test
+    void checkBirthAgainstPersonIDFemale2() throws ParseException {
+        String date = "13-02-1995";
+        long personID =  9552132106L;
+        Date regform = new SimpleDateFormat("dd-MM-yyyy").parse(date);
+        boolean result = validator.checkBirthAgainstPersonID(regform, Gender.FEMALE, personID);
+        assertTrue(result);
+    }
+
 
 }

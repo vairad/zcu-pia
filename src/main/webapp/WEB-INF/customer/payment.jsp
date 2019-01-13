@@ -55,6 +55,7 @@
                 <jsp:param name="VIEW_NAME" value="Číslo účtu"/>
                 <jsp:param name="ERROR_MESSAGE" value="Je třeba zadat město."/>
                 <jsp:param name="VALUE" value="${move.destination.number}"/>
+                <jsp:param name="REQ" value="true"/>
             </jsp:include>
         </div>
         <div class="form-label-group col   col-12 col-md-3">
@@ -64,6 +65,7 @@
                 <jsp:param name="VIEW_NAME" value="Kód banky"/>
                 <jsp:param name="ERROR_MESSAGE" value="Je třeba zadat kód banky."/>
                 <jsp:param name="VALUE" value="${move.destination.bankCode}"/>
+                <jsp:param name="REQ" value="true"/>
             </jsp:include>
         </div>
         <div class="form-label-group col col-12 col-md-10">
@@ -73,6 +75,7 @@
                 <jsp:param name="VIEW_NAME" value="Částka"/>
                 <jsp:param name="ERROR_MESSAGE" value="Je třeba zadat částku"/>
                 <jsp:param name="VALUE" value="${move.amount}"/>
+                <jsp:param name="REQ" value="true"/>
             </jsp:include>
         </div>
         <div class="form-group col col-12 col-md-2">
@@ -113,6 +116,7 @@
                 <jsp:param name="VIEW_NAME" value="Datum splatnosti"/>
                 <jsp:param name="ERROR_MESSAGE" value="Datum musí být ve formátu yyyy-MM-ddTHH:mm"/>
                 <jsp:param name="VALUE" value="${dateFormatter.datetimeToForm(move.submissionDate)}"/>
+                <jsp:param name="REQ" value="true"/>
             </jsp:include>
 
         </div>
@@ -143,6 +147,7 @@
             <jsp:param name="FIELD" value="<%=FormConfig.TURING%>"/>
             <jsp:param name="VIEW_NAME" value="Odpověď pro turinga"/>
             <jsp:param name="ERROR_MESSAGE" value="Špatná odpověď na Allanovu otázku."/>
+            <jsp:param name="REQ" value="true"/>
         </jsp:include>
         </div>
 

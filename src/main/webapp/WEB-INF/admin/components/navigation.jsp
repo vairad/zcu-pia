@@ -13,14 +13,8 @@
             <li class="nav-item">
                 <a class="nav-link" href="<c:url value="<%=ServletNaming.WELCOME%>" /> ">Dashboard</a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="disabled nav-link dropdown-toggle" href="#" id="overviews" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">Přehledy</a>
-                <div class="dropdown-menu" aria-labelledby="overviews">
-                </div>
-            </li>
             <li class="nav-item">
-                <a class="nav-link active" href="<c:url value="<%=ServletNaming.ADMIN_REGISTER%>"/>">Založit zákazníka <!--<span class="sr-only">(aktuální)</span>--></a>
+                <a class="nav-link" href="<c:url value="<%=ServletNaming.ADMIN_REGISTER%>"/>">Založit zákazníka <!--<span class="sr-only">(aktuální)</span>--></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link " href="<c:url value="<%=ServletNaming.ADMIN_PRODUCT%>"/>">Sjednat produkt</a>
@@ -29,10 +23,10 @@
 
         <jsp:include page="../../components/logoutButton.jsp" />
 
-        <a href="" class="btn btn-outline-success my-2 my-sm-0 m-2" role="button">
-            <span class="octicon octicon-person"></span>
-            <span class="sr-only">Profil</span>
-        </a>
+        <%--<a href="" class="btn btn-outline-success my-2 my-sm-0 m-2" role="button">--%>
+            <%--<span class="octicon octicon-person"></span>--%>
+            <%--<span class="sr-only">Profil</span>--%>
+        <%--</a>--%>
     </div>
 
 </nav>

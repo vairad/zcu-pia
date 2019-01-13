@@ -47,7 +47,8 @@ public class MailSender implements IMailSender {
 
     /**
      * Metoda připraví základní tělo zprávy
-     * @param to email příjemce
+     *
+     * @param to      email příjemce
      * @param subject předmět zprávy
      * @return připravená zpráva
      */
@@ -60,23 +61,25 @@ public class MailSender implements IMailSender {
 
     /**
      * Odešle informaci o vytvoření účtu včetně přihlašovacích údajů
-     * @param to příjemce
-     * @param login login uživatele
+     *
+     * @param to       příjemce
+     * @param login    login uživatele
      * @param password heslo uživatele
      */
     @Override
     public void sendCreationMessage(String to, String login, String password) {
         SimpleMailMessage message = prepareMessage(to, "Založení účtu");
         message.setText("Dobrý den,\nprávě jsme vytvořili váš účet pro bankovní systém Revolution Loot.\n Vaše přihlašovací údaje jsou následující:\n " +
-                "login: " + login +
-                "heslo:" + password +
+                "login: " + login + "\n" +
+                "heslo:" + password + "\n" +
                 "\nS přáním úspěšného dne\n Tým Revolution Loot");
         sendMail(message);
     }
 
     /**
      * Odešle informaci o úpravě účtu.
-     * @param to příjemce
+     *
+     * @param to   příjemce
      * @param user autor úpravy
      */
     @Override
@@ -90,7 +93,8 @@ public class MailSender implements IMailSender {
 
     /**
      * Odešle nové heslo k úživatelskému účtu
-     * @param to příjemce
+     *
+     * @param to       příjemce
      * @param password nové heslo
      */
     @Override
@@ -103,42 +107,45 @@ public class MailSender implements IMailSender {
 
     /**
      * Odešle oznámení o zaúčtování příkazu k úhradě
-     * @param to příjemce
+     *
+     * @param to   příjemce
      * @param move zaúčtovaný pohyb
      */
     @Override
     public void sendMoveSuccess(String to, Move move) {
         SimpleMailMessage message = prepareMessage(to, "Převod prostředků");
         message.setText("Dobrý den,\n Vámi zadaný příkaz k úhradě: " + move.getAmount() + " " + move.getCurrency() +
-                "ve prospěch účtu " + move.getDestination() + "byl úspěšně zpracován.\n " +
+                " ve prospěch účtu " + move.getDestination() + "byl úspěšně zpracován.\n " +
                 "\nS přáním úspěšného dne\n Tým Revolution Loot");
         sendMail(message);
     }
 
     /**
      * Odešle oznámení o zaítnutí příkazu k úhradě
-     * @param to příjemce
+     *
+     * @param to   příjemce
      * @param move pohyb
      */
     @Override
     public void sendMoveError(String to, Move move) {
         SimpleMailMessage message = prepareMessage(to, "Příkaz zrušen");
         message.setText("Dobrý den,\n Vámi zadaný příkaz k úhradě: " + move.getAmount() + " " + move.getCurrency() +
-                "ve prospěch účtu " + move.getDestination() + "nebyl zpracován z důvodu:\n " + move.getBankNote() +
+                " ve prospěch účtu " + move.getDestination() + "nebyl zpracován z důvodu:\n " + move.getBankNote() +
                 "\nS přáním úspěšného dne\n Tým Revolution Loot");
         sendMail(message);
     }
 
     /**
      * Odešle oznámení o přijetí příkazu ke zpracování
-     * @param to příjemce
+     *
+     * @param to   příjemce
      * @param move pohyb ke zpracování
      */
     @Override
     public void sendMovePrepares(String to, Move move) {
         SimpleMailMessage message = prepareMessage(to, "Příkaz zařazen ke zpracování");
         message.setText("Dobrý den,\n Vámi zadaný příkaz k úhradě: " + move.getAmount() + " " + move.getCurrency() +
-                "ve prospěch účtu " + move.getDestination() + "je přepraven ke zpracování a bude proveden:\n " +
+                " ve prospěch účtu " + move.getDestination() + "je přepraven ke zpracování a bude proveden:\n " +
                 formatter.dateTimeFormat(move.getSubmissionDate()) +
                 "\nS přáním úspěšného dne\n Tým Revolution Loot");
         sendMail(message);
@@ -146,7 +153,8 @@ public class MailSender implements IMailSender {
 
     /**
      * Odešle informaci o přijetí částky na účet
-     * @param to příjemce
+     *
+     * @param to   příjemce
      * @param move pohyb přijaté částky
      */
     @Override
@@ -159,7 +167,8 @@ public class MailSender implements IMailSender {
 
     /**
      * Odešle informaci o zrušení účtu
-     * @param to příjemce
+     *
+     * @param to   příjemce
      * @param user iniciátor zrušení
      */
     @Override

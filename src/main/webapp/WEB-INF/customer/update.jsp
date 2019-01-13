@@ -27,7 +27,7 @@
 
             <fieldset class="form-group col-12 col-md-6">
                 <legend>Ověření</legend>
-                <div class="col col-12 col-sm-12 col-md-6">
+                <div class="col col-12">
                     <p>${turingAsk}</p>
                 </div>
                 <div class="form-label-group col col-12 col-md-6">
@@ -36,6 +36,7 @@
                         <jsp:param name="FIELD" value="<%=FormConfig.TURING%>"/>
                         <jsp:param name="VIEW_NAME" value="Odpověď pro turinga"/>
                         <jsp:param name="ERROR_MESSAGE" value="Špatná odpověď na Allanovu otázku."/>
+                        <jsp:param name="REQ" value="true"/>
                     </jsp:include>
                 </div>
             </fieldset>

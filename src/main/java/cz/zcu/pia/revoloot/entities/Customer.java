@@ -4,7 +4,6 @@ import cz.zcu.pia.revoloot.utils.IValidator;
 import cz.zcu.pia.revoloot.web.FormConfig;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.*;
@@ -70,11 +69,12 @@ public class Customer extends User implements IValidable {
 
     /**
      * Metoda vrací rodné číslo v CZ formátu
+     *
      * @return YYMMDD/XXXX pokud je z ČR
      */
     @Transient
     public String getPrintPersonID() {
-        if(contactInfo != null && contactInfo.getAddress() != null ) {
+        if (contactInfo != null && contactInfo.getAddress() != null) {
             State state = contactInfo.getAddress().getState();
             if (state != null && state.isCZ()) {
                 String idS = Long.toString(personID);
@@ -112,10 +112,11 @@ public class Customer extends User implements IValidable {
 
     /**
      * Vrací zákaznícké číslo pro sjenání produktu
+     *
      * @return zákaznické číslo
      */
     @Transient
-    public long getRBI(){
+    public long getRBI() {
         return getId();
     }
 
@@ -138,7 +139,7 @@ public class Customer extends User implements IValidable {
         }
 
         if (birthDate == null || personID == null ||
-                validator.checkBirthAgainstPersonID(birthDate, getGender(), personID)) {
+                !validator.checkBirthAgainstPersonID(birthDate, getGender(), personID)) {
             errors.add(FormConfig.PERSON_ID);
         }
 

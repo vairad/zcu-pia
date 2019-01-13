@@ -47,10 +47,12 @@ public class RegisterCustomer extends AbstractServlet {
             customerManager.register(success, customer);
 
         } catch (CustomerValidationException e) {
+            prepareTuringQuestion(req);
             req.setAttribute("customer", customer);
             req.setAttribute("error", "Uživatel nemohl být vytvořen.");
             req.setAttribute("errors", e.getErrors());
             req.getRequestDispatcher("/WEB-INF/admin/createCustomer.jsp").forward(req, resp);
+            success = false;
         }
         if (success) {
             req.setAttribute("success", "Zákazník byl vytvořen.");
