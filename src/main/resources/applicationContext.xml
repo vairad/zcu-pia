@@ -21,12 +21,23 @@
 
     <tx:annotation-driven transaction-manager="transactionManager" />
 
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:application.properties</value>
+            </list>
+        </property>
+        <property name="searchSystemEnvironment" value="true" />
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+    </bean>
+
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" destroy-method="destroy">
         <property name="persistenceXmlLocation" value="classpath:/META-INF/persistence.xml"/>
         <property name="jpaVendorAdapter" ref="hibernateVendorAdapter"/>
         <property name="packagesToScan" value="cz.zcu.pia.revoloot.**.entities"/>
         <!-- TODO change to production -->
-        <property name="persistenceUnitName" value="cz.zcu.pia.revoloot"/>
+        <property name="persistenceUnitName" value="${db.persistence}"/>
     </bean>
 
     <bean id="hibernateVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>

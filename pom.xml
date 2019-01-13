@@ -24,6 +24,7 @@
         <spring.context.version>5.0.1-RELEASE</spring.context.version>
         <tomcat.version>7.0.92</tomcat.version>
         <log4j.version>2.6.1</log4j.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
@@ -223,6 +224,16 @@
                 <version>2.2</version>
             </plugin>
 
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M3</version>
+                <configuration>
+                    <includes>
+                        <include>**/entities/**Test.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
 
         </plugins>
 
