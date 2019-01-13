@@ -22,6 +22,6 @@ public class BasicPasswordGenerator implements IPasswordGenerator {
 
     @Override
     public String generatePassword() {
-        return "pass";
+        return String.format("%04d", rnd.nextInt(9999));
     }
 }

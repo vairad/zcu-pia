@@ -3,6 +3,8 @@ package cz.zcu.pia.revoloot.entities;
 import cz.zcu.pia.revoloot.utils.IEncoder;
 import cz.zcu.pia.revoloot.utils.PasswordHashEncoder;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class EntityFactory {
@@ -32,7 +34,11 @@ public class EntityFactory {
         customer.setContactInfo(createContactInfo());
         customer.setPersonIDSmart("9311012138");
         customer.setCardID("sad5684");
-        customer.setBirthDate(new Date());
+        try {
+            customer.setBirthDate(new SimpleDateFormat("dd/MM/yyyy").parse("01/11/1993"));
+        } catch (ParseException e) {
+            customer.setBirthDate(new Date());
+        }
         customer.setGender(Gender.MALE);
         customer.setName("Jmeníčko");
         customer.setSurname("Příjméníčko");

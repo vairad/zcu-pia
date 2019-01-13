@@ -93,6 +93,24 @@ public class Customer extends User implements IValidable {
         this.cardID = cardID;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Customer)) return false;
+        if (!super.equals(o)) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(contactInfo, customer.contactInfo) &&
+                Objects.equals(birthDate, customer.birthDate) &&
+                Objects.equals(personID, customer.personID) &&
+                Objects.equals(cardID, customer.cardID);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), contactInfo, birthDate, personID, cardID);
+    }
+
+
     //region user details
 
     @Transient

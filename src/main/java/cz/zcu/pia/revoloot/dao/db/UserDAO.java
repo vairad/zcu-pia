@@ -123,6 +123,9 @@ public class UserDAO extends GenericDAO<User> implements IUserDAO {
      */
     @Override
     public boolean existLogin(String login) {
+        if(login == null){
+            return false;
+        }
         return findByUsername(login) != null;
     }
 }

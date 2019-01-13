@@ -6,6 +6,7 @@ import cz.zcu.pia.revoloot.web.FormConfig;
 import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Embeddable
@@ -38,6 +39,21 @@ public class ContactInfo implements IValidable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ContactInfo)) return false;
+        ContactInfo that = (ContactInfo) o;
+        return phone == that.phone &&
+                Objects.equals(address, that.address) &&
+                Objects.equals(email, that.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(address, phone, email);
     }
 
     @Override
