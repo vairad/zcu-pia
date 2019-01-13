@@ -49,17 +49,16 @@ public class Address implements IValidable {
     @Override
     public Set<String> validate(IValidator validator) {
         Set<String> errors = new HashSet<>();
-        //TODO refactor
-        if (street == null || street.isEmpty()) {
+        if (validator.isEmptyField(street)) {
             errors.add(FormConfig.STREET);
         }
-        if (houseNo == null || houseNo.isEmpty()) {
+        if (validator.isEmptyField(houseNo)) {
             errors.add(FormConfig.HOUSE_NUMBER);
         }
-        if (city == null || city.isEmpty()) {
+        if (validator.isEmptyField(city)) {
             errors.add(FormConfig.CITY);
         }
-        if (postalCode == null || postalCode == 0) {
+        if (validator.isEmptyField(postalCode)) {
             errors.add(FormConfig.POSTAL_CODE);
         }
         if (state == null) {

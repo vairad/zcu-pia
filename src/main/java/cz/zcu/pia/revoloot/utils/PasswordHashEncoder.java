@@ -1,5 +1,7 @@
 package cz.zcu.pia.revoloot.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -7,10 +9,15 @@ import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 /**
- * TODO comment
+ * Třída pro cryptování hesla obaluje {@link PasswordHash}
+ * @see PasswordHash
+ *
+ * @author Radek Vais
  */
 @Component
 public class PasswordHashEncoder implements IEncoder, PasswordEncoder {
+
+    private Logger logger = LoggerFactory.getLogger(CzechFormatter.class.getName());
 
     @Override
     public String encode(CharSequence rawPassword) {
@@ -27,12 +34,10 @@ public class PasswordHashEncoder implements IEncoder, PasswordEncoder {
         try {
             return PasswordHash.createHash(text);
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            //TODO log!
+            logger.error("Neznámý šifrovací algotritmus", e);
             return null;
         } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
-            //TODO log!
+            logger.error("Neznámý popis klíče", e);
             return null;
         }
     }
@@ -41,13 +46,11 @@ public class PasswordHashEncoder implements IEncoder, PasswordEncoder {
     public boolean validate(String text, String hash) {
         try {
             return PasswordHash.validatePassword(text, hash);
-        }catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            //TODO log!
+        } catch (NoSuchAlgorithmException e) {
+            logger.error("Neznámý šifrovací algotritmus", e);
             return false;
         } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
-            //TODO log!
+            logger.error("Neznámý popis klíče", e);
             return false;
         }
     }

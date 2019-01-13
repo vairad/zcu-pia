@@ -19,15 +19,6 @@
         </c:if>
     </div>
 
-    <%
-//        if(request.getParameter(LoginFormConfig.USER_ID) == null){
-//            request.setAttribute(LoginFormConfig.USER_ID, "");
-//        }else{
-//            request.setAttribute(LoginFormConfig.USER_ID, request.getParameter(LoginFormConfig.USER_ID));
-//        }
-        //TODO auto pass login into form
-    %>
-
     <div class="form-label-group">
         <input type="text"
                id="<%= FormConfig.USER_ID %>"

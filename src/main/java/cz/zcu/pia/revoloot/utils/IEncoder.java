@@ -1,7 +1,9 @@
 package cz.zcu.pia.revoloot.utils;
 
 /**
- * TODO comment
+ * Rozhraní pro hash předaného hesla a ověření, zda předložený plaintext odpovídá hashi
+ *
+ * @author Radek Vais
  */
 public interface IEncoder {
 
