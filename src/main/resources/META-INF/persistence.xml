@@ -9,8 +9,7 @@
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.password" value=""/>
             <property name="javax.persistence.jdbc.user" value="root"/>
-            <!--TODO change to prod db-->
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/revoloot-test"/>
+             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/revoloot"/>
 
             <!-- Hibernate-specific configuration -->
             <property name="hibernate.hbm2ddl.auto" value="validate"/>
@@ -41,7 +40,7 @@
             <!-- Hibernate-specific configuration -->
 
             <!-- TODO change to create-drop (after debug all tests) create validate -->
-            <property name="hibernate.hbm2ddl.auto" value="create"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>
             <property name="hibernate.validator.apply_to_ddl" value="true" />
             <property name="hibernate.connection.characterEncoding" value="utf8" />
