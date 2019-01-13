@@ -5,6 +5,7 @@ import cz.zcu.pia.revoloot.dao.ICustomerDAO;
 import cz.zcu.pia.revoloot.dao.IUserDAO;
 import cz.zcu.pia.revoloot.entities.*;
 import cz.zcu.pia.revoloot.entities.exceptions.CustomerValidationException;
+import cz.zcu.pia.revoloot.utils.IMailSender;
 import cz.zcu.pia.revoloot.utils.IPasswordGenerator;
 import cz.zcu.pia.revoloot.utils.IValidator;
 import cz.zcu.pia.revoloot.web.FormConfig;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.jws.soap.SOAPBinding;
 import javax.persistence.PersistenceException;
 import java.util.List;
 import java.util.Set;
@@ -28,16 +30,19 @@ public class CustomerManager implements ICustomerManager {
     private final ICustomerDAO customerDAO;
     private final IAccountDAO accountDAO;
     private final IValidator validator;
+    private final IMailSender mailSender;
+
 
     private final IPasswordGenerator generator;
 
     @Autowired
-    public CustomerManager(IValidator validator, ICustomerDAO customerDAO, IPasswordGenerator generator, IUserDAO userDAO, IAccountDAO accountDAO) {
+    public CustomerManager(IValidator validator, ICustomerDAO customerDAO, IPasswordGenerator generator, IUserDAO userDAO, IAccountDAO accountDAO, IMailSender mailSender) {
         this.validator = validator;
         this.customerDAO = customerDAO;
         this.generator = generator;
         this.userDAO = userDAO;
         this.accountDAO = accountDAO;
+        this.mailSender = mailSender;
     }
 
     @Override
@@ -108,8 +113,13 @@ public class CustomerManager implements ICustomerManager {
                 errors.add(FormConfig.TURING);
             }
             if(errors.isEmpty()){
+                ContactInfo oldContacts = user.getContactInfo();
                 user.setContactInfo(changes);
                 userDAO.save(user);
+                if(mailSender != null){
+                    mailSender.sendUpdateMessage(user.getContactInfo().getEmail(), user);
+                    mailSender.sendUpdateMessage(oldContacts.getEmail(), user);
+                }
             }else {
                 throw new CustomerValidationException(errors);
             }
@@ -117,7 +127,7 @@ public class CustomerManager implements ICustomerManager {
     }
 
     @Override
-    public void updateCustomer(boolean save, Customer changes, Customer user) throws CustomerValidationException {
+    public void updateCustomer(boolean save, Customer changes, Customer user, User banker) throws CustomerValidationException {
         if(changes != null){
             changes.setPassword(user.getPassword());
             changes.setLogin(user.getLogin());
@@ -128,6 +138,10 @@ public class CustomerManager implements ICustomerManager {
             }
             if(errors.isEmpty()){
                 userDAO.save(changes);
+                if(mailSender != null){
+                    mailSender.sendUpdateMessage(user.getContactInfo().getEmail(), banker);
+                    mailSender.sendUpdateMessage(changes.getContactInfo().getEmail(), banker);
+                }
             }else {
                 throw new CustomerValidationException(errors);
             }
@@ -135,8 +149,11 @@ public class CustomerManager implements ICustomerManager {
     }
 
     @Override
-    public void removeCustomer(Customer customer) {
+    public void removeCustomer(Customer customer, User banker) {
         Customer toRemove = customerDAO.findOne(customer.getId());
+        if(mailSender != null){
+            mailSender.sendRemoveMessage(toRemove.getContactInfo().getEmail(), banker);
+        }
         customerDAO.remove(toRemove);
     }
 }

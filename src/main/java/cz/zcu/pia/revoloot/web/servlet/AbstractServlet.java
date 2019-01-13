@@ -1,11 +1,8 @@
 package cz.zcu.pia.revoloot.web.servlet;
 
-import cz.zcu.pia.revoloot.entities.Pages;
 import cz.zcu.pia.revoloot.entities.Product;
 import cz.zcu.pia.revoloot.entities.User;
-import cz.zcu.pia.revoloot.manager.IPager;
 import cz.zcu.pia.revoloot.manager.IProductManager;
-import cz.zcu.pia.revoloot.manager.Pager;
 import cz.zcu.pia.revoloot.utils.ITuringGenerator;
 import cz.zcu.pia.revoloot.web.FormConfig;
 import org.springframework.beans.factory.annotation.Autowired;

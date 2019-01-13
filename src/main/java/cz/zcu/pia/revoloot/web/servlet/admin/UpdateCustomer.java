@@ -39,10 +39,10 @@ public class UpdateCustomer extends AbstractServlet {
             Customer customer = customerManager.getCustomerByRBI(rbi);
             if ("true".equals(req.getParameter("d")) && req.isUserInRole("BANKER")) {
                 //delete customer
-                customerManager.removeCustomer(customer);
+                customerManager.removeCustomer(customer, getLoggedUser());
                 req.setAttribute("success", "Zákazník byl odstraněn ze systému. ");
                 req.getRequestDispatcher(ServletNaming.ADMIN_DASHBOARD).forward(req, resp);
-            }else {
+            } else {
                 prepareTuringQuestion(req);
                 req.setAttribute("customer", customer);
                 req.getRequestDispatcher("/WEB-INF/admin/updateCustomer.jsp").forward(req, resp);
@@ -73,7 +73,7 @@ public class UpdateCustomer extends AbstractServlet {
         Customer changes = formFiller.fillCustomerFromForm(req);
         boolean turing = checkTuringQuestion(req);
         try {
-            customerManager.updateCustomer(turing, changes, customer);
+            customerManager.updateCustomer(turing, changes, customer, getLoggedUser());
             req.setAttribute("success", "Údaje byly úspěšně změněny.");
             req.getRequestDispatcher(ServletNaming.ADMIN_DASHBOARD).forward(req, resp);
             return;

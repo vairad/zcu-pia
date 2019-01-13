@@ -2,6 +2,8 @@ package cz.zcu.pia.revoloot.web.servlet.guest;
 
 import cz.zcu.pia.revoloot.entities.*;
 import cz.zcu.pia.revoloot.manager.ICustomerManager;
+import cz.zcu.pia.revoloot.utils.IMailSender;
+import cz.zcu.pia.revoloot.utils.MailSender;
 import cz.zcu.pia.revoloot.web.servlet.AbstractServlet;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,13 +19,13 @@ public class Test extends BaseGuestServlet {
     @Autowired
     private ICustomerManager customerManager;
 
+    @Autowired
+    IMailSender mailSender;
+
 //TODO remove!!!!!!!!!!!!!§§
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        loadProducts(req);
-        req.setAttribute("accountList", customerManager.getAllAccounts(1));
-
-        req.getRequestDispatcher("/WEB-INF/customer/index.jsp").forward(req, resp);
+        mailSender.sendSimpleMessage("vais.radek@gmail.com", "Test", "TEst body");
     }
 }

@@ -48,7 +48,7 @@ class MoveManagerTest extends ManagerBaseTest {
                 accountDAO,
                 exchangeDAO,
                 new BasicBankNumberGenerator(),
-                new TemplateDAO(em));
+                new TemplateDAO(em), mailSender);
 
         ICustomerDAO customerDAO = new CustomerDAO(em);
         Customer customer = createCustomer();

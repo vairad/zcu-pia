@@ -36,6 +36,22 @@
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
+    <bean id="gmailConnector" class ="org.springframework.mail.javamail.JavaMailSenderImpl" >
+        <property name="username" value="pia.revolution.loot@gmail.com" />
+        <property name="password" value="abc432EFG" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.user">pia.revolution.loot@gmail.com</prop>
+                <prop key="mail.password">abc432EFG</prop>
+                <prop key="mail.host">smtp.gmail.com</prop>
+                <prop key="mail.port">587</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.smtp.ssl.trust">smtp.gmail.com</prop>
+            </props>
+        </property>
+    </bean>
+
     <security:authentication-manager id="authManager">
         <!-- use UserDaoJpa as user data provider-->
         <security:authentication-provider user-service-ref="userDAO">
@@ -46,9 +62,9 @@
 
     <security:global-method-security pre-post-annotations="enabled"/>
 
-    <task:scheduled-tasks scheduler="myScheduler">
+    <task:scheduled-tasks scheduler="moveSheduler">
         <task:scheduled ref="moveJob" method="processMoves" fixed-delay="5000" />
     </task:scheduled-tasks>
 
-    <task:scheduler id="myScheduler"/>
+    <task:scheduler id="moveSheduler"/>
 </beans>

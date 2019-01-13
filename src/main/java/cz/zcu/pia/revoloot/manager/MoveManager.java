@@ -8,6 +8,7 @@ import cz.zcu.pia.revoloot.entities.*;
 import cz.zcu.pia.revoloot.entities.exceptions.ExchangeRateDoesNotExist;
 import cz.zcu.pia.revoloot.entities.exceptions.MoveValidationException;
 import cz.zcu.pia.revoloot.utils.IBankNumbers;
+import cz.zcu.pia.revoloot.utils.IMailSender;
 import cz.zcu.pia.revoloot.utils.IValidator;
 import cz.zcu.pia.revoloot.web.FormConfig;
 import org.slf4j.Logger;
@@ -33,15 +34,17 @@ public class MoveManager implements IMoveManager {
     private final IExchangeDAO exchangeDAO;
     private final IBankNumbers bankNumbers;
     private final ITemplateDAO templateDAO;
+    private final IMailSender mailSender;
 
     @Autowired
-    public MoveManager(IMoveDAO moveDAO, IValidator validator, IAccountDAO accountDAO, IExchangeDAO exchangeDAO, IBankNumbers bankNumbers, ITemplateDAO templateDAO) {
+    public MoveManager(IMoveDAO moveDAO, IValidator validator, IAccountDAO accountDAO, IExchangeDAO exchangeDAO, IBankNumbers bankNumbers, ITemplateDAO templateDAO, IMailSender mailSender) {
         this.moveDAO = moveDAO;
         this.validator = validator;
         this.accountDAO = accountDAO;
         this.exchangeDAO = exchangeDAO;
         this.bankNumbers = bankNumbers;
         this.templateDAO = templateDAO;
+        this.mailSender = mailSender;
     }
 
 //region IMoveManager
@@ -72,6 +75,9 @@ public class MoveManager implements IMoveManager {
                 tryProcessSend(ownerAccount, move);
                 accountDAO.save(ownerAccount);
                 moveDAO.save(move);
+                if (mailSender != null) {
+                    mailSender.sendMovePrepares(ownerAccount.getCustomer().getContactInfo().getEmail(), move);
+                }
                 return;
             } catch (NotEnoughMoneyException e) {
                 errors.add(FormConfig.AMOUNT);
@@ -259,6 +265,9 @@ public class MoveManager implements IMoveManager {
 
         move.setProcessed(true);
         move.setTransferDate(new Date());
+        if (mailSender != null) {
+            mailSender.sendReceiveMoney(targetAccount.getCustomer().getContactInfo().getEmail(), move);
+        }
     }
 
     /**
@@ -306,10 +315,12 @@ public class MoveManager implements IMoveManager {
 
             //zaúčtování prostředků prostředků
             ownerAcc.setTrueAmount(ownerAcc.getTrueAmount() - movedAmount);
-
         }
         move.setTransferDate(new Date());
         move.setProcessed(true);
+        if (mailSender != null) {
+            mailSender.sendMoveSuccess(ownerAcc.getCustomer().getContactInfo().getEmail(), move);
+        }
     }
 
     /**
@@ -346,9 +357,12 @@ public class MoveManager implements IMoveManager {
                 move.setAmount(0.0);
 
                 //zrušení blokace peněz... příkaz zrušen
-                move.getOwner().setAmount(owner.getAmount() + movedAmount);
+                owner.setAmount(owner.getAmount() + movedAmount);
                 move.setProcessed(true);
                 accountDAO.save(owner);
+                if (mailSender != null) {
+                    mailSender.sendMoveError(owner.getCustomer().getContactInfo().getEmail(), move);
+                }
             }
         }
     }

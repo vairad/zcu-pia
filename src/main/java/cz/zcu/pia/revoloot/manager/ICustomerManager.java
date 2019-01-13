@@ -1,9 +1,6 @@
 package cz.zcu.pia.revoloot.manager;
 
-import cz.zcu.pia.revoloot.entities.Account;
-import cz.zcu.pia.revoloot.entities.ContactInfo;
-import cz.zcu.pia.revoloot.entities.Customer;
-import cz.zcu.pia.revoloot.entities.Pages;
+import cz.zcu.pia.revoloot.entities.*;
 import cz.zcu.pia.revoloot.entities.exceptions.CustomerValidationException;
 
 import java.util.List;
@@ -24,7 +21,7 @@ public interface ICustomerManager {
 
     void updateCustomerInfo(boolean save, ContactInfo changes, Customer user) throws CustomerValidationException;
 
-    void updateCustomer(boolean save, Customer changes, Customer user) throws CustomerValidationException;
+    void updateCustomer(boolean save, Customer changes, Customer user, User banker) throws CustomerValidationException;
 
-    void removeCustomer(Customer customer);
+    void removeCustomer(Customer customer, User banker);
 }
