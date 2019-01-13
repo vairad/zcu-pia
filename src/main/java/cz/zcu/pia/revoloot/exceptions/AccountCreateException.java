@@ -1,6 +1,6 @@
 package cz.zcu.pia.revoloot.exceptions;
 
-public class AccountCreateException extends Exception {
+public class AccountCreateException extends Exception implements IValidationException {
 
     private String errors;
 
