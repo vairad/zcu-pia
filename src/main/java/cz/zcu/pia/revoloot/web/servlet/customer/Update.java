@@ -26,6 +26,7 @@ public class Update extends CustomerBase {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log(ServletNaming.CUSTOMER_UPDATE);
         prepareCustomerView(req);
         prepareTuringQuestion(req);
         req.getRequestDispatcher("/WEB-INF/customer/update.jsp").forward(req, resp);
@@ -34,7 +35,7 @@ public class Update extends CustomerBase {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        log(ServletNaming.CUSTOMER_UPDATE);
         ContactInfo changes = formFiller.fillContactInfoFromForm(req);
         Customer customer = null;
         User user = getLoggedUser();

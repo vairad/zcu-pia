@@ -24,6 +24,7 @@ public class AccountDetail extends CustomerBase {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log(ServletNaming.CUSTOMER_ACCOUNT);
         String accNoStr = req.getPathInfo().substring(1);
 
         Long accNo = Long.parseLong(accNoStr);

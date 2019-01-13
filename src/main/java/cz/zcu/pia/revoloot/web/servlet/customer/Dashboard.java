@@ -13,6 +13,7 @@ public class Dashboard extends CustomerBase {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log(ServletNaming.CUSTOMER_DASHBOARD);
         prepareCustomerView(req);
         req.getRequestDispatcher("/WEB-INF/customer/index.jsp").forward(req, resp);
     }

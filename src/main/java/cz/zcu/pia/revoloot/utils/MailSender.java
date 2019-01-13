@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @Component
+@Async
 public class MailSender implements IMailSender {
     private Logger logger = LoggerFactory.getLogger(MailSender.class.getName());
 
@@ -67,6 +69,7 @@ public class MailSender implements IMailSender {
      * @param password heslo uživatele
      */
     @Override
+    @Async
     public void sendCreationMessage(String to, String login, String password) {
         SimpleMailMessage message = prepareMessage(to, "Založení účtu");
         message.setText("Dobrý den,\nprávě jsme vytvořili váš účet pro bankovní systém Revolution Loot.\n Vaše přihlašovací údaje jsou následující:\n " +
@@ -83,6 +86,7 @@ public class MailSender implements IMailSender {
      * @param user autor úpravy
      */
     @Override
+    @Async
     public void sendUpdateMessage(String to, User user) {
         SimpleMailMessage message = prepareMessage(to, "Úprava údajů");
         message.setText("Dobrý den,\nuživatel " + user.getName() + " " + user.getSurname() + " právě upravil Vaše osobní údaje.\n " +
@@ -111,6 +115,7 @@ public class MailSender implements IMailSender {
      * @param move zaúčtovaný pohyb
      */
     @Override
+    @Async
     public void sendMoveSuccess(String to, Move move) {
         SimpleMailMessage message = prepareMessage(to, "Převod prostředků");
         message.setText("Dobrý den,\n Vámi zadaný příkaz k úhradě: " + move.getAmount() + " " + move.getCurrency() +
@@ -126,6 +131,7 @@ public class MailSender implements IMailSender {
      * @param move pohyb
      */
     @Override
+    @Async
     public void sendMoveError(String to, Move move) {
         SimpleMailMessage message = prepareMessage(to, "Příkaz zrušen");
         message.setText("Dobrý den,\n Vámi zadaný příkaz k úhradě: " + move.getAmount() + " " + move.getCurrency() +
@@ -141,6 +147,7 @@ public class MailSender implements IMailSender {
      * @param move pohyb ke zpracování
      */
     @Override
+    @Async
     public void sendMovePrepares(String to, Move move) {
         SimpleMailMessage message = prepareMessage(to, "Příkaz zařazen ke zpracování");
         message.setText("Dobrý den,\n Vámi zadaný příkaz k úhradě: " + move.getAmount() + " " + move.getCurrency() +
@@ -157,6 +164,7 @@ public class MailSender implements IMailSender {
      * @param move pohyb přijaté částky
      */
     @Override
+    @Async
     public void sendReceiveMoney(String to, Move move) {
         SimpleMailMessage message = prepareMessage(to, "Přišly peníze");
         message.setText("Dobrý den,\n na Váš účet " + move.getOwner().getAccountInfo() + " přišly peníze: " + move.getAmount() + " " + move.getCurrency() +
@@ -171,6 +179,7 @@ public class MailSender implements IMailSender {
      * @param user iniciátor zrušení
      */
     @Override
+    @Async
     public void sendRemoveMessage(String to, User user) {
         SimpleMailMessage message = prepareMessage(to, "Úprava údajů");
         message.setText("Dobrý den,\nuživatel " + user.getName() + " " + user.getSurname() + " právě zrušil Váš účet\n " +

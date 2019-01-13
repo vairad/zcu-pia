@@ -20,6 +20,7 @@ public class Products extends BaseGuestServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log(ServletNaming.PRODUCTS);
         loadProducts(req);
         req.setAttribute("title", "Produkty");
 

@@ -33,6 +33,7 @@ public class UpdateCustomer extends AbstractServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log(ServletNaming.ADMIN_CUSTOMER);
         try {
             String rbiStr = req.getPathInfo().substring(1);
             Long rbi = Long.parseLong(rbiStr);
@@ -55,6 +56,7 @@ public class UpdateCustomer extends AbstractServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log(ServletNaming.ADMIN_CUSTOMER);
         Customer customer;
         try {
             String rbiStr = req.getPathInfo().substring(1);

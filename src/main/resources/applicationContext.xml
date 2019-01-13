@@ -62,9 +62,5 @@
 
     <security:global-method-security pre-post-annotations="enabled"/>
 
-    <task:scheduled-tasks scheduler="moveSheduler">
-        <task:scheduled ref="moveJob" method="processMoves" fixed-delay="5000" />
-    </task:scheduled-tasks>
-
-    <task:scheduler id="moveSheduler"/>
+    <task:annotation-driven />
 </beans>

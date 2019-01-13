@@ -30,6 +30,7 @@ public class Product extends AbstractServlet {
 
 
     private void loadCustomerFromRBI(HttpServletRequest request, Long rbi) {
+        log(ServletNaming.ADMIN_DASHBOARD);
         Customer selectedCustomer = customerManager.getCustomerByRBI(rbi);
         if (selectedCustomer != null) {
             request.setAttribute("selectedCustomer", selectedCustomer);
@@ -38,6 +39,7 @@ public class Product extends AbstractServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log(ServletNaming.ADMIN_PRODUCT);
         String rbiStr = null;
         if (req.getPathInfo() != null) {
             rbiStr = req.getPathInfo().substring(1);
@@ -56,6 +58,7 @@ public class Product extends AbstractServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log(ServletNaming.ADMIN_PRODUCT);
         String errors = "";
         boolean turing = checkTuringQuestion(req);
         if (!turing) {

@@ -15,7 +15,7 @@ public class Welcome extends BaseGuestServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        log(ServletNaming.WELCOME);
         if(req.isUserInRole("CUSTOMER")){
             req.getRequestDispatcher(ServletNaming.CUSTOMER_DASHBOARD).forward(req, resp);
             return;

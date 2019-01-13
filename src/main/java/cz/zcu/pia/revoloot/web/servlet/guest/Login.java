@@ -15,6 +15,7 @@ public class Login extends BaseGuestServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log(ServletNaming.LOGIN);
         if(req.isUserInRole("CUSTOMER") || req.isUserInRole("CUSTOMER")){
             RequestDispatcher dispatcher = getServletContext()
                     .getRequestDispatcher(ServletNaming.WELCOME);

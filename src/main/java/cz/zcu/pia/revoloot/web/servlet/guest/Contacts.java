@@ -19,6 +19,7 @@ public class Contacts extends BaseGuestServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log(ServletNaming.CONTACTS);
         loadProducts(req);
         req.setAttribute("title", "Kontakty");
 

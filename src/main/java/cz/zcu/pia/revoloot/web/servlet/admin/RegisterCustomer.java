@@ -33,12 +33,14 @@ public class RegisterCustomer extends AbstractServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log(ServletNaming.ADMIN_REGISTER);
         prepareTuringQuestion(req);
         req.getRequestDispatcher("/WEB-INF/admin/createCustomer.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log(ServletNaming.ADMIN_REGISTER);
         //naplň objekt daty z formuláře
         Customer customer = formFiller.fillCustomerFromForm(req);
         //proveď operaci

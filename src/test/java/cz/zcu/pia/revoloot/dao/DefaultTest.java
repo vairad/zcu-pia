@@ -26,10 +26,10 @@ public class DefaultTest extends DaoTest {
 
     static Banker prepareBanker(String login, String image) {
         Address address = new Address();
-        address.setCity("Plzeň");
-        address.setHouseNo("15c");
-        address.setStreet("Bukačova");
-        address.setPostalCode(31250);
+        address.setCity("Technická");
+        address.setHouseNo("8");
+        address.setStreet("Plzeň");
+        address.setPostalCode(30100);
         address.setState(State.CZ);
 
 
@@ -37,11 +37,11 @@ public class DefaultTest extends DaoTest {
         banker.setBranch(address);
         banker.setLogin(login);
         banker.setPassword(encoder.encode("pass"));
-        banker.setName("Marek");
-        banker.setSurname("Banker");
+        banker.setName("Michal");
+        banker.setSurname("Opravář");
         banker.setPhoto(image);
         banker.setEmail(login + "@revoloot.cz");
-        banker.setGender(Gender.FEMALE);
+        banker.setGender(Gender.MALE);
 
         return banker;
     }
@@ -63,10 +63,21 @@ public class DefaultTest extends DaoTest {
     @Test
     void save() {
         Customer customer = EntityFactory.createCustomer();
+        customer.setLogin("User0001");
+        customer.setPassword(encoder.encode("0001"));
+        customer = customerDAO.save(customer);
+        assertNotEquals(customer.getId(), 0L, "Id was not returned.");
+
+        customer = EntityFactory.createCustomer();
+        customer.setLogin("User0002");
+        customer.setPassword(encoder.encode("0002"));
+        customer = customerDAO.save(customer);
+        assertNotEquals(customer.getId(), 0L, "Id was not returned.");
+
+        customer = EntityFactory.createCustomer();
         customer.setLogin("test");
         customer.setPassword(encoder.encode("pass"));
         customer = customerDAO.save(customer);
-
         assertNotEquals(customer.getId(), 0L, "Id was not returned.");
 
         Product product = createProduct();
@@ -82,48 +93,27 @@ public class DefaultTest extends DaoTest {
         product.setName("Super účet");
         productDAO.save(product);
 
-        Account a = new Account();
-        a.setCustomer(customer);
-        a.setAccountInfo(createAccountInfo());
-        a.setAmount(50000.00);
-        a.setTrueAmount(50000.00);
-        a.setProduct(product);
-
-        accountDAO.save(a);
-
-        a = new Account();
-        a.setCustomer(customer);
-        a.setAccountInfo(createAccountInfo());
-        a.getAccountInfo().setNumber(333L);
-        a.setAmount(50000.00);
-        a.setTrueAmount(50000.00);
-        a.setProduct(product);
-
-        accountDAO.save(a);
-
-        assertNotEquals(a.getId(), 0L, "Id was not returned.");
-
-        Move m = createMove();
-        m.setOwner(a);
-        moveDAO.save(m);
-
         Template t = createTemplate();
         t.setOwner(customer);
         templateDAO.save(t);
 
-        assertNotEquals(m.getId(), 0L, "Id was not returned.");
-
-        Banker banker = prepareBanker("bank1", "banker1.png");
+        Banker banker = prepareBanker("Admin001", "banker1.png");
+        banker.setPassword(encoder.encode("1234"));
         banker = bankerDAO.save(banker);
         assertNotEquals(banker.getId(), 0L, "Id was not returned.");
 
-        Banker banker2 = prepareBanker("bank2", "banker2.png");
+        Banker banker2 = prepareBanker("bank1", "banker2.png");
         banker2 = bankerDAO.save(banker2);
         assertNotEquals(banker2.getId(), 0L, "Id was not returned.");
 
         ExchangeRate ex = createExchangeRate(Currency.CZK, Currency.GBP, 0.0351080553);
         exchangeDAO.save(ex);
         ex = createExchangeRate(Currency.GBP, Currency.CZK, 28.4834916);
+        exchangeDAO.save(ex);
+
+        ex = createExchangeRate(Currency.CZK, Currency.EUR, 0.0391219169);
+        exchangeDAO.save(ex);
+        ex = createExchangeRate(Currency.EUR, Currency.CZK, 25.5611197);
         exchangeDAO.save(ex);
 
     }

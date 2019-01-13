@@ -9,7 +9,7 @@ public class BasicBankNumberGenerator implements IBankNumbers {
     private final int modularitySeed = 11;
 
     private long excludeOrder(Long accNumber){
-        if(accNumber == 0L){
+        if(accNumber == null || accNumber == 0L){
             return 0L;
         }
         long order = 0L;

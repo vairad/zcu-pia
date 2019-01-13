@@ -32,6 +32,7 @@ public class Dashboard extends AbstractServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log(ServletNaming.ADMIN_DASHBOARD);
         Pages pages = formFiller.fillPages(req);
         List<Customer> customerList = customerManager.getAll(pages);
         req.setAttribute("customerList", customerList);
@@ -41,6 +42,7 @@ public class Dashboard extends AbstractServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log(ServletNaming.ADMIN_DASHBOARD);
         doGet(req, resp);
     }
 

@@ -29,6 +29,7 @@ public class Payment extends CustomerBase {
 
 
     private void prepareTemplates(HttpServletRequest req) {
+        log(ServletNaming.CUSTOMER_PAYMENT);
         User user = getLoggedUser();
         List<Template> templateList = moveManager.getTemplatesByUser(user.getId());
         req.setAttribute("templateList", templateList);
@@ -37,6 +38,7 @@ public class Payment extends CustomerBase {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log(ServletNaming.CUSTOMER_PAYMENT);
         String templateId = null;
         if (req.getPathInfo() != null) {
             templateId = req.getPathInfo().substring(1);
