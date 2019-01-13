@@ -1,0 +1,16 @@
+version: '3'
+services:
+    mywebapp:
+        image: pia/vaisr:latest
+        build: .
+        ports:
+            - "8666:8080"
+        environment:
+            - db.persistence=cz.zcu.pia.revoloot.docker
+    mydb:
+        image: "mariadb:10.4"
+        environment:
+            - MYSQL_ROOT_PASSWORD=example
+            - MYSQL_DATABASE=revoloot
+        volumes:
+            - ./cfg/db/:/docker-entrypoint-initdb.d/
