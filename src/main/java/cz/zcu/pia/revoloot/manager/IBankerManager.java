@@ -5,9 +5,16 @@ import cz.zcu.pia.revoloot.entities.Banker;
 import java.util.List;
 
 /**
- * TODO COMMENT
+ * Manager pro práci s bankéři
+ *
+ * @author Radek Vais
  */
 public interface IBankerManager {
 
+    /**
+     * Seznam všech veřejně viditelných bankéřů
+     *
+     * @return seznam veřejných bankéřů
+     */
     List<Banker> getPublicBankersList();
 }

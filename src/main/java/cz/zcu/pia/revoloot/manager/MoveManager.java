@@ -202,7 +202,7 @@ public class MoveManager implements IMoveManager {
         if (from == to) {
             exchangeRate = 1.0;
         } else {
-            exchangeRate = exchangeDAO.getExchchangeRate(from, to);
+            exchangeRate = exchangeDAO.getExchangeRate(from, to);
         }
         return exchangeRate;
     }

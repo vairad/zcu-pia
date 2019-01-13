@@ -39,7 +39,7 @@ public class ExchangeDAO extends GenericDAO<ExchangeRate> implements IExchangeDA
 
 
     @Override
-    public double getExchchangeRate(Currency from, Currency to) throws ExchangeRateDoesNotExist {
+    public double getExchangeRate(Currency from, Currency to) throws ExchangeRateDoesNotExist {
         logger.info("Find exchange rate: " + from + " -> " + to);
 
         TypedQuery<ExchangeRate> q = em.createQuery("SELECT ex FROM ExchangeRate ex " +

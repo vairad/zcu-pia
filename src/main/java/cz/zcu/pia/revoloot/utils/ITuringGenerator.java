@@ -1,5 +1,10 @@
 package cz.zcu.pia.revoloot.utils;
 
+/**
+ * Služba pro zpracování a vyhodnocování Turingovy otázky
+ *
+ * @author Radek VAIS
+ */
 public interface ITuringGenerator {
 
     /**

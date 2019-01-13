@@ -5,6 +5,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+/**
+ * DAO pro práci s uživateli
+ *
+ * @author Radek VAIS
+ */
 public interface IUserDAO extends IGenericDAO<User>, UserDetailsService {
 
     /**

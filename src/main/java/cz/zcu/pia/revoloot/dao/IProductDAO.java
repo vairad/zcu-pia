@@ -4,6 +4,12 @@ import cz.zcu.pia.revoloot.entities.Product;
 
 import java.util.List;
 
+
+/**
+ * DAO pro práci s produkty banky
+ *
+ * @author Radek VAIS
+ */
 public interface IProductDAO extends IGenericDAO<Product> {
 
     /**

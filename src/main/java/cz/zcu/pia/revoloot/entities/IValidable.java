@@ -6,6 +6,8 @@ import java.util.Set;
 
 /**
  * Rozhraní pro kontrolu nastavení parametrů objektů
+ *
+ * @author Radek VAIS
  */
 public interface IValidable {
 
