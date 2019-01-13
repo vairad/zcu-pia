@@ -13,4 +13,4 @@ services:
             - MYSQL_ROOT_PASSWORD=example
             - MYSQL_DATABASE=revoloot
         volumes:
-            - ./cfg/db/:/docker-entrypoint-initdb.d/
+            - ./cfg/db/:/docker-entrypoint-initdb.d
