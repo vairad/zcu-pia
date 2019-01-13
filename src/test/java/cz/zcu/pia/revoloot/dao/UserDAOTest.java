@@ -1,8 +1,10 @@
 package cz.zcu.pia.revoloot.dao;
 
 import cz.zcu.pia.revoloot.dao.db.UserDAO;
+import cz.zcu.pia.revoloot.entities.Gender;
 import cz.zcu.pia.revoloot.entities.User;
 import cz.zcu.pia.revoloot.utils.IEncoder;
+import cz.zcu.pia.revoloot.utils.MailSender;
 import cz.zcu.pia.revoloot.utils.PasswordHashEncoder;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -19,9 +21,11 @@ class UserDAOTest extends DaoTest {
 
     static User prepareUser(String login, String password) {
         User user = new User();
-        user.setCreated(new Date());
         user.setLogin(login);
         user.setPassword(encoder.encode(password));
+        user.setGender(Gender.MALE);
+        user.setName("jmeno");
+        user.setSurname("prijmeno");
         return user;
     }
 

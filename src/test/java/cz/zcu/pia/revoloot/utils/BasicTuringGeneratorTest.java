@@ -16,10 +16,10 @@ class BasicTuringGeneratorTest {
     String questionDay = "Kolikátý je den v měsíci?";
     String questionPerson = "Kolik má člověk prstů na dvou rukách?";
 
-    String hours = "16";
+    String hours = "12";
     String month = "1";
     String year = "2019";
-    String day = "10";
+    String day = "13";
     String person = "10";
 
     @Test

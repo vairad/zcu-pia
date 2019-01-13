@@ -328,7 +328,7 @@ public class MoveManager implements IMoveManager {
      * Metoda iniciuje předání peněz na cílový účet
      *
      * @param move pohyb k odeslání
-     * @throws ExchangeRateDoesNotExist
+     * @throws ExchangeRateDoesNotExist chybějícího objektu kurzu
      */
     public void passMoneyToReceiver(Move move) throws ExchangeRateDoesNotExist {
         // adresa v naší bance

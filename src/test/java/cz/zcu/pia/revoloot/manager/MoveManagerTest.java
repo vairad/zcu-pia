@@ -1,9 +1,6 @@
 package cz.zcu.pia.revoloot.manager;
 
-import cz.zcu.pia.revoloot.dao.IAccountDAO;
-import cz.zcu.pia.revoloot.dao.ICustomerDAO;
-import cz.zcu.pia.revoloot.dao.IExchangeDAO;
-import cz.zcu.pia.revoloot.dao.IMoveDAO;
+import cz.zcu.pia.revoloot.dao.*;
 import cz.zcu.pia.revoloot.dao.db.*;
 import cz.zcu.pia.revoloot.entities.*;
 import cz.zcu.pia.revoloot.exceptions.ExchangeRateDoesNotExist;
@@ -16,9 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 
-import static cz.zcu.pia.revoloot.entities.EntityFactory.createAccountInfo;
-import static cz.zcu.pia.revoloot.entities.EntityFactory.createCustomer;
-import static cz.zcu.pia.revoloot.entities.EntityFactory.createExchangeRate;
+import static cz.zcu.pia.revoloot.entities.EntityFactory.*;
 import static junit.framework.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -30,6 +25,7 @@ class MoveManagerTest extends ManagerBaseTest {
     private IMoveDAO moveDAO;
     private IAccountDAO accountDAO;
     private IExchangeDAO exchangeDAO;
+    private IProductDAO productDAO;
 
     private Account one;
     private Account two;
@@ -42,6 +38,7 @@ class MoveManagerTest extends ManagerBaseTest {
         moveDAO = new MoveDAO(em);
         accountDAO = new AccountDAO(em);
         exchangeDAO = new ExchangeDAO(em);
+        productDAO = new ProductDAO(em);
 
         moveManager = new MoveManager(
                 moveDAO,
@@ -55,6 +52,9 @@ class MoveManagerTest extends ManagerBaseTest {
         Customer customer = createCustomer();
         customerDAO.save(customer);
 
+        Product p = createProduct();
+        productDAO.save(p);
+
         AccountAddress accountAddress = createAccountInfo();
         accountAddress.setNumber(222L);
 
@@ -64,6 +64,7 @@ class MoveManagerTest extends ManagerBaseTest {
         one.setAccountInfo(accountAddress);
         one.setTrueAmount(5000.0);
         one.setAmount(5000.0);
+        one.setProduct(p);
         accountDAO.save(one);
 
         accountAddress = createAccountInfo();
@@ -75,6 +76,7 @@ class MoveManagerTest extends ManagerBaseTest {
         two.setAccountInfo(accountAddress);
         two.setTrueAmount(5000.0);
         two.setAmount(5000.0);
+        two.setProduct(p);
         accountDAO.save(two);
 
         accountAddress = createAccountInfo();
@@ -86,6 +88,7 @@ class MoveManagerTest extends ManagerBaseTest {
         gbp.setAccountInfo(accountAddress);
         gbp.setTrueAmount(5000.0);
         gbp.setAmount(5000.0);
+        gbp.setProduct(p);
         accountDAO.save(gbp);
 
 

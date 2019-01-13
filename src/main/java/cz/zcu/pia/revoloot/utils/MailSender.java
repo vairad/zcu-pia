@@ -97,7 +97,6 @@ public class MailSender implements IMailSender {
      * @param to       příjemce
      * @param password nové heslo
      */
-    @Override
     public void sendNewPassword(String to, String password) {
         SimpleMailMessage message = prepareMessage(to, "Nové heslo");
         message.setText("Dobrý den,\nzasíláme Vám nově vygenerované heslo: " + password +

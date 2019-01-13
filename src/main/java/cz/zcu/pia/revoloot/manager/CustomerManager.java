@@ -89,11 +89,6 @@ public class CustomerManager implements ICustomerManager {
     }
 
     @Override
-    public List<Account> getAllNonDebetAccounts(long customerID) {
-        return accountDAO.findByUserId(customerID);
-    }
-
-    @Override
     public Customer getByUsername(String username) {
         return customerDAO.findByUsername(username);
     }
